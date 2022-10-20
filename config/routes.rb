@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :purchaseitems
   resources :vendors
   resources :stocks
   resources :products
