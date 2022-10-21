@@ -16,8 +16,9 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import ThreePIcon from '@mui/icons-material/ThreeP';
 
-const drawerWidth = 240;
+const drawerWidth = 120;
 
 export default function Navbar() {
   return (
@@ -29,20 +30,23 @@ export default function Navbar() {
         position="fixed"
         sx={{
         width: `calc(100% - ${drawerWidth}px)`,
+        backgroundColor: "blue",
         ml: `${drawerWidth}px`
       }}>
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Permanent drawer
+        <Toolbar >
+          <Typography variant="h6" noWrap component="div" >
+            Supply chains made easier!
           </Typography>
         </Toolbar>
       </AppBar>
       <Drawer
         sx={{
-        width: drawerWidth,
-        flexShrink: 0,
+        width: 800,
+        flexGrow: 1,
         "& .MuiDrawer-paper": {
           width: drawerWidth,
+          color: "white",
+          fontSize: 16,
           boxSizing: "border-box"
         }
       }}
@@ -50,28 +54,35 @@ export default function Navbar() {
         anchor="left">
         <Toolbar/>
         <Divider/>
+       
         <List>
-          <Link to={"/categories"}>Category</Link>
-          <Link to={"/products"}>Products</Link>
-          <Link to={"/vendors"}>Vendors</Link>
-          <Link to={"/purchaseorders"}>Purchase Orders</Link>
+          <Link style={{padding: 10, textAlign:"center" }}to={"/categories"}>Category</Link>
+          <Divider/>
+          <Link style={{padding: 10, textAlign:"center" }}to={"/products"}>Products</Link>
+          <Divider/>
+          <Link style={{padding: 10, textAlign:"center" }}to={"/vendors"}>Vendors</Link>
+          <Divider/>
+          <Link style={{padding: 10, textAlign:"center" }}to={"/purchaseorders"}>Purchase Orders</Link>
 
         </List>
         <Divider/>
         <List>
-          <Link to={"/invoices"}>Invoice</Link>
-          <Link to={"/purchaseitems"}>Purchase Items</Link>
-          <Link to={"/stocks"}>Stock</Link>
-          <Link to={"/users"}>Users</Link>
+          <Link style={{padding: 10, textAlign:"center" }}to={"/invoices"}>Invoice</Link>
+          <Divider/>
+          <Link  style={{padding: 10, textAlign:"center" }} to={"/purchaseitems"}>Purchase Items</Link>
+          <Divider/>
+          <Link style={{padding: 10, textAlign:"center" }}to={"/stocks"}>Stock</Link>
+          <Divider/>
+          <Link style={{padding: 10, textAlign:"center" }}startIcon={<ThreePIcon /> }to={"/users"}>Users</Link>
         </List>
         <Divider/>
       </Drawer>
       <Box
         component="main"
         sx={{
-        flexGrow: 1,
+        flexGrow: 0,
         bgcolor: "background.default",
-        p: 3
+        p: 6
       }}>
         <Toolbar/>
 
