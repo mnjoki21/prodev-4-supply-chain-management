@@ -11,13 +11,13 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_10_20_192201) do
-  create_table "categories", force: :cascade do |t|
+  create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "invoices", force: :cascade do |t|
+  create_table "invoices", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "purchaseorder_id"
     t.string "accountname"
     t.integer "product_id"
@@ -28,7 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_192201) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "products", force: :cascade do |t|
+  create_table "products", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.integer "category_id"
@@ -36,7 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_192201) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "purchaseitems", force: :cascade do |t|
+  create_table "purchaseitems", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "product_id"
     t.integer "vendor_id"
     t.integer "invoice_id"
@@ -45,7 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_192201) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "purchaseorders", force: :cascade do |t|
+  create_table "purchaseorders", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "number"
     t.integer "product_id"
     t.integer "quantity"
@@ -55,14 +55,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_192201) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "stocks", force: :cascade do |t|
+  create_table "stocks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "product_id"
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "vendors", force: :cascade do |t|
+  create_table "vendors", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "address"
