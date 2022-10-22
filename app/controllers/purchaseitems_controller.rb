@@ -46,6 +46,6 @@ class PurchaseitemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def purchaseitem_params
-      params.fetch(:purchaseitem, {})
+      params.require(:purchaseitem).permit(:product_id, :vendor_id, :quantity, :invoice_id)
     end
 end
