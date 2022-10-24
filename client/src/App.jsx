@@ -1,4 +1,6 @@
-import {Fragment} from "react"
+import React from "react"
+import ReactDOM from "react-dom";
+import { Fragment } from "react"
 import Navbar from "./components/Navbar"
 import {Routes, Route} from "react-router-dom"
 import Product from "./components/Products/Product"
