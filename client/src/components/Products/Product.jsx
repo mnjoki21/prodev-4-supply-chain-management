@@ -12,11 +12,11 @@ import Button from "@mui/material/Button";
 
 function Products() {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
+    [ `&.${tableCellClasses.head}` ]: {
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.common.white,
     },
-    [`&.${tableCellClasses.body}`]: {
+    [ `&.${tableCellClasses.body}` ]: {
       fontSize: 14,
     },
   }));
@@ -31,7 +31,7 @@ function Products() {
     },
   }));
 
-  const [ product, setProducts ] = useState([])
+  const [ product, setProduct ] = useState([])
   const url = 'http://localhost:3000/products'
 
   useEffect(() => {
@@ -40,8 +40,23 @@ function Products() {
       .then((data) => {
         console.log(data);
         setProducts(data)
+      })
+  }, [])
+  
+  function deleteProduct(id) {
+    fetch(`http://localhost:3000/products/${id}`,
+    {
+      method: 'DELETE'
+    }
+    )
+      .then((r) => r.json())
+      .then(() => {
+        const goThru = product.filter(
+          (product) => product.id !== id
+        );
+        setProduct(goThru)
     })
-  },[])
+  }
 
 
 
