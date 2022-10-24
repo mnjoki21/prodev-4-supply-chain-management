@@ -55,6 +55,17 @@ function ProductsForm() {
         </FormControl>
 
 
+        <Button className="addBtn" variant="contained"style={{backgroundColor: "#29339b"}} >
+          ADD TO LIST
+        </Button>
+      </Paper>
+    </div>
+  );
+}
+
+export default ProductsForm;
+
+
 
 
 
