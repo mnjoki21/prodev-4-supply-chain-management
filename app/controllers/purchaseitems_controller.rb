@@ -16,12 +16,13 @@ class PurchaseitemsController < ApplicationController
   # POST /purchaseitems
   def create
     @purchaseitem = Purchaseitem.new(purchaseitem_params)
-
-    if @purchaseitem.save
-      render json: @purchaseitem, status: :created, location: @purchaseitem
-    else
-      render json: @purchaseitem.errors, status: :unprocessable_entity
-    end
+    @purchaseitem.save
+  
+    @stock = Stock.where(product_id: @purchaseitem[:product_id])
+    @stock = Stock.create(
+    quantity: params[:quantity],
+    product_id: params[:product_id])
+    render json: @stock
   end
 
   # PATCH/PUT /purchaseitems/1
@@ -46,6 +47,9 @@ class PurchaseitemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def purchaseitem_params
-      params.fetch(:purchaseitem, {})
+      params.require(:purchaseitem).permit(:product_id, :vendor_id, :quantity, :invoice_id)
+    end
+    def stock_params
+      params.require(:stock).permit(:product_id, :quantity)
     end
 end
