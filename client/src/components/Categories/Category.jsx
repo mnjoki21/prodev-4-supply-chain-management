@@ -1,5 +1,6 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import CategoriesForm from "./CategoriesForm";
 
 export default function Category() {
   return (

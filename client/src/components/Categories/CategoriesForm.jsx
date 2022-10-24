@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import { useState } from "react";import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-function ProductsForm() {
+function CategoriesForm() {
     const [drop, onDrop] = useState("");
   
     return (
@@ -58,9 +58,4 @@ function ProductsForm() {
   );
 }
 
-export default ProductsForm;
-
-
-
-
-
+export default CategoriesForm;
