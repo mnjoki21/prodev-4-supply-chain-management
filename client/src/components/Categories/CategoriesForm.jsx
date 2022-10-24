@@ -1,4 +1,4 @@
-import "./CategoriesForm.css";
+import "./ProductsForm.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
@@ -8,7 +8,7 @@ function CategoriesForm() {
     const [drop, onDrop] = useState("");
   
     return (
-      <div className="categories_form">
+      <div className="products_form">
         <Paper className="card" elevation={2}>
           <div style={{ width: "90%" }}>
             <h2 style={{ textAlign: "left" }}>Add Item</h2>
