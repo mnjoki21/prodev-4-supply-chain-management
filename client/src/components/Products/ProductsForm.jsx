@@ -20,3 +20,12 @@ function ProductsForm() {
           id="name"
           label="Name"
           variant="outlined"
+        />
+
+        <TextField
+          className="textField"
+          id="description"
+          label="Description"
+          variant="outlined"
+        />
+
