@@ -36,5 +36,20 @@ function ProductsForm() {
           variant="outlined"
         />
 
+        <FormControl style={{ width: "90%" }}>
+          <InputLabel id="demo-simple-select-label">Drop</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={drop}
+            label="Age"
+            onChange={(e) => onDrop(e.target.value)}
+          >
+            <MenuItem value={10}>Drop1</MenuItem>
+            <MenuItem value={20}>Drop2</MenuItem>
+            <MenuItem value={30}>Drop3</MenuItem>
+          </Select>
+        </FormControl>
+
 
 
