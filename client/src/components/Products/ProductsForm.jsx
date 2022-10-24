@@ -29,5 +29,12 @@ function ProductsForm() {
           variant="outlined"
         />
 
-        
+        <TextField
+          className="textField"
+          id="sku"
+          label="SKU"
+          variant="outlined"
+        />
+
+
 
