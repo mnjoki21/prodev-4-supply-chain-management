@@ -15,3 +15,8 @@ function ProductsForm() {
           <div style={{ width: "90%" }}>
             <h2 style={{ textAlign: "left" }}>Add Item</h2>
           </div>
+          <TextField
+          className="textField"
+          id="name"
+          label="Name"
+          variant="outlined"
