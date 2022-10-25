@@ -36,10 +36,11 @@ export default function Navbar() {
       </AppBar>
       <Drawer
         sx={{
-        width: 800,
+        width: 300,
         flexGrow: 1,
         "& .MuiDrawer-paper": {
           width: drawerWidth,
+          
           color: "white",
           fontSize: 16,
           boxSizing: "border-box"
@@ -51,7 +52,10 @@ export default function Navbar() {
         <Divider/>
        
         <List>
-          <Link style={{padding: 10, textAlign:"center" }}to={"/categories"}>Category</Link>
+          <Typography>
+          <Link style={{padding: 10, textAlign:"center" , underline: "none"}}to={"/categories"}  >Category</Link>
+          </Typography>
+          
           <Divider/>
           <Link style={{padding: 10, textAlign:"center" }}to={"/products"}>Products</Link>
           <Divider/>
