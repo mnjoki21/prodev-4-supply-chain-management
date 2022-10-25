@@ -9,7 +9,7 @@ gem "rails", "~> 7.0.4"
 # Use sqlite3 as the database for Active Record
 # gem "sqlite3", "~> 1.4"
 gem 'mysql2'
-
+gem 'rack-cors', '~> 0.3.1'
 # gem 'mysql2', '0.4.10'
  
 # gem 'mysql2', '0.4.8'

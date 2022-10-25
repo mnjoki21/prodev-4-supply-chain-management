@@ -11,8 +11,19 @@ import PurcahseOrder from "./components/PurchaseOrders/PurchaseOrder"
 import Invoice from "./components/Invoice/Invoice"
 import Stock from "./components/Stock/Stock"
 import User from "./components/Users/User"
+import { useEffect, useState } from "react";
+import Login from "./components/Register/Login";
 
 export default function App() {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    fetch("http://localhost:3000/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+  if (!user) return <Login onLogin={setUser} />;
   return (
     <Fragment>
       <Navbar/>
