@@ -10,6 +10,7 @@ gem "rails", "~> 7.0.4"
 # gem "sqlite3", "~> 1.4"
 gem 'mysql2'
 
+gem 'rack-cors'
 # gem 'mysql2', '0.4.10'
  
 # gem 'mysql2', '0.4.8'
