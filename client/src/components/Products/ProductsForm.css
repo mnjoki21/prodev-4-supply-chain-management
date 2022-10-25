@@ -17,13 +17,3 @@
     flex-direction: column;
     align-items: center;
   }
-
-  .textField {
-    width: 90%;
-  }
-  .addBtn {
-    margin-top: 20px;
-    width: 75%;
-    height:50px ;
-  }
-  
