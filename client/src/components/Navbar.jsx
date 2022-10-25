@@ -39,7 +39,7 @@ export default function Navbar() {
       </AppBar>
       <Drawer
         sx={{
-        width: 800,
+        width: 400,
         flexGrow: 1,
         "& .MuiDrawer-paper": {
           width: drawerWidth,
