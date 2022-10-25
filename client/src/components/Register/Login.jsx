@@ -147,6 +147,11 @@ function Login({onLogin}){
                 </Grid>
               </Box>
             </Box>
+            <Typography component="h1" sx={{ backgroundColor: 'red'}} variant="h5">
+            {errors.map((err) => (
+                <p key={err}>{err}</p>
+              ))}
+              </Typography>
             <Copyright sx={{ mt: 8, mb: 4 }} />
           </Container>
         </ThemeProvider>
