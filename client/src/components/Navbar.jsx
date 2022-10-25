@@ -9,12 +9,6 @@ import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import ThreePIcon from '@mui/icons-material/ThreeP';
 
 const drawerWidth = 120;
@@ -25,15 +19,18 @@ export default function Navbar() {
       display: "flex"
     }}>
       <AppBar
-        position="fixed"
+        // position="fixed"
         sx={{
         width: `calc(100% - ${drawerWidth}px)`,
         backgroundColor: "blue",
-        ml: `${drawerWidth}px`
+        textAlign: "center",
+        ml: `${drawerWidth}px`,
+        justifyContent: "center"
+      
       }}>
         <Toolbar >
-          <Typography variant="h6" noWrap component="div" >
-            Supply chains made easier!
+          <Typography variant="h6"  component="div" sx={{textAlign: "center"}} >
+            Supply Chains Made Easier!
           </Typography>
         </Toolbar>
       </AppBar>
@@ -43,6 +40,7 @@ export default function Navbar() {
         flexGrow: 1,
         "& .MuiDrawer-paper": {
           width: drawerWidth,
+          
           color: "white",
           fontSize: 16,
           boxSizing: "border-box"
@@ -54,7 +52,10 @@ export default function Navbar() {
         <Divider/>
        
         <List>
-          <Link style={{padding: 10, textAlign:"center" }}to={"/categories"}>Category</Link>
+          <Typography>
+          <Link style={{padding: 10, textAlign:"center" , underline: "none"}}to={"/categories"}  >Category</Link>
+          </Typography>
+          
           <Divider/>
           <Link style={{padding: 10, textAlign:"center" }}to={"/products"}>Products</Link>
           <Divider/>
@@ -71,18 +72,17 @@ export default function Navbar() {
           <Divider/>
           <Link style={{padding: 10, textAlign:"center" }}to={"/stocks"}>Stock</Link>
           <Divider/>
-          <Link style={{padding: 10, textAlign:"center" }}startIcon={<ThreePIcon /> }to={"/users"}>Users</Link>
+          <Link style={{padding: 10, textAlign:"center" }} starticon={<ThreePIcon /> }to={"/users"}>Users</Link>
         </List>
         <Divider/>
       </Drawer>
       <Box
-        component="main"
+  
         sx={{
         flexGrow: 0,
         bgcolor: "background.default",
         p: 6
       }}>
-        <Toolbar/>
 
       </Box>
     </Box>
