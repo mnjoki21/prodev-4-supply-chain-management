@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import * as React from "react";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
-import Box from "@mui/material/Box";
+import {Box} from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
