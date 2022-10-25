@@ -1,6 +1,7 @@
 import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid } from '@mui/material';
 import React , { useState}from 'react';  
 import Login from '../Register/Login';
+import Card from '@mui/material/Card';
 
 
 const User = () => {
@@ -15,9 +16,10 @@ const User = () => {
     <>
     <Grid  container direction="row" alignItems="center" justifyContent="center" >
       <Box    >
-        <main>
+      <Card sx={{ minWidth: 400 }}>
+        <main >
         <form  >
-          <p style={{fontWeight: "bolder", fontSize: 40 ,alignItems:"center", justifyContent:"center",textAlign:'center'}}>Login</p>
+          <p style={{fontWeight: "bolder", fontSize: 40 ,alignItems:"center", justifyContent:"center",textAlign:'center'}}>Form</p>
           
           <Box sx={{'& .MuiTextField-root': { m: 1, width: '35ch' },}}>
           
@@ -32,6 +34,7 @@ const User = () => {
                 id="email"
                 autoComplete="on"
                 value={email}
+                sx={{ minWidth: 400 }}
                 onChange={(e) => setEmail(e.target.value)} 
                 />
                
@@ -43,6 +46,7 @@ const User = () => {
                 type="password"
                 label="Password"
                 id="password"
+                sx={{ minWidth: 400 }}
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -58,7 +62,7 @@ const User = () => {
             
                 <Box textAlign='center'>
       <Button variant='contained' type="submit" style={{fontSize: 16 }}>
-        Login
+        Submit
       </Button>
      </Box>
               <br />
@@ -75,6 +79,7 @@ const User = () => {
           </div>
           </form>
         </main>
+        </Card>
       </Box>
       </Grid>
     </>
