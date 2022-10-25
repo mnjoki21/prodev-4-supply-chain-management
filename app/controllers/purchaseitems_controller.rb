@@ -17,12 +17,21 @@ class PurchaseitemsController < ApplicationController
   def create
     @purchaseitem = Purchaseitem.new(purchaseitem_params)
     @purchaseitem.save
-  
+
+    # creating new stock
     @stock = Stock.where(product_id: @purchaseitem[:product_id])
+   if (@stock == nil)
     @stock = Stock.create(
     quantity: params[:quantity],
     product_id: params[:product_id])
     render json: @stock
+    else
+      render json: "Exist"
+ 
+
+
+    end
+
   end
 
   # PATCH/PUT /purchaseitems/1
