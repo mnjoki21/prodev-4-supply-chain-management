@@ -16,9 +16,9 @@ class ApplicationController < ActionController::API
   def render_unprocessable_entity_response(exception)
     render json: { errors: exception.record.errors.full_messages }, status: :unprocessable_entity
   end
+  
     def is_admin?
-      
-       render json: { errors: ["Not authorized"] }, status: :unauthorized unless  @current_user.admin == true
+       render json: { errors: ["Not authorized Admin Only"] }, status: :unauthorized unless  @current_user.admin == true
 
   end
 end
