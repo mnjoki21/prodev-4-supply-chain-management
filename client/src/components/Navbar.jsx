@@ -30,7 +30,7 @@ export default function Navbar() {
       }}>
         <Toolbar >
           <Typography variant="h6"  component="div" sx={{textAlign: "center"}} >
-            Supply chains made easier!
+            Supply Chains Made Easier!
           </Typography>
         </Toolbar>
       </AppBar>
