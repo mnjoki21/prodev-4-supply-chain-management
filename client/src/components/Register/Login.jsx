@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useState, useEffect} from "react";
 
 function Copyright(props) {
   return (
@@ -28,23 +29,55 @@ function Copyright(props) {
 
 const theme = createTheme();
 
+function Login({onLogin}){
 
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState([]);
 
+  // handleonchangedata
+  function onChangeValue(e) {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  }
 
+  //   handle submitted data
+  function handleSubmit(e) {
+    e.preventDefault();
+    const logInUser = {
+      email: formData.email,
+      password: formData.password,
+    };
 
-
-
-function Login(){
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
+    fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(logInUser),
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((user) => {
+          onLogin(user);
+          setFormData({
+            ...formData,
+            email: "",
+            password: "",
+          });
         });
-      };
+      } else {
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
+  }
+
+
     
-      return (
+     return (
         <ThemeProvider theme={theme}>
           <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -69,9 +102,11 @@ function Login(){
                   fullWidth
                   id="email"
                   label="Email Address"
-                  name="email"
                   autoComplete="email"
                   autoFocus
+                  name="email"
+                  value={formData.email}
+                  onChange={onChangeValue}
                 />
                 <TextField
                   margin="normal"
@@ -82,6 +117,8 @@ function Login(){
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  value={formData.password}
+                  onChange={onChangeValue}
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
@@ -92,6 +129,7 @@ function Login(){
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  onClick={handleSubmit}
                 >
                   Sign In
                 </Button>
