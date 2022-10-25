@@ -1,14 +1,27 @@
 
-import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid } from '@mui/material';
+import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid, unstable_composeClasses } from '@mui/material';
 import React , { useState}from 'react';  
 import Login from '../Register/Login';
 import Card from '@mui/material/Card';
 
 
 const CategoriesForm= () => {
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState();
   const [errors, setErrors] = useState([]);
   
+  function handleOnSubmit(e){
+    e.preventDefault();
+    fetch("/categories",{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({category}),
+    })
+    .then((r) => r.json())
+    .then(response => setCategory(response));
+    // .then((response) => console.log(response));
+  }
 
   return (
     <>
@@ -46,7 +59,7 @@ const CategoriesForm= () => {
           <div>
             
                 <Box textAlign='center'>
-      <Button variant='contained' type="submit" style={{fontSize: 16 }}>
+      <Button variant='contained' onClick={handleOnSubmit} type="submit" style={{fontSize: 16 }}>
         Submit
       </Button>
      </Box>
