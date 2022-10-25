@@ -62,7 +62,7 @@ const User = () => {
             
                 <Box textAlign='center'>
       <Button variant='contained' type="submit" style={{fontSize: 16 }}>
-        Login
+        Submit
       </Button>
      </Box>
               <br />
