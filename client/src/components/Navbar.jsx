@@ -23,7 +23,6 @@ export default function Navbar() {
         sx={{
   
         width: `calc(100% - ${drawerWidth}px)`,
-        textAlign: "center",
         backgroundColor: "blue",
         textAlign: "center",
         // ml: `${drawerWidth}px`,
