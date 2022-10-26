@@ -1,5 +1,6 @@
 class PurchaseitemsController < ApplicationController
   before_action :set_purchaseitem, only: %i[ show update destroy ]
+  skip_before_action :authorize, only: :index
 
   # GET /purchaseitems
   def index
