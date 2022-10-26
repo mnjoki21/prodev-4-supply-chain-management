@@ -1,7 +1,6 @@
-// <<<<<<< HEAD
+
 import {Box} from "@mui/material";
-// import Typography from "@mui/material/Typography";
-// =======
+
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
