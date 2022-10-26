@@ -108,7 +108,7 @@ const PurchaseOrderForm = () => {
               </Grid>
               <Grid item xs={6}>
               <FormControl>
-              <FormHelperText id="my-helper-text">Amount</FormHelperText>
+              <FormHelperText id="my-helper-text">Amount in Ksh</FormHelperText>
                 <TextField 
                 type="number"
                 label="amount"
