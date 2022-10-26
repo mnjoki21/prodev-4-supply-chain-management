@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ThreePIcon from '@mui/icons-material/ThreeP';
 
-const drawerWidth = 120;
+const drawerWidth = 100;
 
 export default function Navbar() {
   return (
@@ -21,10 +21,12 @@ export default function Navbar() {
       <AppBar
         // position="fixed"
         sx={{
+  
         width: `calc(100% - ${drawerWidth}px)`,
+        textAlign: "center",
         backgroundColor: "blue",
         textAlign: "center",
-        ml: `${drawerWidth}px`,
+        // ml: `${drawerWidth}px`,
         justifyContent: "center"
       
       }}>
