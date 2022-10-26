@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ThreePIcon from '@mui/icons-material/ThreeP';
 
-const drawerWidth = 120;
+const drawerWidth = 100;
 
 export default function Navbar() {
   return (
@@ -21,10 +21,12 @@ export default function Navbar() {
       <AppBar
         // position="fixed"
         sx={{
+  
         width: `calc(100% - ${drawerWidth}px)`,
+        textAlign: "center",
         backgroundColor: "blue",
         textAlign: "center",
-        ml: `${drawerWidth}px`,
+        // ml: `${drawerWidth}px`,
         justifyContent: "center"
       
       }}>
@@ -53,26 +55,26 @@ export default function Navbar() {
        
         <List>
           <Typography>
-          <Link style={{padding: 10, textAlign:"center" , underline: "none"}}to={"/categories"}  >Category</Link>
+          <Link style={{padding: 20, color: "blue" ,fontWeight:"bold",textAlign:"center" , textDecoration: 'none'}}to={"/categories"}  >Category</Link>
           </Typography>
           
           <Divider/>
-          <Link style={{padding: 10, textAlign:"center" }}to={"/products"}>Products</Link>
+          <Link style={{padding: 20,color: "blue", fontWeight:"bold",textAlign:"center", textDecoration: 'none'}}to={"/products"}>Products</Link>
           <Divider/>
-          <Link style={{padding: 10, textAlign:"center" }}to={"/vendors"}>Vendors</Link>
+          <Link style={{padding: 20,color: "blue",fontWeight:"bold", textAlign:"center",textDecoration: 'none' }}to={"/vendors"}>Vendors</Link>
           <Divider/>
-          <Link style={{padding: 10, textAlign:"center" }}to={"/purchaseorders"}>Purchase Orders</Link>
+          <Link style={{padding: 20,color: "blue",fontWeight:"bold", textAlign:"center" , textDecoration: 'none'}}to={"/purchaseorders"}>Purchase <br />Orders</Link>
 
         </List>
         <Divider/>
         <List>
-          <Link style={{padding: 10, textAlign:"center" }}to={"/invoices"}>Invoice</Link>
+          <Link style={{padding: 20,color: "blue",fontWeight:"bold", textAlign:"center",textDecoration: 'none' }} to={"/invoices"}>Invoice</Link>
           <Divider/>
-          <Link  style={{padding: 10, textAlign:"center" }} to={"/purchaseitems"}>Purchase Items</Link>
+          <Link  style={{padding: 20, color: "blue",fontWeight:"bold",textAlign:"center" , textDecoration: 'none'}} to={"/purchaseitems"}>Purchase Items</Link>
           <Divider/>
-          <Link style={{padding: 10, textAlign:"center" }}to={"/stocks"}>Stock</Link>
+          <Link style={{padding: 20, color: "blue",fontWeight:"bold",textAlign:"center",textDecoration: 'none' }} to={"/stocks"}>Stock</Link>
           <Divider/>
-          <Link style={{padding: 10, textAlign:"center" }} starticon={<ThreePIcon /> }to={"/users"}>Users</Link>
+          <Link style={{padding: 20,color: "blue",fontWeight:"bold", textAlign:"center",textDecoration: 'none' }} to={"/users"}>Users</Link>
         </List>
         <Divider/>
       </Drawer>
