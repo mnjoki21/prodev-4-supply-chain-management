@@ -1,61 +1,87 @@
-// import "./ProductsForm.css";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import { useState } from "react";import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-function CategoriesForm() {
-    const [drop, onDrop] = useState("");
+import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid, unstable_composeClasses } from '@mui/material';
+import React , { useState}from 'react';  
+import Login from '../Register/Login';
+import Card from '@mui/material/Card';
+
+
+const CategoriesForm= () => {
+  const [category, setCategory] = useState();
+  const [errors, setErrors] = useState([]);
   
-    return (
-      <div className="products_form">
-        <Paper className="card" elevation={2}>
-          <div style={{ width: "90%" }}>
-            <h2 style={{ textAlign: "left" }}>Add Item</h2>
+  function handleOnSubmit(e){
+    e.preventDefault();
+    fetch("/categories",{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({category}),
+    })
+    .then((r) => r.json())
+    .then(response => setCategory(response));
+    // .then((response) => console.log(response));
+  }
+
+  return (
+    <>
+    <Grid  container direction="row" alignItems="center" justifyContent="center" >
+      <Box    >
+      <Card sx={{ minWidth: 400 }}>
+        <main >
+        <form  >
+          <p style={{fontWeight: "bolder", fontSize: 40 ,alignItems:"center", justifyContent:"center",textAlign:'center'}}>New Category</p>
+          
+          <Box sx={{'& .MuiTextField-root': { m: 1, width: '35ch' },}}>
+          
+            <div>
+              
+              <FormControl>
+              {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
+                <TextField 
+                type="text"
+                variant="outlined"
+                label="Enter Category Name"
+                id="category"
+                autoComplete="on"
+                value={category}
+                sx={{ minWidth: 400 }}
+                onChange={(e) => setCategory(e.target.value)} 
+                />
+               
+              </FormControl>
+              <br />
+            </div>
+          </Box>
+          
+          <br />
+          <br />
+          <div>
+            
+                <Box textAlign='center'>
+      <Button variant='contained' onClick={handleOnSubmit} type="submit" style={{fontSize: 16 }}>
+        Submit
+      </Button>
+     </Box>
+              <br />
+          
+            <div>
+              {errors.map((err) => (
+              <>
+                <Alert key={err} severity="error" sx={{ width: '100%' }}>
+                  {err}
+                </Alert>
+              </>
+              ))} 
+            </div>       
           </div>
-          <TextField
-          className="textField"
-          id="name"
-          label="Name"
-          variant="outlined"
-        />
-
-        <TextField
-          className="textField"
-          id="description"
-          label="Description"
-          variant="outlined"
-        />
-
-        <TextField
-          className="textField"
-          id="sku"
-          label="SKU"
-          variant="outlined"
-        />
-
-        <FormControl style={{ width: "90%" }}>
-          <InputLabel id="demo-simple-select-label">Drop</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={drop}
-            label="Age"
-            onChange={(e) => onDrop(e.target.value)}
-          >
-            <MenuItem value={10}>Drop1</MenuItem>
-            <MenuItem value={20}>Drop2</MenuItem>
-            <MenuItem value={30}>Drop3</MenuItem>
-          </Select>
-        </FormControl>
-
-
-        <Button className="addBtn" variant="contained"style={{backgroundColor: "#29339b"}} >
-          ADD TO LIST
-        </Button>
-      </Paper>
-    </div>
-  );
+          </form>
+        </main>
+        </Card>
+      </Box>
+      </Grid>
+    </>
+  )
 }
 
-export default CategoriesForm;
+export default CategoriesForm
