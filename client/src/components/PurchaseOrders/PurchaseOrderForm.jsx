@@ -3,6 +3,12 @@ import React , { useState}from 'react';
 import Card from '@mui/material/Card';
 
 
+
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+
+
 const PurchaseOrderForm = () => {
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
@@ -43,36 +49,47 @@ const PurchaseOrderForm = () => {
               </FormControl>
               </Grid>
               <Grid item xs={6}>
-              <FormControl>
-              <FormHelperText id="my-helper-text">Product</FormHelperText>
-                <TextField 
-                type="text"
-                variant="outlined"
-                label="Product"
-                id="product"
-                autoComplete="on"
-                value={product}
-                sx={{ minWidth: 300 }}
-                onChange={(e) => setProduct(e.target.value)} 
-                />
-               
-              </FormControl>
+              {/* <Box sx={{ minWidth: 120 }}> */}
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Product</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          variant="outlined"
+          value={product}
+          label="Product"
+          sx={{ minWidth: 300 }}
+          onChange={(e) => setProduct(e.target.value)} 
+        >
+          {/* mapping of vendor form system */}
+          <MenuItem value={10}>Product1</MenuItem>
+          <MenuItem value={20}>Product2</MenuItem>
+          <MenuItem value={30}>Product3</MenuItem>
+        </Select>
+      </FormControl>
+    {/* </Box> */}
               </Grid>
               <br />
               <Grid item xs={6}>
-              <FormControl>
-              <FormHelperText id="my-helper-text">Vendor</FormHelperText>
-                <TextField 
-                type="text"
-                label="vendor"
-                id="vendor"
-                sx={{ minWidth: 300 }}
-                autoComplete="vendor"
-                value={vendor}
-                onChange={(e) => setVendor(e.target.value)}
-                />
-                
-              </FormControl>
+              {/* <Box sx={{ minWidth: 120 }}> */}
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Vendor</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          variant="outlined"
+          value={vendor}
+          label="Vendor"
+          sx={{ minWidth: 300 }}
+          onChange={(e) => setVendor(e.target.value)} 
+        >
+          {/* mapping of vendor form system */}
+          <MenuItem value={10}>Val</MenuItem>
+          <MenuItem value={20}>Mitchelle</MenuItem>
+          <MenuItem value={30}>Fridah</MenuItem>
+        </Select>
+      </FormControl>
+    {/* </Box> */}
               </Grid>
               <Grid item xs={6}>
               <FormControl>
