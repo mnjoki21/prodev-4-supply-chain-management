@@ -32,7 +32,7 @@ function Products() {
     },
   }));
 
-  const [ products, setProducts ] = useState([])
+  // const [ products, setProducts ] = useState([])
 
   useEffect(() => {
     fetch("http://localhost:3000/products")
@@ -44,22 +44,23 @@ function Products() {
       });
   }, [])
   
-  function deleteProduct(id) {
-    fetch(`http://localhost:3000/products/${id}`,
-    {
-      method: 'DELETE'
-    }
-    )
-      .then((r) => r.json())
-      .then((data) => {
-        const goThru = data.filter(
-          (dataItem) => dataItem.id !== id
-        );
-        setProducts(goThru)
-    })
-  }
+  // function deleteProduct(id) {
+  //   fetch(`http://localhost:3000/products/${id}`,
+  //   {
+  //     method: 'DELETE'
+  //   }
+  //   )
+  //     .then((r) => r.json())
+  //     .then((data) => {
+  //       const goThru = data.filter(
+  //         (dataItem) => dataItem.id !== id
+  //       );
+  //       console.log(goThru)
+  //       setProducts(goThru)
+  //   })
+  // }
 
-  return (
+  return (                              
     <>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 1350 }} aria-label="customized table">
@@ -73,28 +74,37 @@ function Products() {
             </TableRow>
           </TableHead>
           <TableBody>
-            
-            { products.map((item) => {
+             {/* { products.map((item) => {
               return (
-              <StyledTableRow key={ item.id }>
-                <StyledTableCell component="th" scope="row">
-                  { item.name }
-                </StyledTableCell>
-                <StyledTableCell align="right">{ item.description }</StyledTableCell>
-                <StyledTableCell align="right">{ item.threshold }</StyledTableCell>
-                {/* <StyledTableCell align="right">{row.carbs}</StyledTableCell> */ }
-                {/* <StyledTableCell align="right">{row.protein}</StyledTableCell> */ }
-              </StyledTableRow>
-           ) })}
+                <>
+                  <StyledTableRow key={item.id}>
+                    <StyledTableCell component="th" scope="row">
+                      {item.name}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {item.description}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {item.threshold}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{row.carbs}</StyledTableCell> 
+                    <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                  </StyledTableRow>
+                </>
+              );
+            })}  */}
+           
+             
+          
           </TableBody>
         </Table>
         
       </TableContainer>
       <Button
         type="button"
-        onClick={() => {
-          deleteProduct(item.id);
-        }}
+        // onClick={() => {
+        //   deleteProduct(item.id);
+        // }}
         variant="contained"
         color="secondary"
       >
