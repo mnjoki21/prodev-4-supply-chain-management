@@ -5,12 +5,12 @@ import Card from "@mui/material/Card";
 
 function ProductsForm() {
   const [ formData, setFormData ] = useState({
-    id:'',
     name: '',
     description: '',
+    category_id:'',
     threshold:''
   })
-  const url = "http://lovalhost:3000/products"
+  const url = "http://localhost:3000/products"
 
   function handleSubmit(e) {
     e.preventDefault();
