@@ -2,8 +2,6 @@ import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid } from 
 import React , { useState}from 'react';  
 import Card from '@mui/material/Card';
 import { useNavigate } from "react-router-dom";
-
-
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -19,6 +17,28 @@ const PurchaseOrderForm = () => {
  
 
   const history = useNavigate();  
+
+
+
+
+  // const vendors = fetch("http://localhost:3000/vendors").then((r) => {
+      
+  //   if (r.ok) {
+  //     history.push("/");
+  //   } else {
+  //     r.json().then((err) => setErrors(err.errors));
+  //   }
+  // })
+                         
+
+  // const products = fetch("http://localhost:3000/products").then((r) => {
+      
+  //   if (r.ok) {
+  //     history.push("/");
+  //   } else {
+  //     r.json().then((err) => setErrors(err.errors));
+  //   }
+  // })
 
   function handleSubmit(e){
     e.preventDefault();
@@ -38,9 +58,6 @@ const PurchaseOrderForm = () => {
     }).then((r) => {
       
       if (r.ok) {
-
-
-        // adds to flower list 
         history.push("/");
       } else {
         r.json().then((err) => setErrors(err.errors));
@@ -90,10 +107,13 @@ const PurchaseOrderForm = () => {
           sx={{ minWidth: 300 }}
           onChange={(e) => setProduct(e.target.value)} 
         >
-          {/* mapping of vendor form system */}
-          <MenuItem value={10}>Product1</MenuItem>
-          <MenuItem value={20}>Product2</MenuItem>
-          <MenuItem value={30}>Product3</MenuItem>
+          {/* mapping through  product in the  form system */}
+{/*        
+         {products.map((item)=>
+
+              <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>
+         )} */}
+
         </Select>
       </FormControl>
     {/* </Box> */}
@@ -113,9 +133,15 @@ const PurchaseOrderForm = () => {
           onChange={(e) => setVendor(e.target.value)} 
         >
           {/* mapping of vendor form system */}
-          <MenuItem value={10}>Val</MenuItem>
+
+
+          {/* {vendors.map((vendor)=>
+
+<MenuItem value={vendor.id} key={vendor.id}>{vendor.name}</MenuItem>
+)} */}
+          {/* <MenuItem value={10}>Val</MenuItem>
           <MenuItem value={20}>Mitchelle</MenuItem>
-          <MenuItem value={30}>Fridah</MenuItem>
+          <MenuItem value={30}>Fridah</MenuItem> */}
         </Select>
       </FormControl>
     {/* </Box> */}
