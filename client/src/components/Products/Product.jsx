@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
+import ProductsForm from "./ProductsForm";
 
 
 function Products() {
@@ -60,7 +61,8 @@ function Products() {
   //   })
   // }
 
-  return (                              
+  return (     
+    
     <>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 1350 }} aria-label="customized table">
