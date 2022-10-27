@@ -1,91 +1,286 @@
-import {Link} from "react-router-dom";
-import * as React from "react";
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-
+import * as React from 'react';
+import {styled, useTheme} from '@mui/material/styles';
 import {Box} from "@mui/material";
-import Drawer from "@mui/material/Drawer";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ThreePIcon from '@mui/icons-material/ThreeP';
+import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import MailIcon from '@mui/icons-material/Mail';
+import {Link} from "react-router-dom";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import SearchIcon from '@mui/icons-material/Search';
+import CategoryIcon from '@mui/icons-material/Category';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import FolderCopyIcon from '@mui/icons-material/FolderCopy';
+import RequestPageIcon from '@mui/icons-material/RequestPage';
+import GroupIcon from '@mui/icons-material/Group';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import LogoutIcon from '@mui/icons-material/Logout';
 
-const drawerWidth = 100;
+const drawerWidth = 240;
 
-export default function Navbar() {
+const Main = styled('main', {
+  shouldForwardProp: (prop) => prop !== 'open'
+})(({theme, open}) => ({
+  flexGrow: 1,
+  padding: theme.spacing(3),
+  transition: theme
+    .transitions
+    .create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+  marginLeft: `-${drawerWidth}px`,
+  ...(open && {
+    transition: theme
+      .transitions
+      .create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen
+      }),
+    marginLeft: 0
+  })
+}),);
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open'
+})(({theme, open}) => ({
+  transition: theme
+    .transitions
+    .create([
+      'margin', 'width'
+    ], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme
+      .transitions
+      .create([
+        'margin', 'width'
+      ], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen
+      })
+  })
+}));
+
+const DrawerHeader = styled('div')(({theme}) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end'
+}));
+
+function Navbar() {
+  const theme = useTheme();
+  const [open,
+    setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Box sx={{
-      display: "flex"
+      display: 'flex'
     }}>
+      <CssBaseline/>
       <AppBar
-        // position="fixed"
+        position="fixed"
         sx={{
-  
-        width: `calc(100% - ${drawerWidth}px)`,
-        backgroundColor: "blue",
-        textAlign: "center",
-        // ml: `${drawerWidth}px`,
-        justifyContent: "center"
-      
-      }}>
-        <Toolbar >
-          <Typography variant="h6"  component="div" sx={{textAlign: "center"}} >
-            Supply Chains Made Easier!
-          </Typography>
+        backgroundColor: '#F5F5F5',
+        color: 'black'
+      }}
+        open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{
+            mr: 2,
+            ...(open && {
+              display: 'none'
+            })
+          }}>
+            <MenuIcon/>
+          </IconButton>
+          <SearchIcon/>
+          <Typography sx={{
+            pl: 2
+          }}>Search</Typography>
+
         </Toolbar>
       </AppBar>
       <Drawer
         sx={{
-        width: 400,
-        flexGrow: 1,
-        "& .MuiDrawer-paper": {
+        width: drawerWidth,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
           width: drawerWidth,
-          
-          color: "white",
-          fontSize: 16,
-          boxSizing: "border-box"
+          boxSizing: 'border-box',
+          backgroundColor: '#29339B'
         }
       }}
-        variant="permanent"
-        anchor="left">
-        <Toolbar/>
+        variant="persistent"
+        anchor="left"
+        open={open}>
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr'
+              ? <ChevronLeftIcon/>
+              : <ChevronRightIcon/>}
+          </IconButton>
+        </DrawerHeader>
         <Divider/>
-       
-        <List>
-          <Typography>
-          <Link style={{padding: 20, color: "blue" ,fontWeight:"bold",textAlign:"center" , textDecoration: 'none'}}to={"/categories"}  >Category</Link>
-          </Typography>
+        <List
+          sx={{
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
+          <Link
+            style={{
+            padding: 20,
+            fontWeight: "bold",
+            textAlign: "center",
+            color: 'white',
+            textDecoration: 'none'
+          }}to={"/"}><DashboardIcon sx={{
+      mr: 4
+    }}/>Dashboard</Link>
+          <Link
+            style={{
+            padding: 20,
+            fontWeight: "bold",
+            color: 'white',
+            textAlign: "center",
+            textDecoration: 'none'
+          }}to={"/categories"}><CategoryIcon sx={{
+      mr: 4
+    }}/>
+            Category</Link>
+          <Link
+            style={{
+            padding: 20,
+            fontWeight: "bold",
+            textAlign: "center",
+            color: 'white',
+            textDecoration: 'none'
+          }}to={"/products"}>
+            <AddShoppingCartIcon sx={{
+              mr: 4
+            }}/>
+            Products</Link>
+
+          <Link
+            style={{
+            padding: 20,
+            fontWeight: "bold",
+            textAlign: "center",
+            color: 'white',
+            textDecoration: 'none'
+          }}to={"/vendors"}><LocalShippingIcon sx={{
+      mr: 4
+    }}/>Vendors</Link>
+
+          <Link
+            style={{
+            padding: 20,
+            fontWeight: "bold",
+            textAlign: "center",
+            color: 'white',
+            textDecoration: 'none'
+          }}to={"/purchaseorders"}><FolderCopyIcon sx={{
+      mr: 4
+    }}/>Orders</Link>
+
+          <Link
+            style={{
+            padding: 20,
+            fontWeight: "bold",
+            textAlign: "center",
+            color: 'white',
+            textDecoration: 'none'
+          }}
+            to={"/invoices"}><RequestPageIcon sx={{
+      mr: 5
+    }}/>Invoice</Link>
+          <Link
+            style={{
+            padding: 20,
+            fontWeight: "bold",
+            color: 'white',
+            textAlign: "center",
+            textDecoration: 'none',
+            ml: 6
+          }}
+            to={"/purchaseitems"}><StorefrontIcon sx={{
+      mr: 6
+    }}/>Items</Link>
+
+          <Link
+            style={{
+            padding: 20,
+            fontWeight: "bold",
+            textAlign: "center",
+            color: 'white',
+            textDecoration: 'none'
+          }}
+            to={"/stocks"}><InventoryIcon sx={{
+      mr: 5
+    }}/>Inventory</Link>
+          <Link
+            style={{
+            padding: 20,
+            fontWeight: "bold",
+            textAlign: "center",
+            textDecoration: 'none',
+            color: 'white'
+          }}
+            to={"/users"}><GroupIcon sx={{
+      mr: 6
+    }}/>Users</Link>
+    
+     <Link
+            style={{
           
-          <Divider/>
-          <Link style={{padding: 20,color: "blue", fontWeight:"bold",textAlign:"center", textDecoration: 'none'}}to={"/products"}>Products</Link>
-          <Divider/>
-          <Link style={{padding: 20,color: "blue",fontWeight:"bold", textAlign:"center",textDecoration: 'none' }}to={"/vendors"}>Vendors</Link>
-          <Divider/>
-          <Link style={{padding: 20,color: "blue",fontWeight:"bold", textAlign:"center" , textDecoration: 'none'}}to={"/purchaseorders"}>Purchase <br />Orders</Link>
-
+            fontWeight: "bold",
+            textAlign: "center",
+            textDecoration: 'none',
+            color: 'white',
+            mt:100
+          }}
+            to={""}><LogoutIcon sx={{
+      mr: 6
+    }}/>Logout</Link>
         </List>
-        <Divider/>
-        <List>
-          <Link style={{padding: 20,color: "blue",fontWeight:"bold", textAlign:"center",textDecoration: 'none' }} to={"/invoices"}>Invoice</Link>
-          <Divider/>
-          <Link  style={{padding: 20, color: "blue",fontWeight:"bold",textAlign:"center" , textDecoration: 'none'}} to={"/purchaseitems"}>Purchase Items</Link>
-          <Divider/>
-          <Link style={{padding: 20, color: "blue",fontWeight:"bold",textAlign:"center",textDecoration: 'none' }} to={"/stocks"}>Stock</Link>
-          <Divider/>
-          <Link style={{padding: 20,color: "blue",fontWeight:"bold", textAlign:"center",textDecoration: 'none' }} to={"/users"}>Users</Link>
-        </List>
-        <Divider/>
+        
       </Drawer>
-      <Box
-  
-        sx={{
-        flexGrow: 0,
-        bgcolor: "background.default",
-        p: 6
-      }}>
+      <Main open={open}>
+        <DrawerHeader/>
 
-      </Box>
+      </Main>
     </Box>
   );
 }
+
+export default Navbar
