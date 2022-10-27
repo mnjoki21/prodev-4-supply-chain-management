@@ -64,6 +64,7 @@ export default function Product() {
   //     });
   // }
 
+<<<<<<< HEAD
 
 
   // function deleteEvent(id) {
@@ -90,6 +91,79 @@ export default function Product() {
           </TableRow>
         </TableHead>
         <TableBody>
+=======
+  const [ products, setProducts ] = useState([])
+
+  useEffect(() => {
+    fetch("http://localhost:3000/products")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+
+        setProduct(data);
+      });
+  }, [])
+  
+  function deleteProduct(id) {
+    fetch(`http://localhost:3000/products/${id}`,
+    {
+      method: 'DELETE'
+    }
+    )
+      .then((r) => r.json())
+      .then((data) => {
+        const goThru = data.filter(
+          (dataItem) => dataItem.id !== id
+        );
+        setProducts(goThru)
+    })
+  }
+
+  return (
+    <>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 1350 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Id</StyledTableCell>
+              <StyledTableCell align="right">Name</StyledTableCell>
+              <StyledTableCell align="right">Description</StyledTableCell>
+              <StyledTableCell align="right">Category id</StyledTableCell>
+              <StyledTableCell align="right">Threshold</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            
+            { products.map((item) => {
+              return (
+              <StyledTableRow key={ item.id }>
+                <StyledTableCell component="th" scope="row">
+                  { item.name }
+                </StyledTableCell>
+                <StyledTableCell align="right">{ item.description }</StyledTableCell>
+                <StyledTableCell align="right">{ item.threshold }</StyledTableCell>
+                {/* <StyledTableCell align="right">{row.carbs}</StyledTableCell> */ }
+                {/* <StyledTableCell align="right">{row.protein}</StyledTableCell> */ }
+              </StyledTableRow>
+           ) })}
+          </TableBody>
+        </Table>
+        
+      </TableContainer>
+      <Button
+        type="button"
+        onClick={() => {
+          deleteProduct(item.id);
+        }}
+        variant="contained"
+        color="secondary"
+      >
+        Text
+      </Button>
+    </>
+  );
+}
+>>>>>>> ea3cad0e (fix: merge conflicts)
 
 
         {/* {category.map((row) => 

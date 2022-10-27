@@ -8,6 +8,7 @@ function ProductsForm() {
     id:'',
     name: '',
     description: '',
+    threshold:''
   })
   const url = "http://lovalhost:3000/products"
 
@@ -23,7 +24,8 @@ function ProductsForm() {
     setFormData({
       id: '',
       name: '',
-      description:''
+      description: '',
+      threshold:''
     })
     console.log(formData)
   }
@@ -71,7 +73,6 @@ function ProductsForm() {
                         type="text"
                         variant="outlined"
                         label="Name"
-                  
                         autoComplete="on"
                         value={name}
                         sx={{ minWidth: 400 }}
@@ -80,15 +81,24 @@ function ProductsForm() {
                     </FormControl>
                     <br />
                     <FormControl>
-                      <FormHelperText >
-                        Enter description here
-                      </FormHelperText>
+                      <FormHelperText>Enter description here</FormHelperText>
                       <TextField
                         type="text"
                         label="text"
                         sx={{ minWidth: 400 }}
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                      />
+                    </FormControl>
+                    <br />
+                    <FormControl>
+                      <FormHelperText>Enter threshold here</FormHelperText>
+                      <TextField
+                        type="text"
+                        label="text"
+                        sx={{ minWidth: 400 }}
+                        value={threshold}
+                        onChange={(e) => setThreshold(e.target.value)}
                       />
                     </FormControl>
                   </div>
@@ -101,7 +111,8 @@ function ProductsForm() {
                     <Button
                       variant="contained"
                       type="submit"
-                      style={{ fontSize: 16 }}
+                      style={ { fontSize: 16 } }
+                      onClick={handleSubmit}
                     >
                       Submit
                     </Button>
