@@ -87,7 +87,7 @@ function Login({onLogin}){
                 alignItems: 'center',
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <Avatar sx={{ m: 1, bgcolor: '#29339B' }}>
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
@@ -126,21 +126,17 @@ function Login({onLogin}){
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                  sx={{ mt: 3,
+                     mb: 2,
+                     backgroundColor: '#29339B'
+                  
+                  }}
                   onClick={handleSubmit}
                 >
                   Sign In
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link href="#" variant="body2">
-                      {"Don't have an account? Sign Up"}
-                    </Link>
                   </Grid>
                 </Grid>
               </Box>
