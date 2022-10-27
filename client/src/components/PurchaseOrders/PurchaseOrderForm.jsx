@@ -1,6 +1,10 @@
 import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid } from '@mui/material';
 import React , { useState}from 'react';  
 import Card from '@mui/material/Card';
+import { useNavigate } from "react-router-dom";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 
 const PurchaseOrderForm = () => {
@@ -12,6 +16,54 @@ const PurchaseOrderForm = () => {
   const [errors, setErrors]= useState([])
  
 
+  const history = useNavigate();  
+
+
+
+
+  // const vendors = fetch("http://localhost:3000/vendors").then((r) => {
+      
+  //   if (r.ok) {
+  //     history.push("/");
+  //   } else {
+  //     r.json().then((err) => setErrors(err.errors));
+  //   }
+  // })
+                         
+
+  // const products = fetch("http://localhost:3000/products").then((r) => {
+      
+  //   if (r.ok) {
+  //     history.push("/");
+  //   } else {
+  //     r.json().then((err) => setErrors(err.errors));
+  //   }
+  // })
+
+  function handleSubmit(e){
+    e.preventDefault();
+
+    fetch("http://localhost:3000/purchaseorders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        product,
+        amount,
+        quantity, 
+        vendor,
+        orderNo : orderNo,
+      }),
+    }).then((r) => {
+      
+      if (r.ok) {
+        history.push("/");
+      } else {
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
+  }
   
 
   return (
@@ -20,7 +72,7 @@ const PurchaseOrderForm = () => {
       <Box    >
       <Card sx={{ minWidth: 300 }}>
         <main >
-        <form  >
+        <form  onSubmit={handleSubmit} >
           <p style={{fontWeight: "bolder", fontSize: 20 ,alignItems:"center", justifyContent:"center",textAlign:'center'}}> Purchase Order Form</p>
           
           <Box sx={{'& .MuiTextField-root': { m: 1, width: '35ch' },}}>
@@ -43,36 +95,56 @@ const PurchaseOrderForm = () => {
               </FormControl>
               </Grid>
               <Grid item xs={6}>
-              <FormControl>
-              <FormHelperText id="my-helper-text">Product</FormHelperText>
-                <TextField 
-                type="text"
-                variant="outlined"
-                label="Product"
-                id="product"
-                autoComplete="on"
-                value={product}
-                sx={{ minWidth: 300 }}
-                onChange={(e) => setProduct(e.target.value)} 
-                />
-               
-              </FormControl>
+              {/* <Box sx={{ minWidth: 120 }}> */}
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Product</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          variant="outlined"
+          value={product}
+          label="Product"
+          sx={{ minWidth: 300 }}
+          onChange={(e) => setProduct(e.target.value)} 
+        >
+          {/* mapping through  product in the  form system */}
+{/*        
+         {products.map((item)=>
+
+              <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>
+         )} */}
+
+        </Select>
+      </FormControl>
+    {/* </Box> */}
               </Grid>
               <br />
               <Grid item xs={6}>
-              <FormControl>
-              <FormHelperText id="my-helper-text">Vendor</FormHelperText>
-                <TextField 
-                type="text"
-                label="vendor"
-                id="vendor"
-                sx={{ minWidth: 300 }}
-                autoComplete="vendor"
-                value={vendor}
-                onChange={(e) => setVendor(e.target.value)}
-                />
-                
-              </FormControl>
+              {/* <Box sx={{ minWidth: 120 }}> */}
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Vendor</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          variant="outlined"
+          value={vendor}
+          label="Vendor"
+          sx={{ minWidth: 300 }}
+          onChange={(e) => setVendor(e.target.value)} 
+        >
+          {/* mapping of vendor form system */}
+
+
+          {/* {vendors.map((vendor)=>
+
+<MenuItem value={vendor.id} key={vendor.id}>{vendor.name}</MenuItem>
+)} */}
+          {/* <MenuItem value={10}>Val</MenuItem>
+          <MenuItem value={20}>Mitchelle</MenuItem>
+          <MenuItem value={30}>Fridah</MenuItem> */}
+        </Select>
+      </FormControl>
+    {/* </Box> */}
               </Grid>
               <Grid item xs={6}>
               <FormControl>
@@ -91,7 +163,7 @@ const PurchaseOrderForm = () => {
               </Grid>
               <Grid item xs={6}>
               <FormControl>
-              <FormHelperText id="my-helper-text">Amount</FormHelperText>
+              <FormHelperText id="my-helper-text">Amount in Ksh</FormHelperText>
                 <TextField 
                 type="number"
                 label="amount"

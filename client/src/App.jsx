@@ -13,6 +13,7 @@ import Stock from "./components/Stock/Stock"
 import User from "./components/Users/User"
 import { useEffect, useState } from "react";
 import Login from "./components/Register/Login";
+import Main from "./components/Main";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -29,8 +30,8 @@ export default function App() {
     <Fragment>
       <Navbar/>
       <Routes>
+      <Route exact path="/" element={< Main />}/>
       <Route exact path="/categories" element={< Category />}/>
-        <Route exact path="/products" element={< Product />}/>
         <Route exact path="/vendors" element={< Vendor />}/>
         <Route exact path="/products" element={< Product />}/>
         <Route exact path="/purchaseitems" element={< PurchaseItem />}/>

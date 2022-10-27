@@ -19,7 +19,7 @@ function Copyright(props) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Supply Chain
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -63,6 +63,7 @@ function Login({onLogin}){
       if (r.ok) {
         r.json().then((user) => {
           onLogin(user);
+          sessionStorage.setItem("user_id", JSON.stringify(user.id)) 
           setFormData({
             ...formData,
             email: "",
@@ -74,9 +75,6 @@ function Login({onLogin}){
       }
     });
   }
-
-
-    
      return (
         <ThemeProvider theme={theme}>
           <Container component="main" maxWidth="xs">
@@ -89,7 +87,7 @@ function Login({onLogin}){
                 alignItems: 'center',
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <Avatar sx={{ m: 1, bgcolor: '#29339B' }}>
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
@@ -128,21 +126,17 @@ function Login({onLogin}){
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                  sx={{ mt: 3,
+                     mb: 2,
+                     backgroundColor: '#29339B'
+                  
+                  }}
                   onClick={handleSubmit}
                 >
                   Sign In
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link href="#" variant="body2">
-                      {"Don't have an account? Sign Up"}
-                    </Link>
                   </Grid>
                 </Grid>
               </Box>
