@@ -1,12 +1,17 @@
-import Box from "@mui/material/Box";
+import {Box} from "@mui/material";
 import Typography from "@mui/material/Typography";
+import PurchaseOrderForm from "./PurchaseOrderForm";
 
 export default function PurcahseOrder() {
+
+
   return (
     <Box>
+      
+      <PurchaseOrderForm />
+
       <Typography paragraph>
-        Hey Valentine,Welcome to PurchaseOrders Hey Valentine,Welcome to PurchaseOrders
-        Hey Valentine,Welcome to PurchaseOrders
+        
       </Typography>
     </Box>
   )

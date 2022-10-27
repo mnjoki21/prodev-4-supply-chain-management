@@ -1,16 +1,27 @@
-import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid } from '@mui/material';
+
+import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid, unstable_composeClasses } from '@mui/material';
 import React , { useState}from 'react';  
 import Login from '../Register/Login';
 import Card from '@mui/material/Card';
 
 
-const User = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const CategoriesForm= () => {
+  const [category, setCategory] = useState();
   const [errors, setErrors] = useState([]);
- 
-
   
+  function handleOnSubmit(e){
+    e.preventDefault();
+    fetch("/categories",{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({category}),
+    })
+    .then((r) => r.json())
+    .then(response => setCategory(response));
+    // .then((response) => console.log(response));
+  }
 
   return (
     <>
@@ -19,40 +30,27 @@ const User = () => {
       <Card sx={{ minWidth: 400 }}>
         <main >
         <form  >
-          <p style={{fontWeight: "bolder", fontSize: 40 ,alignItems:"center", justifyContent:"center",textAlign:'center'}}>Form</p>
+          <p style={{fontWeight: "bolder", fontSize: 40 ,alignItems:"center", justifyContent:"center",textAlign:'center'}}>New Category</p>
           
           <Box sx={{'& .MuiTextField-root': { m: 1, width: '35ch' },}}>
           
             <div>
               
               <FormControl>
-              <FormHelperText id="my-helper-text">Enter your Email Address</FormHelperText>
+              {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
                 <TextField 
-                type="email"
+                type="text"
                 variant="outlined"
-                label="Email"
-                id="email"
+                label="Enter Category Name"
+                id="category"
                 autoComplete="on"
-                value={email}
+                value={category}
                 sx={{ minWidth: 400 }}
-                onChange={(e) => setEmail(e.target.value)} 
+                onChange={(e) => setCategory(e.target.value)} 
                 />
                
               </FormControl>
               <br />
-              <FormControl>
-              <FormHelperText id="my-helper-text">Enter your password</FormHelperText>
-                <TextField 
-                type="password"
-                label="Password"
-                id="password"
-                sx={{ minWidth: 400 }}
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                />
-                
-              </FormControl>
             </div>
           </Box>
           
@@ -61,7 +59,7 @@ const User = () => {
           <div>
             
                 <Box textAlign='center'>
-      <Button variant='contained' type="submit" style={{fontSize: 16 }}>
+      <Button variant='contained' onClick={handleOnSubmit} type="submit" style={{fontSize: 16 }}>
         Submit
       </Button>
      </Box>
@@ -86,4 +84,4 @@ const User = () => {
   )
 }
 
-export default User
+export default CategoriesForm
