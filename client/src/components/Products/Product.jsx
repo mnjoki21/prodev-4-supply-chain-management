@@ -17,6 +17,8 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useEffect, useState } from "react";
+import Button from "@mui/material/Button";
+import ProductsForm from "./ProductsForm";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -119,7 +121,8 @@ export default function Product() {
     })
   }
 
-  return (
+  return (     
+    
     <>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 1350 }} aria-label="customized table">
