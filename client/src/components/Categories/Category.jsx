@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import CategoriesForm from "./CategoriesForm";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import {Button} from "@mui/material";
 import Paper from '@mui/material/Paper';
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -70,12 +71,12 @@ export default function Category() {
       <Table sx={{ minWidth: 1000, ml:10 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-            <StyledTableCell align="right">Calories</StyledTableCell>
-            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Actions&nbsp;(g)</StyledTableCell>
+            <StyledTableCell>Category</StyledTableCell>
+            <StyledTableCell align="right">Name</StyledTableCell>
+            <StyledTableCell align="right">Delete</StyledTableCell>
+            <StyledTableCell align="right">Edit</StyledTableCell>
+
+            
           </TableRow>
         </TableHead>
         <TableBody>
@@ -85,10 +86,8 @@ export default function Category() {
                 {row.name}
               </StyledTableCell>
               <StyledTableCell align="right">{row.name}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell>
-              <StyledTableCell align="right"><button>Edit</button></StyledTableCell>
+              <StyledTableCell align="right"><Button variant="contained" color="error">Delete</Button></StyledTableCell>
+              <StyledTableCell align="right"><Button variant="contained">Edit</Button></StyledTableCell>
               
             </StyledTableRow>
           ))}
