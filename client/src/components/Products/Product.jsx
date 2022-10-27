@@ -32,16 +32,16 @@ function Products() {
     },
   }));
 
-  const [ product, setProduct ] = useState([])
-  const url = 'http://localhost:3000/products'
+  const [ products, setProducts ] = useState([])
 
   useEffect(() => {
-    fetch(url)
+    fetch("http://localhost:3000/products")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setProduct(data)
-      })
+
+        setProduct(data);
+      });
   }, [])
   
   function deleteProduct(id) {
@@ -51,11 +51,11 @@ function Products() {
     }
     )
       .then((r) => r.json())
-      .then(() => {
-        const goThru = product.filter(
-          (product) => product.id !== id
+      .then((data) => {
+        const goThru = data.filter(
+          (dataItem) => dataItem.id !== id
         );
-        setProduct(goThru)
+        setProducts(goThru)
     })
   }
 
@@ -69,27 +69,31 @@ function Products() {
               <StyledTableCell align="right">Name</StyledTableCell>
               <StyledTableCell align="right">Description</StyledTableCell>
               <StyledTableCell align="right">Category id</StyledTableCell>
+              <StyledTableCell align="right">Threshold</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-              <StyledTableRow >
-                <StyledTableCell component="th" scope="row">
-                
-                </StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
-              </StyledTableRow>
             
+            { products.map((item) => {
+              return (
+              <StyledTableRow key={ item.id }>
+                <StyledTableCell component="th" scope="row">
+                  { item.name }
+                </StyledTableCell>
+                <StyledTableCell align="right">{ item.description }</StyledTableCell>
+                <StyledTableCell align="right">{ item.threshold }</StyledTableCell>
+                {/* <StyledTableCell align="right">{row.carbs}</StyledTableCell> */ }
+                {/* <StyledTableCell align="right">{row.protein}</StyledTableCell> */ }
+              </StyledTableRow>
+           ) })}
           </TableBody>
         </Table>
-        //{" "}
+        
       </TableContainer>
       <Button
         type="button"
         onClick={() => {
-          deleteProduct(product.id);
+          deleteProduct(item.id);
         }}
         variant="contained"
         color="secondary"
