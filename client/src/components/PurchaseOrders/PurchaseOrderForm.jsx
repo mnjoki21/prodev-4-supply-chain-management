@@ -1,7 +1,7 @@
 import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid } from '@mui/material';
 import React , { useState}from 'react';  
 import Card from '@mui/material/Card';
-
+import { useNavigate } from "react-router-dom";
 
 
 import InputLabel from '@mui/material/InputLabel';
@@ -18,6 +18,35 @@ const PurchaseOrderForm = () => {
   const [errors, setErrors]= useState([])
  
 
+  const history = useNavigate();  
+
+  function handleSubmit(e){
+    e.preventDefault();
+
+    fetch("http://localhost:3000/purchaseorders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        product,
+        amount,
+        quantity, 
+        vendor,
+        orderNo : orderNo,
+      }),
+    }).then((r) => {
+      
+      if (r.ok) {
+
+
+        // adds to flower list 
+        history.push("/");
+      } else {
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
+  }
   
 
   return (
@@ -26,7 +55,7 @@ const PurchaseOrderForm = () => {
       <Box    >
       <Card sx={{ minWidth: 300 }}>
         <main >
-        <form  >
+        <form  onSubmit={handleSubmit} >
           <p style={{fontWeight: "bolder", fontSize: 20 ,alignItems:"center", justifyContent:"center",textAlign:'center'}}> Purchase Order Form</p>
           
           <Box sx={{'& .MuiTextField-root': { m: 1, width: '35ch' },}}>
