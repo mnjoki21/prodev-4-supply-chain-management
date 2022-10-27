@@ -23,6 +23,8 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 import RequestPageIcon from '@mui/icons-material/RequestPage';
 import GroupIcon from '@mui/icons-material/Group';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const drawerWidth = 240;
 
@@ -105,7 +107,7 @@ function Navbar() {
         position="fixed"
         sx={{
         backgroundColor: '#F5F5F5',
-        color:'black'
+        color: 'black'
       }}
         open={open}>
         <Toolbar>
@@ -123,7 +125,9 @@ function Navbar() {
             <MenuIcon/>
           </IconButton>
           <SearchIcon/>
-          <Typography sx={{pl:2}}>Search</Typography>
+          <Typography sx={{
+            pl: 2
+          }}>Search</Typography>
 
         </Toolbar>
       </AppBar>
@@ -151,8 +155,18 @@ function Navbar() {
         <List
           sx={{
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: 'column'
         }}>
+          <Link
+            style={{
+            padding: 20,
+            fontWeight: "bold",
+            textAlign: "center",
+            color: 'white',
+            textDecoration: 'none'
+          }}to={"/"}><DashboardIcon sx={{
+      mr: 4
+    }}/>Dashboard</Link>
           <Link
             style={{
             padding: 20,
@@ -160,10 +174,9 @@ function Navbar() {
             color: 'white',
             textAlign: "center",
             textDecoration: 'none'
-          }}to={"/categories"}><CategoryIcon
-          sx={{
-            mr:4
-          }}/>
+          }}to={"/categories"}><CategoryIcon sx={{
+      mr: 4
+    }}/>
             Category</Link>
           <Link
             style={{
@@ -173,8 +186,9 @@ function Navbar() {
             color: 'white',
             textDecoration: 'none'
           }}to={"/products"}>
-            <AddShoppingCartIcon
-            sx={{mr:4}}/>
+            <AddShoppingCartIcon sx={{
+              mr: 4
+            }}/>
             Products</Link>
 
           <Link
@@ -184,8 +198,9 @@ function Navbar() {
             textAlign: "center",
             color: 'white',
             textDecoration: 'none'
-          }}to={"/vendors"}><LocalShippingIcon
-          sx={{mr:4}}/>Vendors</Link>
+          }}to={"/vendors"}><LocalShippingIcon sx={{
+      mr: 4
+    }}/>Vendors</Link>
 
           <Link
             style={{
@@ -194,8 +209,9 @@ function Navbar() {
             textAlign: "center",
             color: 'white',
             textDecoration: 'none'
-          }}to={"/purchaseorders"}><FolderCopyIcon
-          sx={{mr:4}}/>Orders</Link>
+          }}to={"/purchaseorders"}><FolderCopyIcon sx={{
+      mr: 4
+    }}/>Orders</Link>
 
           <Link
             style={{
@@ -205,7 +221,9 @@ function Navbar() {
             color: 'white',
             textDecoration: 'none'
           }}
-            to={"/invoices"}><RequestPageIcon sx={{mr:5}}/>Invoice</Link>
+            to={"/invoices"}><RequestPageIcon sx={{
+      mr: 5
+    }}/>Invoice</Link>
           <Link
             style={{
             padding: 20,
@@ -213,10 +231,11 @@ function Navbar() {
             color: 'white',
             textAlign: "center",
             textDecoration: 'none',
-            ml:6
+            ml: 6
           }}
-            to={"/purchaseitems"}><StorefrontIcon
-            sx={{mr:6}}/>Items</Link>
+            to={"/purchaseitems"}><StorefrontIcon sx={{
+      mr: 6
+    }}/>Items</Link>
 
           <Link
             style={{
@@ -226,8 +245,9 @@ function Navbar() {
             color: 'white',
             textDecoration: 'none'
           }}
-            to={"/stocks"}><InventoryIcon
-            sx={{mr:5}}/>Inventory</Link>
+            to={"/stocks"}><InventoryIcon sx={{
+      mr: 5
+    }}/>Inventory</Link>
           <Link
             style={{
             padding: 20,
@@ -236,9 +256,24 @@ function Navbar() {
             textDecoration: 'none',
             color: 'white'
           }}
-            to={"/users"}><GroupIcon
-            sx={{mr:6}}/>Users</Link>
+            to={"/users"}><GroupIcon sx={{
+      mr: 6
+    }}/>Users</Link>
+    
+     <Link
+            style={{
+          
+            fontWeight: "bold",
+            textAlign: "center",
+            textDecoration: 'none',
+            color: 'white',
+            mt:100
+          }}
+            to={""}><LogoutIcon sx={{
+      mr: 6
+    }}/>Logout</Link>
         </List>
+        
       </Drawer>
       <Main open={open}>
         <DrawerHeader/>

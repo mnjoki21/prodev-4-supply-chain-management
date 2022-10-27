@@ -5,6 +5,7 @@ function Main(){
     return(
         <>
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            HELLO USER
             <Grid container spacing={3}>
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>
