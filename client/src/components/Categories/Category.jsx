@@ -12,6 +12,7 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import {useState, useEffect} from "react"
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -48,6 +49,15 @@ const rows = [
 
 
 export default function Category() {
+  const [categories, setCategory] = useState([])
+  useEffect(()=>{
+    fetch('http://127.0.0.1:3000/categories')
+    .then((r)=> r.json())
+    .then((categories)=>{
+      setCategory(categories)
+      console.log(categories)
+    })
+  },[])
   return (
     
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -69,12 +79,12 @@ export default function Category() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {categories.map((row) => (
             <StyledTableRow key={row.name}>
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
+              <StyledTableCell align="right">{row.name}</StyledTableCell>
               <StyledTableCell align="right">{row.fat}</StyledTableCell>
               <StyledTableCell align="right">{row.carbs}</StyledTableCell>
               <StyledTableCell align="right">{row.protein}</StyledTableCell>
