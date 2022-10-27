@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-    skip_before_action :authorize, only: :create
+    # skip_before_action: :create :authorize, only
     # skip_before_action :is_admin?, only: [:create, :destroy]
 
   def create
