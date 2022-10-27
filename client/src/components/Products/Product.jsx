@@ -40,7 +40,7 @@ function Products() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setProducts(data)
+        setProduct(data)
       })
   }, [])
   
@@ -72,18 +72,16 @@ function Products() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {" "}
-            {rows.map((row) => (
-              <StyledTableRow key={row.name}>
+              <StyledTableRow >
                 <StyledTableCell component="th" scope="row">
-                  {row.name}
+                
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                <StyledTableCell align="right">{ row.protein}</StyledTableCell>
+                <StyledTableCell align="right"></StyledTableCell>
+                <StyledTableCell align="right"></StyledTableCell>
+                <StyledTableCell align="right"></StyledTableCell>
+                <StyledTableCell align="right"></StyledTableCell>
               </StyledTableRow>
-            ))}
+            
           </TableBody>
         </Table>
         //{" "}
