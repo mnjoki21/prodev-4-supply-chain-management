@@ -30,7 +30,6 @@ export default function App() {
       <Navbar/>
       <Routes>
       <Route exact path="/categories" element={< Category />}/>
-        <Route exact path="/products" element={< Product />}/>
         <Route exact path="/vendors" element={< Vendor />}/>
         <Route exact path="/products" element={< Product />}/>
         <Route exact path="/purchaseitems" element={< PurchaseItem />}/>
