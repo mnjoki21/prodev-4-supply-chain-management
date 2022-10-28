@@ -100,7 +100,8 @@ function ProductsForm() {
                           // autoComplete="on"
                           value={formData.name}
                           sx={{ minWidth: 400 }}
-                          onChange={(e) => setProduct(e.taget.value)}
+                          // onChange={(e) => setProduct(e.target.value)}
+                          onChange={handleChange}
                         />
                       </FormControl>
                       <FormControl>
