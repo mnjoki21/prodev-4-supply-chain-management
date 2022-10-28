@@ -1,11 +1,14 @@
 import {Alert,Box,FormControl,Button,FormHelperText,TextField, Grid,} from "@mui/material";
 import React, { useState } from "react";
 import Card from "@mui/material/Card";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+
 
 
 function ProductsForm() {
 
-  // const [ product, setProduct = useState([]);  
+  // const [ product, setProduct ] = useState([]);
   const [ formData, setFormData ] = useState({
     name: '',
     description: '',
@@ -47,7 +50,7 @@ function ProductsForm() {
       threshold: ''
     })
     //   .then((r) => r.json())
-    // .then(response => setProducts(response))
+    // .then(response => setProduct(response))
     console.log(formData)
   }
 
@@ -58,10 +61,6 @@ function ProductsForm() {
     })
 
   }
-
- 
-
-
   
 
   return (
@@ -80,7 +79,7 @@ function ProductsForm() {
                   <p
                     style={{
                       fontWeight: "bolder",
-                      fontSize: 40,
+                      fontSize: 30,
                       alignItems: "center",
                       justifyContent: "center",
                       textAlign: "center",
@@ -88,10 +87,9 @@ function ProductsForm() {
                   >
                     New Product
                   </p>
-                            {/* <Box sx={{display: 'flex' }}> */}
+                  {/* <Box sx={{display: 'flex' }}> */}
 
-
-                  <Box sx={ { "& .MuiTextField-root": { m: 1, width: "35ch" } } }>
+                  <Box sx={{ "& .MuiTextField-root": { m: 1, width: "35ch" } }}>
                     <div>
                       <FormControl>
                         {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
@@ -100,37 +98,54 @@ function ProductsForm() {
                           variant="outlined"
                           label="Enter Product Name"
                           // autoComplete="on"
+                          sx={{ minWidth: 300 }}
                           value={formData.name}
-                          sx={{ minWidth: 400 }}
+                          name="name"
                           // onChange={(e) => setProduct(e.target.value)}
                           onChange={handleChange}
                         />
                       </FormControl>
-                      <FormControl>
+                      <FormControl >
                         {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
                         <TextField
                           type="text"
                           variant="outlined"
                           label="Enter Product Description"
-                          id="description"
+                          // id="description"
+                          name="description"
                           // autoComplete="on"
+                          sx={{ minWidth: 300 }}
                           value={formData.description}
-                          sx={{ minWidth: 400 }}
                           onChange={handleChange}
                         />
                       </FormControl>
-                      <FormControl>
-                        {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
-                        <TextField
+                      {/* <FormControl> */}
+                      {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
+                      {/* <TextField
                           type="text"
                           variant="outlined"
                           label="Enter Product id"
-                          id="id"
+                          id="id" */}
+                      {/* // name='category_id'
                           // autoComplete="on"
+                          // sx={{ minWidth: 400 }}
+                          // value={formData.category_id}
+                          // onChange={handleChange} */}
+                      {/* /> */}
+                      {/* </FormControl> */}
+                      <FormControl>
+                        <InputLabel>Category</InputLabel>
+                        <Select
+                          variant="outlined"
                           value={formData.category_id}
-                          sx={{ minWidth: 400 }}
+                          label="Product"
+                          name="category_id"
+                          sx={{ minWidth: 300 }}
                           onChange={handleChange}
-                        />
+                          // {...categories.map((category) => (
+                          //   <option value={ category.id }>{category.name}</option>
+                          // ))}
+                        ></Select>
                       </FormControl>
                       <FormControl>
                         {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
@@ -139,9 +154,10 @@ function ProductsForm() {
                           variant="outlined"
                           label="Enter Product Threshold"
                           id="threshold"
+                          name="threshold"
                           // autoComplete="on"
+                          sx={{ minWidth: 300 }}
                           value={formData.threshold}
-                          sx={{ minWidth: 400 }}
                           onChange={handleChange}
                         />
                       </FormControl>
@@ -181,7 +197,6 @@ function ProductsForm() {
                 </form>
               </main>
             </Card>
-          
           </Box>
         </Grid>
       </>
