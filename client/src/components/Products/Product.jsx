@@ -11,14 +11,13 @@ import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import ProductsForm from "./ProductsForm";
 
-
 function Products() {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [ `&.${tableCellClasses.head}` ]: {
+    [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.common.white,
     },
-    [ `&.${tableCellClasses.body}` ]: {
+    [`&.${tableCellClasses.body}`]: {
       fontSize: 14,
     },
   }));
@@ -33,7 +32,7 @@ function Products() {
     },
   }));
 
-  // const [ products, setProducts ] = useState([])
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:3000/products")
@@ -41,10 +40,10 @@ function Products() {
       .then((data) => {
         console.log(data);
 
-        setProduct(data);
+        setProducts(data);
       });
-  }, [])
-  
+  }, []);
+
   // function deleteProduct(id) {
   //   fetch(`http://localhost:3000/products/${id}`,
   //   {
@@ -61,9 +60,9 @@ function Products() {
   //   })
   // }
 
-  return (     
-    
+  return (
     <>
+      <ProductsForm />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 1350 }} aria-label="customized table">
           <TableHead>
@@ -76,7 +75,7 @@ function Products() {
             </TableRow>
           </TableHead>
           <TableBody>
-             {/* { products.map((item) => {
+            {/* { products.map((item) => {
               return (
                 <>
                   <StyledTableRow key={item.id}>
@@ -95,23 +94,9 @@ function Products() {
                 </>
               );
             })}  */}
-           
-             
-          
           </TableBody>
         </Table>
-        
       </TableContainer>
-      <Button
-        type="button"
-        // onClick={() => {
-        //   deleteProduct(item.id);
-        // }}
-        variant="contained"
-        color="secondary"
-      >
-        Text
-      </Button>
     </>
   );
 }
