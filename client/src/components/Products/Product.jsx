@@ -44,21 +44,21 @@ function Products() {
       });
   }, []);
 
-  // function deleteProduct(id) {
-  //   fetch(`http://localhost:3000/products/${id}`,
-  //   {
-  //     method: 'DELETE'
-  //   }
-  //   )
-  //     .then((r) => r.json())
-  //     .then((data) => {
-  //       const goThru = data.filter(
-  //         (dataItem) => dataItem.id !== id
-  //       );
-  //       console.log(goThru)
-  //       setProducts(goThru)
-  //   })
-  // }
+  function deleteProduct(id) {
+    fetch(`http://localhost:3000/products/${id}`,
+    {
+      method: 'DELETE'
+    }
+    )
+      .then((r) => r.json())
+      .then((data) => {
+        const goThru = data.filter(
+          (dataItem) => dataItem.id !== id
+        );
+        console.log(goThru)
+        setProducts(goThru)
+    })
+  }
 
   return (
     <>
@@ -75,7 +75,7 @@ function Products() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* { products.map((item) => {
+            { products.map((item) => {
               return (
                 <>
                   <StyledTableRow key={item.id}>
@@ -88,12 +88,12 @@ function Products() {
                     <StyledTableCell align="right">
                       {item.threshold}
                     </StyledTableCell>
-                    <StyledTableCell align="right">{row.carbs}</StyledTableCell> 
-                    <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                    {/* <StyledTableCell align="right">{row.carbs}</StyledTableCell>  */}
+                    {/* <StyledTableCell align="right">{row.protein}</StyledTableCell> */}
                   </StyledTableRow>
                 </>
               );
-            })}  */}
+            })} 
           </TableBody>
         </Table>
       </TableContainer>
