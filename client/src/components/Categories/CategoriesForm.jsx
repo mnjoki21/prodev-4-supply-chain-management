@@ -11,7 +11,7 @@ const CategoriesForm= () => {
   
   function handleOnSubmit(e){
     e.preventDefault();
-    fetch("/categories",{
+    fetch("http://localhost:3000/categories",{
         method: "POST",
         headers: {
             "Content-Type": "application/json",
