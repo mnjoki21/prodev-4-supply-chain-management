@@ -50,7 +50,9 @@ export default function Stock() {
       <Grid container spacing={3}>
         {/* Chart */}
         <Grid item xs={12} md={8} lg={9}>
-
+        <Typography variant="h4" gutterBottom>
+        Stock Items
+      </Typography>
           <Table
             sx={{
             minWidth: 1000,
