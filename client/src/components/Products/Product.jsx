@@ -10,6 +10,9 @@ import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import ProductsForm from "./ProductsForm";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+
 
 function Products() {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -62,41 +65,53 @@ function Products() {
 
   return (
     <>
-      <ProductsForm />
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 1350 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Id</StyledTableCell>
-              <StyledTableCell align="right">Name</StyledTableCell>
-              <StyledTableCell align="right">Description</StyledTableCell>
-              <StyledTableCell align="right">Category id</StyledTableCell>
-              <StyledTableCell align="right">Threshold</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            { products.map((item) => {
-              return (
-                <>
-                  <StyledTableRow key={item.id}>
-                    <StyledTableCell component="th" scope="row">
-                      {item.name}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {item.description}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {item.threshold}
-                    </StyledTableCell>
-                    {/* <StyledTableCell align="right">{row.carbs}</StyledTableCell>  */}
-                    {/* <StyledTableCell align="right">{row.protein}</StyledTableCell> */}
-                  </StyledTableRow>
-                </>
-              );
-            })} 
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={8} lg={9}>
+            <ProductsForm />
+
+            <TableContainer component={Paper}>
+              <Table
+                sx={{ minWidth: 1350, ml: 10 }}
+                aria-label="customized table"
+              >
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>Id</StyledTableCell>
+                    <StyledTableCell align="right">Name</StyledTableCell>
+                    <StyledTableCell align="right">Description</StyledTableCell>
+                    <StyledTableCell align="right">Category id</StyledTableCell>
+                    <StyledTableCell align="right">Threshold</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {products.map((item) => {
+                    return (
+                      <>
+                        <StyledTableRow key={item.id}>
+                          <StyledTableCell component="th" scope="row">
+                            {item.name}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {item.description}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {item.threshold}
+                          </StyledTableCell>
+
+                          {/* <StyledTableCell align="right">{row.carbs}</StyledTableCell>  */}
+                          {/* <StyledTableCell align="right">{row.protein}</StyledTableCell> */}
+                        </StyledTableRow>
+                      
+                      </>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
+        </Grid>
+      </Container>
     </>
   );
 }
