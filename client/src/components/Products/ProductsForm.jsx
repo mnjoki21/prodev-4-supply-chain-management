@@ -88,8 +88,10 @@ function ProductsForm() {
                   >
                     New Product
                   </p>
+                            {/* <Box sx={{display: 'flex' }}> */}
 
-                  <Box sx={{ "& .MuiTextField-root": { m: 1, width: "35ch" } }}>
+
+                  <Box sx={ { "& .MuiTextField-root": { m: 1, width: "35ch" } } }>
                     <div>
                       <FormControl>
                         {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
@@ -179,6 +181,7 @@ function ProductsForm() {
                 </form>
               </main>
             </Card>
+          
           </Box>
         </Grid>
       </>
