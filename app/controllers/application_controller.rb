@@ -3,8 +3,8 @@ class ApplicationController < ActionController::API
      
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
-  # before_action :authorize
-  # before_action :is_admin?
+  before_action :authorize
+  before_action :is_admin?
 
   private
 
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::API
   end
   
     def is_admin?
-       render json: { errors: ["Not authorized Admin Only"] }, status: :unauthorized unless  @current_user[:admin] == true
+       render json: { errors: ["Not authorized Admin Only"] }, status: :unauthorized unless  @current_user = :admin
 
   end
 end
