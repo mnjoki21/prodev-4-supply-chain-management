@@ -20,14 +20,16 @@ class PurchaseitemsController < ApplicationController
     @purchaseitem.save
 
     # creating new stock
-    @stock = Stock.where(product_id: @purchaseitem[:product_id])
+    @stock = Stock.find_by(product_id: @purchaseitem[:product_id])
    if (@stock == nil)
     @stock = Stock.create(
     quantity: params[:quantity],
     product_id: params[:product_id])
-    render json: @stock
+  
     else
-      render json: "Exist"
+      @stock[:quantity] = @stock[:quantity] + @purchaseitem[:quantity]
+      @stock.save
+      render json: @purchaseitems
  
 
 
