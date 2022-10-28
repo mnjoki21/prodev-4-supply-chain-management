@@ -76,8 +76,8 @@ export default function Product() {
 
         setProducts(data);
       });
-  }, [])
-  
+  }, []);
+
   function deleteProduct(id) {
     fetch(`http://localhost:3000/products/${id}`,
     {
@@ -89,6 +89,7 @@ export default function Product() {
         const goThru = data.filter(
           (dataItem) => dataItem.id !== id
         );
+        console.log(goThru)
         setProducts(goThru)
     })
   }
@@ -108,19 +109,25 @@ export default function Product() {
             </TableRow>
           </TableHead>
           <TableBody>
-            
             { products.map((item) => {
               return (
-              <StyledTableRow key={ item.id }>
-                <StyledTableCell component="th" scope="row">
-                  { item.name }
-                </StyledTableCell>
-                <StyledTableCell align="right">{ item.description }</StyledTableCell>
-                <StyledTableCell align="right">{ item.threshold }</StyledTableCell>
-                {/* <StyledTableCell align="right">{row.carbs}</StyledTableCell> */ }
-                {/* <StyledTableCell align="right">{row.protein}</StyledTableCell> */ }
-              </StyledTableRow>
-           ) })}
+                <>
+                  <StyledTableRow key={item.id}>
+                    <StyledTableCell component="th" scope="row">
+                      {item.name}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {item.description}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {item.threshold}
+                    </StyledTableCell>
+                    {/* <StyledTableCell align="right">{row.carbs}</StyledTableCell>  */}
+                    {/* <StyledTableCell align="right">{row.protein}</StyledTableCell> */}
+                  </StyledTableRow>
+                </>
+              );
+            })} 
           </TableBody>
         </Table>
       </TableContainer>
