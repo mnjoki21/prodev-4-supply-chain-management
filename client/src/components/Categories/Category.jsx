@@ -16,7 +16,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,37 +39,36 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-
-
-
-
-
-
-
-
-
 export default function Category() {
 
-   const [categories, setCategories]= React.useState([])
-
+   const [category, setCategory]= React.useState([])
+   console.log(category)
 
 
    useEffect(() => {
     fetch("http://localhost:3000/categories")
       .then((r) => r.json())
-      .then(data =>setCategories(data));
+      .then(data =>setCategory(data));
   }, []); 
 
-
   function handleDelete(id) {
+    console.log(id)
     fetch(`http://localhost:3000/categories/${id}`, {
       method: "DELETE",
     })
       .then((r) => r.json())
       .then(() => {
-        const deletion = categories.filter((item) => item.id !== id);
-        setCategories(deletion);
+        deleteEvent(id)
+        // const deletion = category.filter((item) => item.id !== id);
+        // setCategory(deletion);
       });
+  }
+
+
+
+  function deleteEvent(id) {
+    const updatedEvents = category.filter((one) => one.id !== id);
+    setCategory(updatedEvents);
   }
 
   return (
@@ -93,13 +92,14 @@ export default function Category() {
         <TableBody>
 
 
-        {categories.map((row) => (
+        {category.map((row) => 
         
+        (
             <StyledTableRow key={row.id} >
               <StyledTableCell component="th" scope="row">
               {row.name}
               </StyledTableCell>
-             <StyledTableCell align="right"><Button onClick={()=>handleDelete()} variant="contained" color="error" startIcon={<DeleteIcon />}>
+             <StyledTableCell align="right"><Button onClick={()=>handleDelete(row.id)} variant="contained" color="error" startIcon={<DeleteIcon />}>
             Delete
           </Button></StyledTableCell>
               <StyledTableCell align="right"><Button variant="outlined" startIcon={<EditIcon />}>
