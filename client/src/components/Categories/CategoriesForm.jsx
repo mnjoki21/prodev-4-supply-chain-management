@@ -6,7 +6,7 @@ import Card from '@mui/material/Card';
 
 
 const CategoriesForm= () => {
-  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState([]);
   const [name, setName]= useState("")
   const [errors, setErrors] = useState([]);
   
@@ -20,10 +20,10 @@ const CategoriesForm= () => {
         body: JSON.stringify({name}),
     })
     .then((r) => r.json())
-    .then(response => setCategories(response));
+    .then(response => setCategory(response));
     // .then((response) => console.log(response));
   }
-
+     console.log(category)
   return (
     <>
     <Grid  container direction="row" alignItems="center" justifyContent="center" >
