@@ -6,7 +6,7 @@ import Card from '@mui/material/Card';
 
 
 const CategoriesForm= () => {
-  const [category, setCategory] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [name, setName]= useState("")
   const [errors, setErrors] = useState([]);
   
@@ -20,7 +20,7 @@ const CategoriesForm= () => {
         body: JSON.stringify({name}),
     })
     .then((r) => r.json())
-    .then(response => setCategory(response));
+    .then(response => setCategories(response));
     // .then((response) => console.log(response));
   }
 

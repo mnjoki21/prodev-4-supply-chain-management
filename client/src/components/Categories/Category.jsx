@@ -16,6 +16,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useEffect } from "react";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -49,12 +50,27 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function Category() {
 
-   const [category, setCategory]= React.useState([])
+   const [categories, setCategories]= React.useState([])
 
 
-    const categories = fetch("http://localhost:3000/categories")
-                          .then((r) => r.json())
-                          .then(response => setCategory(response));  
+
+   useEffect(() => {
+    fetch("http://localhost:3000/categories")
+      .then((r) => r.json())
+      .then(data =>setCategories(data));
+  }, []); 
+
+
+  function handleDelete(id) {
+    fetch(`http://localhost:3000/categories/${id}`, {
+      method: "DELETE",
+    })
+      .then((r) => r.json())
+      .then(() => {
+        const deletion = categories.filter((item) => item.id !== id);
+        setCategories(deletion);
+      });
+  }
 
   return (
     
@@ -77,13 +93,13 @@ export default function Category() {
         <TableBody>
 
 
-        {category.map((row) => (
+        {categories.map((row) => (
         
             <StyledTableRow key={row.id} >
               <StyledTableCell component="th" scope="row">
               {row.name}
               </StyledTableCell>
-                        <StyledTableCell align="right"><Button variant="contained" color="error" startIcon={<DeleteIcon />}>
+             <StyledTableCell align="right"><Button onClick={()=>handleDelete()} variant="contained" color="error" startIcon={<DeleteIcon />}>
             Delete
           </Button></StyledTableCell>
               <StyledTableCell align="right"><Button variant="outlined" startIcon={<EditIcon />}>
