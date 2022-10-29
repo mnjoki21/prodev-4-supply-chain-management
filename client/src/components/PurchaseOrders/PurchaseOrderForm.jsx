@@ -1,5 +1,5 @@
 import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid } from '@mui/material';
-import React , { useState}from 'react';  
+import React , { useState, useEffect}from 'react';  
 import Card from '@mui/material/Card';
 import { useNavigate } from "react-router-dom";
 import InputLabel from '@mui/material/InputLabel';
@@ -18,6 +18,20 @@ const PurchaseOrderForm = () => {
 
   const history = useNavigate();  
 
+
+
+  useEffect(() => {
+    fetch("http://localhost:3000/vendor")
+      .then((r) => r.json())
+      .then(data =>setCategory(data));
+  }, []);
+
+
+  useEffect(() => {
+    fetch("http://localhost:3000/products")
+      .then((r) => r.json())
+      .then(data =>setCategory(data));
+  }, []);
 
 
 
