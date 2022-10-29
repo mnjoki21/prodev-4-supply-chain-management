@@ -102,8 +102,8 @@ function Main(){
                 {item.product.name}
               </StyledTableCell>
               <StyledTableCell align="right">{item.vendor.name}</StyledTableCell>
+              <StyledTableCell align="right">{item.invoice_id}</StyledTableCell>
               <StyledTableCell align="right">{item.quantity}</StyledTableCell>
-              <StyledTableCell align="right">{item.invoice.id}</StyledTableCell>
               <StyledTableCell align="right"><Button variant="contained">Edit</Button>
               <Button variant="contained" sx={{backgroundColor: "red", ml:2}}>Delete</Button>
               </StyledTableCell>
