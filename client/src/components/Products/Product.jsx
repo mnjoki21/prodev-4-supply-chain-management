@@ -66,34 +66,6 @@ export default function Product() {
   //     });
   // }
 
-<<<<<<< HEAD
-
-
-  // function deleteEvent(id) {
-  //   const updatedEvents = category.filter((one) => one.id !== id);
-  //   setCategory(updatedEvents);
-  // }
-
-  return (
-    
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-    <ProductsForm />
-    <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-               
-                  
-      <Table sx={{ minWidth: 1000, ml:10 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>CATEGORY</StyledTableCell>
-            <StyledTableCell align="right" >Delete</StyledTableCell>
-            <StyledTableCell align="right">Edit</StyledTableCell>
-      
-          </TableRow>
-        </TableHead>
-        <TableBody>
-=======
   const [ products, setProducts ] = useState([])
 
   useEffect(() => {
@@ -166,7 +138,6 @@ export default function Product() {
     </>
   );
 }
->>>>>>> ea3cad0e (fix: merge conflicts)
 
 
         {/* {category.map((row) => 
@@ -186,11 +157,3 @@ export default function Product() {
               
             </StyledTableRow>
           ))} */}
-        </TableBody>
-      </Table>     
-              </Grid>
-              </Grid>
-    
-    </Container>
-  )
-}
