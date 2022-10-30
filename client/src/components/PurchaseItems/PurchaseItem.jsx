@@ -13,6 +13,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Button } from '@mui/material';
 import {useState, useEffect} from "react";
+import PurchaseItemForm from "./PurcahseItemForm";
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -53,7 +54,8 @@ export default function PurchaseItem() {
     <Grid container spacing={3}>
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>
-              <Typography variant="h4" gutterBottom>
+                <PurchaseItemForm/>
+              <Typography variant="h4"  sx={{}}gutterBottom>
         Purchase Items
       </Typography>
                   
