@@ -1,5 +1,5 @@
 import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid } from '@mui/material';
-import React , { useState}from 'react';  
+import React , { useState, useEffect}from 'react';  
 import Card from '@mui/material/Card';
 import { useNavigate } from "react-router-dom";
 import InputLabel from '@mui/material/InputLabel';
@@ -12,12 +12,26 @@ const PurchaseOrderForm = () => {
   const [amount, setAmount] = useState("");
   const [quantity, setQuantity] = useState("");
   const [vendor , setVendor]=useState("")
-  const [orderNo , setOrderNo]=useState("")
+  const [ordernumber , setOrdernumber]=useState("")
   const [errors, setErrors]= useState([])
  
 
   const history = useNavigate();  
 
+
+
+  useEffect(() => {
+    fetch("http://localhost:3000/vendor")
+      .then((r) => r.json())
+      .then(data =>setCategory(data));
+  }, []);
+
+
+  useEffect(() => {
+    fetch("http://localhost:3000/products")
+      .then((r) => r.json())
+      .then(data =>setCategory(data));
+  }, []);
 
 
 
@@ -53,7 +67,7 @@ const PurchaseOrderForm = () => {
         amount,
         quantity, 
         vendor,
-        orderNo : orderNo,
+        ordernumber : ordernumber,
       }),
     }).then((r) => {
       
@@ -87,16 +101,16 @@ const PurchaseOrderForm = () => {
                 label="Order No."
                 id="orderNo"
                 autoComplete="on"
-                value={orderNo}
+                value={ordernumber}
                 sx={{ minWidth: 300 }}
-                onChange={(e) => setOrderNo(e.target.value)} 
+                onChange={(e) => setOrdernumber(e.target.value)} 
                 />
                
               </FormControl>
               </Grid>
               <Grid item xs={6}>
               {/* <Box sx={{ minWidth: 120 }}> */}
-      <FormControl fullWidth>
+      {/* <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Product</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -106,7 +120,7 @@ const PurchaseOrderForm = () => {
           label="Product"
           sx={{ minWidth: 300 }}
           onChange={(e) => setProduct(e.target.value)} 
-        >
+        > */}
           {/* mapping through  product in the  form system */}
 {/*        
          {products.map((item)=>
@@ -114,14 +128,14 @@ const PurchaseOrderForm = () => {
               <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>
          )} */}
 
-        </Select>
-      </FormControl>
+        {/* </Select>
+      </FormControl> */}
     {/* </Box> */}
               </Grid>
               <br />
               <Grid item xs={6}>
               {/* <Box sx={{ minWidth: 120 }}> */}
-      <FormControl fullWidth>
+      {/* <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Vendor</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -131,7 +145,7 @@ const PurchaseOrderForm = () => {
           label="Vendor"
           sx={{ minWidth: 300 }}
           onChange={(e) => setVendor(e.target.value)} 
-        >
+        > */}
           {/* mapping of vendor form system */}
 
 
@@ -142,8 +156,8 @@ const PurchaseOrderForm = () => {
           {/* <MenuItem value={10}>Val</MenuItem>
           <MenuItem value={20}>Mitchelle</MenuItem>
           <MenuItem value={30}>Fridah</MenuItem> */}
-        </Select>
-      </FormControl>
+        {/* </Select>
+      </FormControl> */}
     {/* </Box> */}
               </Grid>
               <Grid item xs={6}>

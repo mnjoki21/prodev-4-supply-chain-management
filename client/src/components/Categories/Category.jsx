@@ -13,8 +13,11 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {useState, useEffect} from "react"
-
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { useEffect, useState } from "react";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -22,7 +25,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: 30,
   },
 }));
 
@@ -33,32 +36,42 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   // hide last border
   '&:last-child td, &:last-child th': {
     border: 0,
+
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-
 export default function Category() {
-  const [categories, setCategory] = useState([])
-  useEffect(()=>{
-    fetch('http://127.0.0.1:3000/categories')
-    .then((r)=> r.json())
-    .then((categories)=>{
-      setCategory(categories)
-      console.log(categories)
+
+   const [category, setCategory]= React.useState([])
+   console.log(category)
+
+
+   useEffect(() => {
+    fetch("http://localhost:3000/categories")
+      .then((r) => r.json())
+      .then(data =>setCategory(data));
+  }, []); 
+
+  function handleDelete(id) {
+    console.log(id)
+    fetch(`http://localhost:3000/categories/${id}`, {
+      method: "DELETE",
     })
-  },[])
+      .then((r) => r.json())
+      .then(() => {
+        deleteEvent(id)
+        // const deletion = category.filter((item) => item.id !== id);
+        // setCategory(deletion);
+      });
+  }
+
+
+
+  function deleteEvent(id) {
+    const updatedEvents = category.filter((one) => one.id !== id);
+    setCategory(updatedEvents);
+  }
+
   return (
     
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -71,31 +84,34 @@ export default function Category() {
       <Table sx={{ minWidth: 1000, ml:10 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Category</StyledTableCell>
-            <StyledTableCell align="right">Name</StyledTableCell>
-            <StyledTableCell align="right">Delete</StyledTableCell>
+            <StyledTableCell>CATEGORY</StyledTableCell>
+            <StyledTableCell align="right" >Delete</StyledTableCell>
             <StyledTableCell align="right">Edit</StyledTableCell>
-
-            
+      
           </TableRow>
         </TableHead>
         <TableBody>
-          {categories.map((row) => (
-            <StyledTableRow key={row.name}>
+
+
+        {category.map((row) => 
+        
+        (
+            <StyledTableRow key={row.id} >
               <StyledTableCell component="th" scope="row">
-                {row.name}
+              {row.name}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.name}</StyledTableCell>
-              <StyledTableCell align="right"><Button variant="contained" color="error">Delete</Button></StyledTableCell>
-              <StyledTableCell align="right"><Button variant="contained">Edit</Button></StyledTableCell>
+             <StyledTableCell align="right"><Button onClick={()=>handleDelete(row.id)} variant="contained" color="error" startIcon={<DeleteIcon />}>
+            Delete
+          </Button></StyledTableCell>
+              <StyledTableCell align="right"><Button variant="outlined" startIcon={<EditIcon />}>
+        Edit
+      </Button>
+</StyledTableCell>
               
             </StyledTableRow>
           ))}
         </TableBody>
-      </Table>
-  
-
-                
+      </Table>     
               </Grid>
               </Grid>
     

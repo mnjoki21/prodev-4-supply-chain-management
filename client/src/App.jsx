@@ -28,7 +28,7 @@ export default function App() {
   if (!user) return <Login onLogin={setUser} />;
   return (
     <Fragment>
-      <Navbar/>
+      <Navbar user={user} setUser={setUser}/>
       <Routes>
       <Route exact path="/" element={< Main />}/>
       <Route exact path="/categories" element={< Category />}/>
