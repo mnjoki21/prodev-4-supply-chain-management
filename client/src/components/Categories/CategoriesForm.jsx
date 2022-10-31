@@ -6,23 +6,24 @@ import Card from '@mui/material/Card';
 
 
 const CategoriesForm= () => {
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState([]);
+  const [name, setName]= useState("")
   const [errors, setErrors] = useState([]);
   
   function handleOnSubmit(e){
     e.preventDefault();
-    fetch("/categories",{
+    fetch("http://localhost:3000/categories",{
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({category}),
+        body: JSON.stringify({name}),
     })
     .then((r) => r.json())
     .then(response => setCategory(response));
     // .then((response) => console.log(response));
   }
-
+     console.log(category)
   return (
     <>
     <Grid  container direction="row" alignItems="center" justifyContent="center" >
@@ -42,11 +43,11 @@ const CategoriesForm= () => {
                 type="text"
                 variant="outlined"
                 label="Enter Category Name"
-                id="category"
+                id="name"
                 autoComplete="on"
-                value={category}
+                value={name}
                 sx={{ minWidth: 400 }}
-                onChange={(e) => setCategory(e.target.value)} 
+                onChange={(e) => setName(e.target.value)} 
                 />
                
               </FormControl>
