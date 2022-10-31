@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Alert, Box, FormControl,Card, Button,FormHelperText, TextField, Grid, unstable_composeClasses } from '@mui/material';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 
 
@@ -8,6 +11,44 @@ function ProductsForm() {
 
 
 
+
+  const [category, setCategory] = React.useState('');
+  const [product, setProduct] = useState([]);
+  const [description, setDescription]= useState("")
+  const [name, setName]= useState("")
+  const [errors, setErrors] = useState([]);
+
+
+    const [categories, setCategories]= useState([])
+
+
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+  };
+
+
+// fetches categories
+  useEffect(() => {
+    fetch("http://localhost:3000/categories")
+      .then((r) => r.json())
+      .then(data =>setCategories(data));
+  }, []); 
+
+
+
+  function handleOnSubmit(e){
+    e.preventDefault();
+    fetch("http://localhost:3000/products",{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({name, description,category}),
+    })
+    .then((r) => r.json())
+    .then(response => setProduct(response));
+    // .then((response) => console.log(response));
+  }
 
 
   return (
@@ -24,7 +65,7 @@ function ProductsForm() {
             <div>
               
               <FormControl>
-              {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
+              {/* <FormHelperText id="my-helper-text">Enter Product Name</FormHelperText> */}
                 <TextField 
                 type="text"
                 variant="outlined"
@@ -39,34 +80,48 @@ function ProductsForm() {
               </FormControl>
               <br />
               <FormControl>
-              {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
+              {/* <FormHelperText id="my-helper-text">Enter Product Description</FormHelperText> */}
                 <TextField 
                 type="text"
                 variant="outlined"
                 label="Enter Product Description"
-                id="name"
+                id="description"
                 autoComplete="on"
-                value={name}
+                value={description}
                 sx={{ minWidth: 400 }}
-                onChange={(e) => setName(e.target.value)} 
+                onChange={(e) => setDescription(e.target.value)} 
                 />
                
               </FormControl>
               <br />
-              <FormControl>
-              {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
-                <TextField 
-                type="text"
-                variant="outlined"
-                label="Select Product category"
-                id="name"
-                autoComplete="on"
-                value={name}
-                sx={{ minWidth: 400 }}
-                onChange={(e) => setName(e.target.value)} 
-                />
-               
-              </FormControl>
+
+              <FormControl >
+        <InputLabel id="demo-simple-select-label">Category</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={category}
+          label="Category"
+          sx={{ minWidth: 400 }}
+          onChange={handleChange}
+        >  
+        {categories.map((item)=>
+
+           
+            <MenuItem value={item.id}  key={item.id}>{item.name}</MenuItem>
+        )}
+
+
+{/* 
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem> */}
+        </Select>
+      </FormControl>
+         <br />
+              <Box sx={{ minWidth: 120 }}> 
+
+     </Box> 
             </div>
           </Box>
           
@@ -82,13 +137,13 @@ function ProductsForm() {
               <br />
           
             <div>
-              {/* {errors.map((err) => (
+              {errors.map((err) => (
               <>
                 <Alert key={err} severity="error" sx={{ width: '100%' }}>
                   {err}
                 </Alert>
               </>
-              ))}  */}
+              ))} 
             </div>       
           </div>
           </form>
