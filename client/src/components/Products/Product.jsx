@@ -41,28 +41,28 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function Product() {
 
-  //  const [category, setCategory]= React.useState([])
-  //  console.log(category)
+   const [product, setProduct]= React.useState([])
+  
 
 
-  //  useEffect(() => {
-  //   fetch("http://localhost:3000/categories")
-  //     .then((r) => r.json())
-  //     .then(data =>setCategory(data));
-  // }, []); 
+   useEffect(() => {
+    fetch("http://localhost:3000/products")
+      .then((r) => r.json())
+      .then(data =>setProduct(data));
+  }, []); 
 
-  // function handleDelete(id) {
-  //   console.log(id)
-  //   fetch(`http://localhost:3000/categories/${id}`, {
-  //     method: "DELETE",
-  //   })
-  //     .then((r) => r.json())
-  //     .then(() => {
-  //       deleteEvent(id)
-  //       // const deletion = category.filter((item) => item.id !== id);
-  //       // setCategory(deletion);
-  //     });
-  // }
+  function handleDelete(id) {
+    console.log(id)
+    fetch(`http://localhost:3000/products/${id}`, {
+      method: "DELETE",
+    })
+      .then((r) => r.json())
+      .then(() => {
+        deleteEvent(id)
+        const deletion = category.filter((item) => item.id !== id);
+        setProduct(deletion);
+      });
+  }
 
 
 
