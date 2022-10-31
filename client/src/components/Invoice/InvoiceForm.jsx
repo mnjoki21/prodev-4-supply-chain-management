@@ -13,6 +13,8 @@ function InvoiceForm() {
 
 
   const [purchaseorder, setPurchaseorder] = React.useState('');
+  const [product, setProduct]=useState("")
+  const [vendor, setVendor]=useState("")
   const [amount, setAmount] = useState([]);
   const [quantity, setQuantity]= useState("")
   const [accountname, setAccountname]= useState("")
@@ -20,30 +22,55 @@ function InvoiceForm() {
 
 
     const [purchaseorders, setPurchaseorders]= useState([])
-
-
   const handleChange = (event) => {
     setPurchaseorder(event.target.value);
   };
+
+
+
+  const [products, setProducts]= useState([])
+  const handleChangeProduct = (event) => {
+    setProduct(event.target.value);
+  };
+
+
+  const [vendors, setVendors]= useState([])
+  const handleChangeVendor = (event) => {
+    setVendors(event.target.value);
+  };
+
 
 
 // fetches categories
   useEffect(() => {
     fetch("http://localhost:3000/purchaseorders")
       .then((r) => r.json())
-      .then(data =>setCategories(data));
+      .then(data =>setPurchaseorders(data));
   }, []); 
 
+// fetches products
+  useEffect(() => {
+    fetch("http://localhost:3000/products")
+      .then((r) => r.json())
+      .then(data =>setProducts(data));
+  }, []); 
+
+  // fetches vendors 
+  useEffect(() => {
+    fetch("http://localhost:3000/vendors")
+      .then((r) => r.json())
+      .then(data =>setVendors(data));
+  }, []); 
 
 
   function handleOnSubmit(e){
     e.preventDefault();
-    fetch("http://localhost:3000/products",{
+    fetch("http://localhost:3000/invoices",{
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({accountname, description,category}),
+        body: JSON.stringify({accountname, description ,product,vendor, purchaseorder,}),
     })
     .then((r) => r.json())
     .then(response => setProduct(response));
@@ -128,6 +155,44 @@ function InvoiceForm() {
         </Select>
       </FormControl>
          <br />
+         <br />
+         <FormControl >
+        <InputLabel id="demo-simple-select-label">Products</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={product}
+          label="Product"
+          sx={{ minWidth: 400 }}
+          onChange={handleChangeProduct}
+        >  
+        {products.map((item)=>
+
+           
+            <MenuItem value={item.id}  key={item.id}>{item.name}</MenuItem>
+        )}
+        </Select>
+      </FormControl>
+      <br />
+      <br />
+      <FormControl >
+        <InputLabel id="demo-simple-select-label">Vendor</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={vendor}
+          label="Vendor"
+          sx={{ minWidth: 400 }}
+          onChange={handleChangeVendor}
+        >  
+        {vendors.map((item)=>
+
+           
+            <MenuItem value={item.id}  key={item.id}>{item.name}</MenuItem>
+        )}
+        </Select>
+      </FormControl>
+      <br />
               <Box sx={{ minWidth: 120 }}> 
 
      </Box> 

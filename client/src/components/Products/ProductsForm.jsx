@@ -20,8 +20,6 @@ function ProductsForm() {
 
 
     const [categories, setCategories]= useState([])
-
-
   const handleChange = (event) => {
     setCategory(event.target.value);
   };
