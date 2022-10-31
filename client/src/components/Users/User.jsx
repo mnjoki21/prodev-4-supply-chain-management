@@ -51,7 +51,7 @@ export default function User() {
         {/* Chart */}
         <Grid item xs={12} md={8} lg={9}>
         <Typography variant="h4" gutterBottom>
-        Stock Items
+        Users
       </Typography>
           <Table
             sx={{
