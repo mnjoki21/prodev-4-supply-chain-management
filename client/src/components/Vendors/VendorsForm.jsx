@@ -5,6 +5,21 @@ import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid, unstab
 
 export default function VendorsForm() {
   return (
-    <div>VendorsForm</div>
+    <div>
+        <FormControl>
+            <TextField 
+            type="text"
+            variant="outlined"
+            label="Enter First Name"
+            id="name"
+            autoComplete="on"
+            />
+
+            
+               
+           
+        </FormControl>
+        
+    </div>
   )
 }
