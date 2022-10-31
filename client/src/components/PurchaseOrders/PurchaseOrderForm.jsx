@@ -38,24 +38,6 @@ const PurchaseOrderForm = () => {
 
 
 
-  // const vendors = fetch("http://localhost:3000/vendors").then((r) => {
-      
-  //   if (r.ok) {
-  //     history.push("/");
-  //   } else {
-  //     r.json().then((err) => setErrors(err.errors));
-  //   }
-  // })
-                         
-
-  // const products = fetch("http://localhost:3000/products").then((r) => {
-      
-  //   if (r.ok) {
-  //     history.push("/");
-  //   } else {
-  //     r.json().then((err) => setErrors(err.errors));
-  //   }
-  // })
 
   function handleSubmit(e){
     e.preventDefault();
