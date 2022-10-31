@@ -1,89 +1,86 @@
-import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid } from '@mui/material';
-import React , { useState}from 'react';  
-import Login from '../Register/Login';
-import Card from '@mui/material/Card';
+import {Box} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import * as React from 'react';
+import {styled} from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, {tableCellClasses} from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import {useState, useEffect} from "react";
 
+const StyledTableCell = styled(TableCell)(({theme}) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14
+  }
+}));
 
-const User = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
- 
+const StyledTableRow = styled(TableRow)(({theme}) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0
+  }
+}));
 
-  
-
+export default function User() {
+  const [users,
+    setUsers] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:3000/users").then((r) => r.json()).then((users) => {
+      setUsers(users)
+    })
+  }, [])
   return (
-    <>
-    <Grid  container direction="row" alignItems="center" justifyContent="center" >
-      <Box    >
-      <Card sx={{ minWidth: 400 }}>
-        <main >
-        <form  >
-          <p style={{fontWeight: "bolder", fontSize: 40 ,alignItems:"center", justifyContent:"center",textAlign:'center'}}>Form</p>
-          
-          <Box sx={{'& .MuiTextField-root': { m: 1, width: '35ch' },}}>
-          
-            <div>
-              
-              <FormControl>
-              <FormHelperText id="my-helper-text">Enter your Email Address</FormHelperText>
-                <TextField 
-                type="email"
-                variant="outlined"
-                label="Email"
-                id="email"
-                autoComplete="on"
-                value={email}
-                sx={{ minWidth: 400 }}
-                onChange={(e) => setEmail(e.target.value)} 
-                />
-               
-              </FormControl>
-              <br />
-              <FormControl>
-              <FormHelperText id="my-helper-text">Enter your password</FormHelperText>
-                <TextField 
-                type="password"
-                label="Password"
-                id="password"
-                sx={{ minWidth: 400 }}
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                />
-                
-              </FormControl>
-            </div>
-          </Box>
-          
-          <br />
-          <br />
-          <div>
-            
-                <Box textAlign='center'>
-      <Button variant='contained' type="submit" style={{fontSize: 16 }}>
-        Submit
-      </Button>
-     </Box>
-              <br />
-          
-            <div>
-              {errors.map((err) => (
-              <>
-                <Alert key={err} severity="error" sx={{ width: '100%' }}>
-                  {err}
-                </Alert>
-              </>
-              ))} 
-            </div>       
-          </div>
-          </form>
-        </main>
-        </Card>
-      </Box>
+
+    <Container maxWidth="lg" sx={{
+      mt: 4,
+      mb: 4
+    }}>
+      <Grid container spacing={3}>
+        {/* Chart */}
+        <Grid item xs={12} md={8} lg={9}>
+        <Typography variant="h4" gutterBottom>
+        Users
+      </Typography>
+          <Table
+            sx={{
+            minWidth: 1000,
+            ml: 10
+          }}
+            aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Email</StyledTableCell>
+                <StyledTableCell align="right" >Role</StyledTableCell>
+
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {users.map((user) => (
+                <StyledTableRow key={user.id}>
+                  <StyledTableCell component="th" scope="row">
+                    {user.email}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">Procument Officer</StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+
+        </Grid>
       </Grid>
-    </>
+
+    </Container>
   )
 }
-
-export default User

@@ -16,21 +16,24 @@ const PurchaseOrderForm = () => {
   const [errors, setErrors]= useState([])
  
 
-  const history = useNavigate();  
+  // const history = useNavigate();  
 
-
+  const [vendors, setVendors]= useState([])
+  const handleChange = (event) => {
+    setVendor(event.target.value);
+  };
 
   useEffect(() => {
-    fetch("http://localhost:3000/vendor")
+    fetch("http://localhost:3000/vendors")
       .then((r) => r.json())
-      .then(data =>setCategory(data));
+      .then(data =>setVendors(data));
   }, []);
 
 
   useEffect(() => {
     fetch("http://localhost:3000/products")
       .then((r) => r.json())
-      .then(data =>setCategory(data));
+      .then(data =>setProduct(data));
   }, []);
 
 
@@ -109,8 +112,8 @@ const PurchaseOrderForm = () => {
               </FormControl>
               </Grid>
               <Grid item xs={6}>
-              {/* <Box sx={{ minWidth: 120 }}> */}
-      {/* <FormControl fullWidth>
+              <Box sx={{ minWidth: 120 }}> 
+       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Product</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -120,22 +123,22 @@ const PurchaseOrderForm = () => {
           label="Product"
           sx={{ minWidth: 300 }}
           onChange={(e) => setProduct(e.target.value)} 
-        > */}
+        > 
           {/* mapping through  product in the  form system */}
-{/*        
-         {products.map((item)=>
+        
+         {/* {products.map((item)=>
 
               <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>
-         )} */}
+         )}  */}
 
-        {/* </Select>
-      </FormControl> */}
-    {/* </Box> */}
+         </Select>
+      </FormControl> 
+     </Box> 
               </Grid>
               <br />
               <Grid item xs={6}>
-              {/* <Box sx={{ minWidth: 120 }}> */}
-      {/* <FormControl fullWidth>
+               <Box sx={{ minWidth: 120 }}> 
+       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Vendor</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -145,20 +148,18 @@ const PurchaseOrderForm = () => {
           label="Vendor"
           sx={{ minWidth: 300 }}
           onChange={(e) => setVendor(e.target.value)} 
-        > */}
+        > 
           {/* mapping of vendor form system */}
 
 
-          {/* {vendors.map((vendor)=>
+          {vendors.map((vendor)=>
 
 <MenuItem value={vendor.id} key={vendor.id}>{vendor.name}</MenuItem>
-)} */}
-          {/* <MenuItem value={10}>Val</MenuItem>
-          <MenuItem value={20}>Mitchelle</MenuItem>
-          <MenuItem value={30}>Fridah</MenuItem> */}
-        {/* </Select>
-      </FormControl> */}
-    {/* </Box> */}
+)} 
+         
+         </Select>
+      </FormControl> 
+     </Box> 
               </Grid>
               <Grid item xs={6}>
               <FormControl>
