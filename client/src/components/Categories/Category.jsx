@@ -81,7 +81,7 @@ export default function Category() {
             aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>CATEGORY</StyledTableCell>
+                <StyledTableCell>Category</StyledTableCell>
                 <StyledTableCell align="right">Action</StyledTableCell>
               
 
