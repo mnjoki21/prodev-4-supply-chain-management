@@ -45,6 +45,10 @@ export default function Vendor() {
       setItems(items)
     })
   }, [])
+  function getItems(newItemsReceived) {
+    const updateItems = [...items, newItemsReceived];
+    setItems(updateItems);
+  }
 
   return (
 
@@ -68,8 +72,9 @@ export default function Vendor() {
             onClick={() => setIsAdding((isAdding) => !isAdding)}>Add Vendor</Button>
 
           {isAdding
-            ? <VendorsForm/>
-            : null}
+          ? <VendorsForm getItems={getItems}/>
+          : null}
+
 
           <Table
             sx={{
@@ -86,14 +91,12 @@ export default function Vendor() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {name.map((name) => (
-                <StyledTableRow key={name.id}>
-                  <StyledTableCell component="th" scope="row">
-                    {item.product.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{item.vendor.name}</StyledTableCell>
-                  <StyledTableCell align="right">{item.invoice_id}</StyledTableCell>
-                  <StyledTableCell align="right">{item.quantity}</StyledTableCell>
+              {items.map((item) => (
+                <StyledTableRow key={item.id}>
+                  <StyledTableCell align="right">{item.name}</StyledTableCell>
+                  <StyledTableCell align="right">{item.email}</StyledTableCell>
+                  <StyledTableCell align="right">{item.address}</StyledTableCell>
+                  <StyledTableCell align="right">{item.phone_number}</StyledTableCell>
                   <StyledTableCell align="right">
                     <Button variant="contained">Edit</Button>
                     <Button
