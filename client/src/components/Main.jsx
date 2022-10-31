@@ -43,6 +43,7 @@ function Main({stocks}){
       setItems(items)
     })
   }, [])
+  
     return(
         <>
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4, ml:35 }}>
@@ -60,7 +61,7 @@ function Main({stocks}){
                     backgroundColor:"#74A4BC"
                   }}
                 >
-                  <Typography>Stock Items</Typography>
+                  <Typography sx={{ fontSize: 40, color:"white"}} >Stock Items</Typography>
                   <Typography>{stocks.length} stock items</Typography>
                 </Paper>
               </Grid>
@@ -92,6 +93,8 @@ function Main({stocks}){
                     backgroundColor: "#FF3A20"
                   }}
                 >
+                    <Typography sx={{ fontSize: 40, color:"white"}}>Purchase Items</Typography>
+                  <Typography>{items.length} Purchase Items</Typography>
 
                 </Paper>
               </Grid>
