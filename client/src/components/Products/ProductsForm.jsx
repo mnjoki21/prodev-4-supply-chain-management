@@ -1,19 +1,44 @@
-import React from "react";
-import {
-  Alert,
-  Box,
-  FormControl,
-  Card,
-  Button,
-  FormHelperText,
-  TextField,
-  Grid,
-  unstable_composeClasses,
-} from "@mui/material";
+import {Alert,Box,FormControl,Button,FormHelperText,TextField, Grid,} from "@mui/material";
+import React, { useState } from "react";
+import Card from "@mui/material/Card";
+
 
 function ProductsForm() {
+  const [ formData, setFormData ] = useState({
+    id:'',
+    name: '',
+    description: '',
+  })
+  const url = "http://lovalhost:3000/products"
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    fetch(url, {
+      method: "POST",
+      Headers: {
+        'Content-Type' : 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    setFormData({
+      id: '',
+      name: '',
+      description:''
+    })
+    console.log(formData)
+  }
+
+  function handleChange(e) {
+    setFormData({
+      ...formData,
+      [e.taget.name]: e.target.value
+    })
+  }
+
+  
+
   return (
-    <div>
+    <>
       <Grid
         container
         direction="row"
@@ -33,18 +58,20 @@ function ProductsForm() {
                     textAlign: "center",
                   }}
                 >
-                  Add Product
+                  Form
                 </p>
 
                 <Box sx={{ "& .MuiTextField-root": { m: 1, width: "35ch" } }}>
                   <div>
                     <FormControl>
-                      {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
+                      <FormHelperText id="my-helper-text">
+                        Enter your Name here
+                      </FormHelperText>
                       <TextField
                         type="text"
                         variant="outlined"
-                        label="Enter Product Name"
-                        id="name"
+                        label="Name"
+                  
                         autoComplete="on"
                         value={name}
                         sx={{ minWidth: 400 }}
@@ -53,30 +80,15 @@ function ProductsForm() {
                     </FormControl>
                     <br />
                     <FormControl>
-                      {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
+                      <FormHelperText >
+                        Enter description here
+                      </FormHelperText>
                       <TextField
                         type="text"
-                        variant="outlined"
-                        label="Enter Product Description"
-                        id="name"
-                        autoComplete="on"
-                        value={name}
+                        label="text"
                         sx={{ minWidth: 400 }}
-                        onChange={(e) => setName(e.target.value)}
-                      />
-                    </FormControl>
-                    <br />
-                    <FormControl>
-                      {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
-                      <TextField
-                        type="text"
-                        variant="outlined"
-                        label="Select Product category"
-                        id="name"
-                        autoComplete="on"
-                        value={name}
-                        sx={{ minWidth: 400 }}
-                        onChange={(e) => setName(e.target.value)}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                       />
                     </FormControl>
                   </div>
@@ -97,13 +109,17 @@ function ProductsForm() {
                   <br />
 
                   <div>
-                    {/* {errors.map((err) => (
-              <>
-                <Alert key={err} severity="error" sx={{ width: '100%' }}>
-                  {err}
-                </Alert>
-              </>
-              ))}  */}
+                    {errors.map((err) => (
+                      <>
+                        <Alert
+                          key={err}
+                          severity="error"
+                          sx={{ width: "100%" }}
+                        >
+                          {err}
+                        </Alert>
+                      </>
+                    ))}
                   </div>
                 </div>
               </form>
@@ -111,7 +127,7 @@ function ProductsForm() {
           </Card>
         </Box>
       </Grid>
-    </div>
+    </>
   );
 }
 
