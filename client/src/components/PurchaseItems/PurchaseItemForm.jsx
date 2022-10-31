@@ -25,7 +25,7 @@ const MenuProps = {
 
 
 
-function PurchaseItemForm() {
+function PurchaseItemForm({getItems}) {
 
   // fetchproducts
   const[products, setProducts] = useState([])
@@ -46,9 +46,52 @@ function PurchaseItemForm() {
   useEffect(() => {
     fetch("http://localhost:3000/invoices").then((r) => r.json()).then((invoices) => {
       setInvoices(invoices)
-      console.log(invoices)
+  
     })
   }, [])
+
+  const [items, setItems] = useState({
+    product_id: "",
+    vendor_id: "",
+    invoice_id: "",
+    quantity: ""
+  })
+  function onDataChange(e) {
+    setItems({
+      ...items,
+      [e.target.name]: e.target.value,
+    });
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    const createdItems = {
+      product_id: items.product_id,
+      vendor_id: items.vendor_id,
+      invoice_id: items.invoice_id,
+      quantity: items.quantity
+    };
+
+    fetch("http://localhost:3000/purchaseitems", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(createdItems),
+    })
+      .then((res) => res.json())
+      .then((newItem) => {
+        getItems(newItem);
+        setItems({
+          ...items,
+            product_id: "",
+            vendor_id: "",
+            invoice_id: "",
+            quantity: ""
+        });
+      });
+      
+  }
+
 
 
   return (
@@ -72,48 +115,55 @@ function PurchaseItemForm() {
               m: 1,
               width: 500
             }}>
-              <InputLabel id="demo-simple-select-label" >Product</InputLabel>
+              <InputLabel >Product</InputLabel>
               <Select
-                 labelId="demo-simple-select-label"
-                 id="demo-simple-select"
+                 name="product_id" 
+                 onChange={onDataChange}
               >
                 {products.map((product) => (
-                  <MenuItem>
+                  <MenuItem  key={product.id} value={product.id}>
                     {product.name}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
+
             <FormControl sx={{
               m: 1,
               width: 500
             }}>
               <InputLabel >Vendor</InputLabel>
-              <Select >
+              <Select 
+              name="vendor_id"
+              onChange={onDataChange}
+              >
                 {vendors.map((vendor) => (
-                  <MenuItem >
+                  <MenuItem   key= {vendor.id}  value={vendor.id}>
                     {vendor.name}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
+
             <FormControl sx={{
               m: 1,
               width: 500
             }}>
               <InputLabel>Invoice Number</InputLabel>
               <Select
-                input={< OutlinedInput label = "Name" />}
+                input={< OutlinedInput label = "Invoice" />}
+                name="invoice_id"
+                onChange={onDataChange}
                 >
                 {invoices.map((invoice) => (
-                  <MenuItem>
+                  <MenuItem  key={invoice.id} value={invoice.id}>
                     {invoice.id}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
-            <TextField id="outlined-basic" label="Quantity" variant="outlined" sx={{width:500, m:1}}/>
-            <Button variant="contained" type="submit" sx={{mt:2}}>Submit</Button>
+            <TextField id="outlined-basic" label="Quantity" variant="outlined" name="quantity" value={items.quantity} onChange={onDataChange} sx={{width:500, m:1}}/>
+            <Button variant="contained" type="submit" sx={{mt:2}} onClick={handleSubmit}>Submit</Button>
 
           </Paper>
         </Grid>

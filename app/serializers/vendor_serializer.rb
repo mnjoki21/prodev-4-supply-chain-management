@@ -1,3 +1,4 @@
 class VendorSerializer < ActiveModel::Serializer
-  attributes  :name, :email, :address, :phone_number
+  attributes :id, :name, :email, :address, :phone_number
+
 end

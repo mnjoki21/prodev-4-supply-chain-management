@@ -1,5 +1,5 @@
 class PurchaseitemSerializer < ActiveModel::Serializer
-  attributes :product_id, :vendor_id, :quantity, :invoice_id
+  attributes :id, :product_id, :vendor_id, :quantity, :invoice_id
 
   belongs_to :product
   belongs_to :vendor
