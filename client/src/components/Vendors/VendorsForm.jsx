@@ -27,18 +27,15 @@ const MenuProps = {
 
 function VendorsForm({getItems}) {
 
-//   fetchname
+
   const[name, setName] = useState("")
   const [errors, setErrors] = useState([])
   
-// fetch email
   const[email, setEmail] = useState("")
   
-// fetch address
+
   const[address, setAddress] = useState("")
  
-
-//   fetch phone
   const[phone_number, setPhoneNumber] = useState("")
  
 
@@ -96,64 +93,21 @@ function VendorsForm({getItems}) {
           
             <div>
               
-              <FormControl>
-              {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
-                <TextField 
-                type="text"
-                variant="outlined"
-                label="Enter Vendor Name"
-                id="name"
-                autoComplete="on"
-                value={name}
-                sx={{ minWidth: 400 }}
-                onChange={(e) => setName(e.target.value)} 
-                />
+            <TextField id="outlined-basic" label="Name" variant="outlined" name="name" value={items.name} onChange={onDataChange} sx={{width:500, m:1}}/>
+
                
-              </FormControl>
+              
               <br />
-              <FormControl>
-              {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
-                <TextField 
-                type="text"
-                variant="outlined"
-                label="Enter Address"
-                id="name"
-                autoComplete="on"
-                value={address}
-                sx={{ minWidth: 400 }}
-                onChange={(e) => setAddress(e.target.value)} 
-                />
-               
-              </FormControl>
+              <TextField id="outlined-basic" label="Address" variant="outlined" name="address" value={items.address} onChange={onDataChange} sx={{width:500, m:1}}/>
+
               <br />
-              <FormControl>
-              {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
-                <TextField 
-                type="text"
-                variant="outlined"
-                label="Enter Email"
-                id="email"
-                autoComplete="on"
-                value={email}
-                sx={{ minWidth: 400 }}
-                onChange={(e) => setEmail(e.target.value)} 
-                />
+              <TextField id="outlined-basic" label="Email" variant="outlined" name="email" value={items.email} onChange={onDataChange} sx={{width:500, m:1}}/>
+
                
-              </FormControl>
-              <br /><FormControl>
-              {/* <FormHelperText id="my-helper-text">Category</FormHelperText> */}
-                <TextField 
-                type="number"
-                variant="outlined"
-                label="Enter Phone Number"
-                id="phone_number"
-                autoComplete="on"
-                value={phone_number}
-                sx={{ minWidth: 400 }}
-                onChange={(e) => setPhoneNumber(e.target.value)} 
-                />
-               
-              </FormControl>
+              
+              <br />
+              <TextField type="number" id="outlined-basic" label="Phone-number" variant="outlined" name="phone_number" value={items.phone_number} onChange={onDataChange} sx={{width:500, m:1}}/>
+
               <br />
             </div>
           </Box>

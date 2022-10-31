@@ -58,9 +58,9 @@ export default function Category() {
     })
       .then((r) => r.json())
       .then(() => {
-        deleteEvent(id)
-        // const deletion = category.filter((item) => item.id !== id);
-        // setCategory(deletion);
+        // deleteEvent(id)
+        const deletion = category.filter((item) => item.id !== id);
+        setCategory(deletion);
       });
   }
 
