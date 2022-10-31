@@ -85,7 +85,15 @@ const DrawerHeader = styled('div')(({theme}) => ({
   justifyContent: 'flex-end'
 }));
 
-function Navbar() {
+function Navbar({user, setUser}) {
+  function handleLogoutClick() {
+    fetch("http://localhost:3000/logout", { method: "DELETE" }).then((r) => {
+      if (r.ok) {
+        setUser(null);
+      }
+    });
+  }
+
   const theme = useTheme();
   const [open,
     setOpen] = React.useState(false);
@@ -97,6 +105,7 @@ function Navbar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  
 
   return (
     <Box sx={{
@@ -124,10 +133,10 @@ function Navbar() {
           }}>
             <MenuIcon/>
           </IconButton>
-          <SearchIcon/>
-          <Typography sx={{
+          {/* <SearchIcon/> */}
+          {/* <Typography sx={{
             pl: 2
-          }}>Search</Typography>
+          }}>Search</Typography> */}
 
         </Toolbar>
       </AppBar>
@@ -269,7 +278,7 @@ function Navbar() {
             color: 'white',
             mt:100
           }}
-            to={""}><LogoutIcon sx={{
+          onClick={handleLogoutClick}><LogoutIcon sx={{
       mr: 6
     }}/>Logout</Link>
         </List>
