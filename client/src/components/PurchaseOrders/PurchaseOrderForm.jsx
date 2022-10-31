@@ -16,14 +16,17 @@ const PurchaseOrderForm = () => {
   const [errors, setErrors]= useState([])
  
 
-  const history = useNavigate();  
+  // const history = useNavigate();  
 
-
+  const [vendors, setVendors]= useState([])
+  const handleChange = (event) => {
+    setVendor(event.target.value);
+  };
 
   useEffect(() => {
-    fetch("http://localhost:3000/vendor")
+    fetch("http://localhost:3000/vendors")
       .then((r) => r.json())
-      .then(data =>setVendor(data));
+      .then(data =>setVendors(data));
   }, []);
 
 
@@ -149,13 +152,11 @@ const PurchaseOrderForm = () => {
           {/* mapping of vendor form system */}
 
 
-          {vendor.map((vendor)=>
+          {vendors.map((vendor)=>
 
 <MenuItem value={vendor.id} key={vendor.id}>{vendor.name}</MenuItem>
 )} 
-          <MenuItem value={10}>Val</MenuItem>
-          <MenuItem value={20}>Mitchelle</MenuItem>
-          <MenuItem value={30}>Fridah</MenuItem> 
+         
          </Select>
       </FormControl> 
      </Box> 
