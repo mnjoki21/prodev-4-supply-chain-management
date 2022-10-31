@@ -52,11 +52,12 @@ function Main({stocks}){
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
-                    p: 2,
+                    p: 1,
                     display: 'flex',
                     flexDirection: 'column',
                     height: 240,
-                    width: 350
+                    width: 350,
+                    backgroundColor:"#74A4BC"
                   }}
                 >
                   <Typography>Stock Items</Typography>
@@ -67,12 +68,13 @@ function Main({stocks}){
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
-                    p: 2,
+                    p: 1,
                     display: 'flex',
                     flexDirection: 'column',
                     height: 240,
                     width: 350,
-                    ml:10
+                    ml:10,
+                    backgroundColor:"#B6D6CC"
                   }}
                 >
 
@@ -81,12 +83,13 @@ function Main({stocks}){
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
-                    p: 2,
+                    p: 1,
                     display: 'flex',
                     flexDirection: 'column',
                     height: 240,
                     width: 350,
-                    ml:20
+                    ml:20,
+                    backgroundColor: "#FF3A20"
                   }}
                 >
 

@@ -40,7 +40,7 @@ export default function App() {
     <Fragment>
       <Navbar user={user} setUser={setUser}/>
       <Routes>
-      <Route exact path="/" element={< Main stocks={stocks}/>}/>
+      <Route exact path="/" element={< Main stocks={stocks} user={user}/>}/>
       <Route exact path="/categories" element={< Category />}/>
         <Route exact path="/vendors" element={< Vendor />}/>
         <Route exact path="/products" element={< Product />}/>
