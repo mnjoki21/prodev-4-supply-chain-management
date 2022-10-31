@@ -2,13 +2,15 @@ import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid } from 
 import React , { useState}from 'react';  
 import Login from '../Register/Login';
 import Card from '@mui/material/Card';
+import { useEffect, useState } from 'react';
 
 
 const User = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [signInData, setSignInData] = useState({
+    email: "",
+    password: "",
+  });
   const [errors, setErrors] = useState([]);
- 
 
   
 
