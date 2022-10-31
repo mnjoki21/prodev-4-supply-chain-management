@@ -71,7 +71,7 @@ export default function Product() {
       .then((data) => {
         console.log(data);
 
-        setProduct(data);
+        setProducts(data);
       });
   }, [])
   
@@ -90,9 +90,9 @@ export default function Product() {
     })
   }
 
-  return (     
-    
+  return (
     <>
+      <ProductsForm />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 1350 }} aria-label="customized table">
           <TableHead>
@@ -120,7 +120,6 @@ export default function Product() {
            ) })}
           </TableBody>
         </Table>
-        
       </TableContainer>
       <Button
         type="button"
