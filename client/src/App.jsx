@@ -25,12 +25,22 @@ export default function App() {
     });
   }, []);
 
+  const [stocks,
+    setStocks] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:3000/stocks").then((r) => r.json()).then((stocks) => {
+      setStocks(stocks)
+    })
+  }, [])
+
+
+
   if (!user) return <Login onLogin={setUser} />;
   return (
     <Fragment>
       <Navbar user={user} setUser={setUser}/>
       <Routes>
-      <Route exact path="/" element={< Main />}/>
+      <Route exact path="/" element={< Main stocks={stocks}/>}/>
       <Route exact path="/categories" element={< Category />}/>
         <Route exact path="/vendors" element={< Vendor />}/>
         <Route exact path="/products" element={< Product />}/>

@@ -35,7 +35,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function Main(){
+function Main({stocks}){
   const [items,
     setItems] = useState([])
   useEffect(() => {
@@ -45,19 +45,22 @@ function Main(){
   }, [])
     return(
         <>
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, ml:35 }}>
             HELLO USER
             <Grid container spacing={10} >
               {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
+              <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
                     height: 240,
+                    width: 350
                   }}
                 >
+                  <Typography>Stock Items</Typography>
+                  <Typography>{stocks.length} stock items</Typography>
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -68,6 +71,22 @@ function Main(){
                     display: 'flex',
                     flexDirection: 'column',
                     height: 240,
+                    width: 350,
+                    ml:10
+                  }}
+                >
+
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={4} lg={3}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 240,
+                    width: 350,
+                    ml:20
                   }}
                 >
 
