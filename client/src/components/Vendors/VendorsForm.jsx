@@ -10,14 +10,36 @@ export default function VendorsForm() {
             <TextField 
             type="text"
             variant="outlined"
-            label="Enter First Name"
+            label="Enter Name"
             id="name"
             autoComplete="on"
             />
 
-            
-               
-           
+            <TextField 
+            type="text"
+            variant="outlined"
+            label="Enter Email"
+            id="name"
+            autoComplete="on"
+            />
+
+            <TextField 
+            type="text"
+            variant="outlined"
+            label="Enter Address"
+            id="name"
+            autoComplete="on"
+            />
+
+            <TextField 
+            type="text"
+            variant="outlined"
+            label="Enter Phone Number"
+            id="name"
+            autoComplete="on"
+            />
+
+    
         </FormControl>
         
     </div>
