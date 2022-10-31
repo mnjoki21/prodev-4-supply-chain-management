@@ -108,7 +108,6 @@ export default function PurchaseItem() {
                       ml: 2
                     }}>Delete</Button>
                   </StyledTableCell>
-
                 </StyledTableRow>
               ))}
             </TableBody>
