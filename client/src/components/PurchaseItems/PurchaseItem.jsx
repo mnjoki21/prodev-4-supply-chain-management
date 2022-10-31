@@ -13,7 +13,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import {Button} from '@mui/material';
 import {useState, useEffect} from "react";
-import PurchaseItemForm from "./PurcahseItemForm";
+import PurchaseItemForm from "./PurchaseItemForm";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -46,6 +46,12 @@ export default function PurchaseItem() {
     })
   }, [])
 
+  function getItems(newItemsReceived) {
+    const updateItems = [...items, newItemsReceived];
+    setItems(updateItems);
+  }
+
+
   return (
 
     <Container maxWidth="lg" sx={{
@@ -68,7 +74,7 @@ export default function PurchaseItem() {
             onClick={() => setIsAdding((isAdding) => !isAdding)}>Add PurchaseItem</Button>
 
           {isAdding
-            ? <PurchaseItemForm/>
+            ? <PurchaseItemForm getItems={getItems}/>
             : null}
 
           <Table
