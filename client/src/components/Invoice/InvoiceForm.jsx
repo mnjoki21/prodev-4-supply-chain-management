@@ -6,30 +6,30 @@ import Select from '@mui/material/Select';
 
 
 
-function ProductsForm() {
+function InvoiceForm() {
 
 
 
 
 
-  const [category, setCategory] = React.useState('');
-  const [product, setProduct] = useState([]);
-  const [description, setDescription]= useState("")
-  const [name, setName]= useState("")
+  const [purchaseorder, setPurchaseorder] = React.useState('');
+  const [amount, setAmount] = useState([]);
+  const [quantity, setQuantity]= useState("")
+  const [accountname, setAccountname]= useState("")
   const [errors, setErrors] = useState([]);
 
 
-    const [categories, setCategories]= useState([])
+    const [purchaseorders, setPurchaseorders]= useState([])
 
 
   const handleChange = (event) => {
-    setCategory(event.target.value);
+    setPurchaseorder(event.target.value);
   };
 
 
 // fetches categories
   useEffect(() => {
-    fetch("http://localhost:3000/categories")
+    fetch("http://localhost:3000/purchaseorders")
       .then((r) => r.json())
       .then(data =>setCategories(data));
   }, []); 
@@ -43,7 +43,7 @@ function ProductsForm() {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({name, description,category}),
+        body: JSON.stringify({accountname, description,category}),
     })
     .then((r) => r.json())
     .then(response => setProduct(response));
@@ -58,7 +58,7 @@ function ProductsForm() {
       <Card sx={{ minWidth: 400 }}>
         <main >
         <form  >
-          <p style={{fontWeight: "bolder", fontSize: 40 ,alignItems:"center", justifyContent:"center",textAlign:'center'}}>Add Product</p>
+          <p style={{fontWeight: "bolder", fontSize: 40 ,alignItems:"center", justifyContent:"center",textAlign:'center'}}>Invoice</p>
           
           <Box sx={{'& .MuiTextField-root': { m: 1, width: '35ch' },}}>
           
@@ -69,12 +69,12 @@ function ProductsForm() {
                 <TextField 
                 type="text"
                 variant="outlined"
-                label="Enter Product Name"
-                id="name"
+                label="Enter Account Name"
+                id="accountname"
                 autoComplete="on"
-                value={name}
+                value={accountname}
                 sx={{ minWidth: 400 }}
-                onChange={(e) => setName(e.target.value)} 
+                onChange={(e) => setAccountname(e.target.value)} 
                 />
                
               </FormControl>
@@ -82,30 +82,45 @@ function ProductsForm() {
               <FormControl>
               {/* <FormHelperText id="my-helper-text">Enter Product Description</FormHelperText> */}
                 <TextField 
-                type="text"
+                type="number"
                 variant="outlined"
-                label="Enter Product Description"
-                id="description"
+                label="Enter Amount"
+                id="amount"
                 autoComplete="on"
-                value={description}
+                value={amount}
                 sx={{ minWidth: 400 }}
-                onChange={(e) => setDescription(e.target.value)} 
+                onChange={(e) => setAmount(e.target.value)} 
+                />
+               
+              </FormControl>
+              <br />
+              <FormControl>
+              {/* <FormHelperText id="my-helper-text">Enter Product Description</FormHelperText> */}
+                <TextField 
+                type="number"
+                variant="outlined"
+                label="Enter Quantity"
+                id="quantity"
+                autoComplete="on"
+                value={quantity}
+                sx={{ minWidth: 400 }}
+                onChange={(e) => setQuantity(e.target.value)} 
                 />
                
               </FormControl>
               <br />
 
               <FormControl >
-        <InputLabel id="demo-simple-select-label">Category</InputLabel>
+        <InputLabel id="demo-simple-select-label">Purchase Order</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={category}
-          label="Category"
+          value={purchaseorder}
+          label="Purchase Order"
           sx={{ minWidth: 400 }}
           onChange={handleChange}
         >  
-        {categories.map((item)=>
+        {purchaseorders.map((item)=>
 
            
             <MenuItem value={item.id}  key={item.id}>{item.name}</MenuItem>
@@ -152,7 +167,7 @@ function ProductsForm() {
   )
 }
 
-export default ProductsForm
+export default InvoiceForm
 
 
 

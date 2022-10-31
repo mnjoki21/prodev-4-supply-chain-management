@@ -20,7 +20,8 @@
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
 !/tmp/pids/
-!/tmp/pids/.keep
+!/tmp/pids/.keep 
+/config/database.yml
 
 
 # Ignore master key for decrypting credentials and more.
