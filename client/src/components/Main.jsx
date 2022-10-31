@@ -112,8 +112,11 @@ function Main({stocks, invoices}) {
                 fontSize: 40,
                 color: "white"
               }}>Purchase Items</Typography>
-              <Typography>{invoices.length}
-                Purchase Items</Typography>
+              <Typography 
+              sx={{
+                fontSize:20
+              }}>{invoices.length}
+                </Typography>
 
             </Paper>
           </Grid>
