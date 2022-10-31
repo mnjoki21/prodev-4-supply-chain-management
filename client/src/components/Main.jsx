@@ -35,7 +35,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function Main({stocks}){
+function Main({stocks, invoices}){
   const [items,
     setItems] = useState([])
   useEffect(() => {
@@ -78,6 +78,8 @@ function Main({stocks}){
                     backgroundColor:"#B6D6CC"
                   }}
                 >
+                     <Typography sx={{ fontSize: 40, color:"white"}} >Invoices</Typography>
+                  <Typography>{invoices.length}Invoices</Typography>
 
                 </Paper>
               </Grid>

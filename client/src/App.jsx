@@ -33,6 +33,14 @@ export default function App() {
     })
   }, [])
 
+  const [invoices,
+    setInvoices] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:3000/invoices").then((r) => r.json()).then((invoices) => {
+      setInvoices(invoices)
+    })
+  }, [])
+
 
 
   if (!user) return <Login onLogin={setUser} />;
@@ -40,7 +48,7 @@ export default function App() {
     <Fragment>
       <Navbar user={user} setUser={setUser}/>
       <Routes>
-      <Route exact path="/" element={< Main stocks={stocks} user={user}/>}/>
+      <Route exact path="/" element={< Main stocks={stocks} user={user} invoices={invoices}/>}/>
       <Route exact path="/categories" element={< Category />}/>
         <Route exact path="/vendors" element={< Vendor />}/>
         <Route exact path="/products" element={< Product />}/>
