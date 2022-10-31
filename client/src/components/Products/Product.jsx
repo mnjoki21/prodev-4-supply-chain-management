@@ -17,6 +17,8 @@ import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useEffect, useState } from "react";
+import Button from "@mui/material/Button";
+import ProductsForm from "./ProductsForm";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -68,20 +70,96 @@ export default function Product() {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <ProductsForm />
-      <Grid container spacing={3}>
-        {/* Chart */}
-        <Grid item xs={12} md={8} lg={9}>
-          <Table sx={{ minWidth: 1000, ml: 10 }} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>CATEGORY</StyledTableCell>
-                <StyledTableCell align="right">Delete</StyledTableCell>
-                <StyledTableCell align="right">Edit</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {/* {category.map((row) => 
+    <ProductsForm />
+    <Grid container spacing={3}>
+              {/* Chart */}
+              <Grid item xs={12} md={8} lg={9}>
+               
+                  
+      <Table sx={{ minWidth: 1000, ml:10 }} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>CATEGORY</StyledTableCell>
+            <StyledTableCell align="right" >Delete</StyledTableCell>
+            <StyledTableCell align="right">Edit</StyledTableCell>
+      
+          </TableRow>
+        </TableHead>
+        <TableBody>
+  const [ products, setProducts ] = useState([])
+
+  useEffect(() => {
+    fetch("http://localhost:3000/products")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+
+        setProduct(data);
+      });
+  }, [])
+  
+  function deleteProduct(id) {
+    fetch(`http://localhost:3000/products/${id}`,
+    {
+      method: 'DELETE'
+    }
+    )
+      .then((r) => r.json())
+      .then((data) => {
+        const goThru = data.filter(
+          (dataItem) => dataItem.id !== id
+        );
+        setProducts(goThru)
+    })
+  }
+
+  return (     
+    
+    <>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 1350 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Id</StyledTableCell>
+              <StyledTableCell align="right">Name</StyledTableCell>
+              <StyledTableCell align="right">Description</StyledTableCell>
+              <StyledTableCell align="right">Category id</StyledTableCell>
+              <StyledTableCell align="right">Threshold</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            
+            { products.map((item) => {
+              return (
+              <StyledTableRow key={ item.id }>
+                <StyledTableCell component="th" scope="row">
+                  { item.name }
+                </StyledTableCell>
+                <StyledTableCell align="right">{ item.description }</StyledTableCell>
+                <StyledTableCell align="right">{ item.threshold }</StyledTableCell>
+                {/* <StyledTableCell align="right">{row.carbs}</StyledTableCell> */ }
+                {/* <StyledTableCell align="right">{row.protein}</StyledTableCell> */ }
+              </StyledTableRow>
+           ) })}
+          </TableBody>
+        </Table>
+        
+      </TableContainer>
+      <Button
+        type="button"
+        onClick={() => {
+          deleteProduct(item.id);
+        }}
+        variant="contained"
+        color="secondary"
+      >
+        Text
+      </Button>
+    </>
+  );
+}
+
+        {/* {category.map((row) => 
         
         (
             <StyledTableRow key={row.id} >
