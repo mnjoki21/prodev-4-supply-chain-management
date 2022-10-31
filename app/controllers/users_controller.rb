@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize, only: :create
-  skip_before_action :is_admin?, only: [:show, :create]
+  # skip_before_action :authorize, only: :create
+  # skip_before_action :is_admin?, only: [:show, :create]
 
 
   def index
