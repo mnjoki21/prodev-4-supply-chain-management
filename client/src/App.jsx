@@ -58,7 +58,6 @@ export default function App() {
         <Route exact path="/invoices" element={< Invoice />}/>
         <Route exact path="/stocks" element={< Stock />}/>
         <Route exact path="/users" element={< User />}/>
-       
       </Routes>
     </Fragment>
   )

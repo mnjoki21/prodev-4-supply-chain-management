@@ -112,7 +112,7 @@ function Main({stocks, invoices}) {
                 fontSize: 40,
                 color: "white"
               }}>Purchase Items</Typography>
-              <Typography>{items.length}
+              <Typography>{invoices.length}
                 Purchase Items</Typography>
 
             </Paper>
