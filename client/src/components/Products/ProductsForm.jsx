@@ -10,16 +10,15 @@ function ProductsForm() {
 
 
 
-
-
-  const [category, setCategory] = React.useState('');
-  const [product, setProduct] = useState([]);
+  const [category_id, setCategory] = React.useState('');
+  const [products, setProducts] = useState([]);
   const [description, setDescription]= useState("")
   const [name, setName]= useState("")
   const [errors, setErrors] = useState([]);
 
 
-    const [categories, setCategories]= useState([])
+   const [categories, setCategories]= useState([])
+
   const handleChange = (event) => {
     setCategory(event.target.value);
   };
@@ -31,8 +30,9 @@ function ProductsForm() {
       .then((r) => r.json())
       .then(data =>setCategories(data));
   }, []); 
+  const dot={name, description,category_id}
 
-
+    console.log(dot)
 
   function handleOnSubmit(e){
     e.preventDefault();
@@ -41,10 +41,10 @@ function ProductsForm() {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({name, description,category}),
+        body: JSON.stringify(dot),
     })
     .then((r) => r.json())
-    .then(response => setProduct(response));
+    .then(response => setProducts(response));
     // .then((response) => console.log(response));
   }
 
@@ -98,7 +98,7 @@ function ProductsForm() {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={category}
+          type="number"
           label="Category"
           sx={{ minWidth: 400 }}
           onChange={handleChange}
