@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
     @products = Product.all
 
     render json: @products.includes(:category)
-  end
+  end 
 
   # GET /products/1
   def show
