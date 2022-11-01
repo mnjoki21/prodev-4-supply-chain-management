@@ -3,7 +3,7 @@ import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid, unstab
 import React , { useState}from 'react';  
 import Login from '../Register/Login';
 import Card from '@mui/material/Card';
-
+import { Fragment } from 'react';
 
 const CategoriesForm= () => {
   const [category, setCategory] = useState([]);
@@ -25,7 +25,7 @@ const CategoriesForm= () => {
   }
     
   return (
-    <>
+    <Fragment>
     <Grid  container direction="row" alignItems="center" justifyContent="center" >
       <Box    >
       <Card sx={{ minWidth: 400 }}>
@@ -81,7 +81,7 @@ const CategoriesForm= () => {
         </Card>
       </Box>
       </Grid>
-    </>
+    </Fragment>
   )
 }
 
