@@ -34,8 +34,24 @@ function ProductsForm() {
 
     console.log(dot)
 
+    // function handleOnSubmit(e){
+    //   e.preventDefault();
+    //   fetch("http://localhost:3000/categories",{
+    //       method: "POST",
+    //       headers: {
+    //           "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({name}),
+    //   })
+    //   .then((r) => r.json())
+    //   .then(response => setCategory(response));
+    //   // .then((response) => console.log(response));
+    // }
+
+
   function handleOnSubmit(e){
     e.preventDefault();
+
     fetch("http://localhost:3000/products",{
         method: "POST",
         headers: {
@@ -122,7 +138,7 @@ function ProductsForm() {
           <div>
             
                 <Box textAlign='center'>
-      <Button variant='contained'  type="submit" style={{fontSize: 16 }}>
+      <Button variant='contained' onClick={handleOnSubmit}   type="submit" style={{fontSize: 16 }}>
         Submit
       </Button>
      </Box>
