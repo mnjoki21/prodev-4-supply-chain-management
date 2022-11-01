@@ -98,6 +98,7 @@ function ProductsForm() {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
+          type="number"
           label="Category"
           sx={{ minWidth: 400 }}
           onChange={handleChange}
