@@ -95,17 +95,7 @@ function Navbar({user, setUser}) {
   }
 
   const theme = useTheme();
-  const [open,
-    setOpen] = React.useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  
+ 
 
   return (
     <Box sx={{
@@ -123,7 +113,7 @@ function Navbar({user, setUser}) {
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            
             edge="start"
             sx={{
             mr: 2,
@@ -154,7 +144,7 @@ function Navbar({user, setUser}) {
         anchor="left"
         open={open}>
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton>
             {theme.direction === 'ltr'
               ? <ChevronLeftIcon/>
               : <ChevronRightIcon/>}

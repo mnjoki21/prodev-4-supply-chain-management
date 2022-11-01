@@ -110,6 +110,7 @@ function handleDelete(id) {
                 <StyledTableCell align="right">Email</StyledTableCell>
                 <StyledTableCell align="right">Address</StyledTableCell>
                 <StyledTableCell align="right">Phone Number</StyledTableCell>
+                 <StyledTableCell align="right">Actions</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>

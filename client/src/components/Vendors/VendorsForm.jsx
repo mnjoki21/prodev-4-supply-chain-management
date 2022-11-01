@@ -82,7 +82,7 @@ function VendorsForm({getItems}) {
   }
 
   return (
-    <Grid  container direction="row" alignItems="center" justifyContent="center" >
+    <Grid  container direction="row" alignItems="center" justifyContent="center" sx={{mb:8}} >
       <Box    >
       <Card sx={{ minWidth: 400 }}>
         <main >
