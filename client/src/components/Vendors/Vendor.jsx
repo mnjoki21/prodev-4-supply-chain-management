@@ -35,6 +35,12 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
   }
 }));
 
+// const [items, setItems]= React.useState([])
+
+
+
+
+
 export default function Vendor() {
   const [isAdding,
     setIsAdding] = useState(false);
@@ -49,6 +55,22 @@ export default function Vendor() {
     const updateItems = [...items, newItemsReceived];
     setItems(updateItems);
   }
+
+
+
+
+
+
+function handleDelete(id) {
+  fetch(`http://localhost:3000/vendors/${id}`, {
+    method: "DELETE",
+  })
+    .then((r) => r.json())
+    .then(() => {
+      const deletion = items.filter((item) => item.id !== id);
+      setItems(deletion);
+    });
+}
 
   return (
 
@@ -100,6 +122,7 @@ export default function Vendor() {
                   <StyledTableCell align="right">
                     <Button variant="contained">Edit</Button>
                     <Button
+                    onClick={()=>handleDelete(item.id)}
                       variant="contained"
                       sx={{
                       backgroundColor: "red",

@@ -52,13 +52,11 @@ export default function Category() {
   }, []); 
 
   function handleDelete(id) {
-    console.log(id)
     fetch(`http://localhost:3000/categories/${id}`, {
       method: "DELETE",
     })
       .then((r) => r.json())
       .then(() => {
-        // deleteEvent(id)
         const deletion = category.filter((item) => item.id !== id);
         setCategory(deletion);
       });
