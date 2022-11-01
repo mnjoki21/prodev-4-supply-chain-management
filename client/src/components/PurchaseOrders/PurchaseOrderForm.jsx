@@ -1,4 +1,4 @@
-import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid } from '@mui/material';
+import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid, useStepContext } from '@mui/material';
 import React , { useState, useEffect}from 'react';  
 import Card from '@mui/material/Card';
 import { useNavigate } from "react-router-dom";
@@ -8,76 +8,70 @@ import Select from '@mui/material/Select';
 
 
 const PurchaseOrderForm = () => {
-  const [product, setProduct] = useState("");
+  const [product_id, setProduct] = useState("");
   const [amount, setAmount] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [vendor , setVendor]=useState("")
+  const [vendor_id , setVendor]=useState("")
   const [ordernumber , setOrdernumber]=useState("")
+  
   const [errors, setErrors]= useState([])
  
 
-  const history = useNavigate();  
+  // const history = useNavigate();  
 
+  const [vendors, setVendors]= useState([])
+  const handleChange = (event) => {
+    setVendor(event.target.value);
+  };
 
+  const [products, setProducts]= useState([])
+  const handleChangeProduct = (event) => {
+    setProduct(event.target.value);
+  };
 
   useEffect(() => {
-    fetch("http://localhost:3000/vendor")
+    fetch("http://localhost:3000/vendors")
       .then((r) => r.json())
-      .then(data =>setCategory(data));
+      .then(data =>setVendors(data));
   }, []);
 
 
   useEffect(() => {
     fetch("http://localhost:3000/products")
       .then((r) => r.json())
-      .then(data =>setCategory(data));
+      .then(data =>setProducts(data));
   }, []);
 
 
 
-  // const vendors = fetch("http://localhost:3000/vendors").then((r) => {
-      
-  //   if (r.ok) {
-  //     history.push("/");
-  //   } else {
-  //     r.json().then((err) => setErrors(err.errors));
-  //   }
-  // })
-                         
 
-  // const products = fetch("http://localhost:3000/products").then((r) => {
-      
-  //   if (r.ok) {
-  //     history.push("/");
-  //   } else {
-  //     r.json().then((err) => setErrors(err.errors));
-  //   }
-  // })
 
-  function handleSubmit(e){
+  const [purchaseorder, setPurchaseorder]=useState([])
+
+
+
+
+  function handleOnSubmit(e){
     e.preventDefault();
-
-    fetch("http://localhost:3000/purchaseorders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        product,
-        amount,
-        quantity, 
-        vendor,
-        ordernumber : ordernumber,
-      }),
-    }).then((r) => {
-      
-      if (r.ok) {
-        history.push("/");
-      } else {
-        r.json().then((err) => setErrors(err.errors));
-      }
-    });
+    fetch("http://localhost:3000/purchaseorders",{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+                 product_id,
+                 amount,
+                quantity, 
+                 vendor_id,
+                ordernumber : ordernumber,
+              }),
+    })
+    .then((r) => r.json())
+    .then(response => setPurchaseorder(response));
+    // .then((response) => console.log(response));
   }
+
+  
   
 
   return (
@@ -86,7 +80,7 @@ const PurchaseOrderForm = () => {
       <Box    >
       <Card sx={{ minWidth: 300 }}>
         <main >
-        <form  onSubmit={handleSubmit} >
+        <form  onSubmit={handleOnSubmit} >
           <p style={{fontWeight: "bolder", fontSize: 20 ,alignItems:"center", justifyContent:"center",textAlign:'center'}}> Purchase Order Form</p>
           
           <Box sx={{'& .MuiTextField-root': { m: 1, width: '35ch' },}}>
@@ -109,56 +103,54 @@ const PurchaseOrderForm = () => {
               </FormControl>
               </Grid>
               <Grid item xs={6}>
-              {/* <Box sx={{ minWidth: 120 }}> */}
-      {/* <FormControl fullWidth>
+              <Box sx={{ minWidth: 120 }}> 
+       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Product</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           variant="outlined"
-          value={product}
+          value={product_id}
           label="Product"
           sx={{ minWidth: 300 }}
           onChange={(e) => setProduct(e.target.value)} 
-        > */}
+        > 
           {/* mapping through  product in the  form system */}
-{/*        
-         {products.map((item)=>
+        
+          {products.map((item)=>
 
               <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>
-         )} */}
+         )}  
 
-        {/* </Select>
-      </FormControl> */}
-    {/* </Box> */}
+         </Select>
+      </FormControl> 
+     </Box> 
               </Grid>
               <br />
               <Grid item xs={6}>
-              {/* <Box sx={{ minWidth: 120 }}> */}
-      {/* <FormControl fullWidth>
+               <Box sx={{ minWidth: 120 }}> 
+       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Vendor</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           variant="outlined"
-          value={vendor}
+          value={vendor_id}
           label="Vendor"
           sx={{ minWidth: 300 }}
           onChange={(e) => setVendor(e.target.value)} 
-        > */}
+        > 
           {/* mapping of vendor form system */}
 
 
-          {/* {vendors.map((vendor)=>
+          {vendors.map((vendor)=>
 
 <MenuItem value={vendor.id} key={vendor.id}>{vendor.name}</MenuItem>
-)} */}
-          {/* <MenuItem value={10}>Val</MenuItem>
-          <MenuItem value={20}>Mitchelle</MenuItem>
-          <MenuItem value={30}>Fridah</MenuItem> */}
-        {/* </Select>
-      </FormControl> */}
-    {/* </Box> */}
+)} 
+         
+         </Select>
+      </FormControl> 
+     </Box> 
               </Grid>
               <Grid item xs={6}>
               <FormControl>
@@ -198,7 +190,7 @@ const PurchaseOrderForm = () => {
           <div>
             
                 <Box textAlign='center'>
-      <Button variant='contained' type="submit" style={{fontSize: 16 }}>
+      <Button variant='contained' onClick={handleOnSubmit}type="submit" style={{fontSize: 16 }}>
         Submit
       </Button>
      </Box>

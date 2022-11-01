@@ -12,6 +12,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import {useState, useEffect} from "react";
+import UserForm from "./UserForm";
+import {Button} from '@mui/material';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,11 +38,18 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
 export default function User() {
   const [users,
     setUsers] = useState([])
+    const [isAdding,
+      setIsAdding] = useState(false);
   useEffect(() => {
     fetch("http://localhost:3000/users").then((r) => r.json()).then((users) => {
       setUsers(users)
     })
   }, [])
+
+  function getUsers(newUsersCreated) {
+    const updateUser = [...users, newUsersCreated];
+    setUsers(updateUser);
+  }
   return (
 
     <Container maxWidth="lg" sx={{
@@ -53,6 +62,18 @@ export default function User() {
         <Typography variant="h4" gutterBottom>
         Users
       </Typography>
+      <Button
+            variant="contained"
+            type="submit"
+            sx={{
+            mb:4,
+            ml:6
+          }}
+            onClick={() => setIsAdding((isAdding) => !isAdding)}>Add User</Button>
+
+          {isAdding
+            ? <UserForm onSignIn={getUsers}/>
+            : null}
           <Table
             sx={{
             minWidth: 1000,

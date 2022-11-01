@@ -23,7 +23,7 @@ const CategoriesForm= () => {
     .then(response => setCategory(response));
     // .then((response) => console.log(response));
   }
-     console.log(category)
+    
   return (
     <>
     <Grid  container direction="row" alignItems="center" justifyContent="center" >

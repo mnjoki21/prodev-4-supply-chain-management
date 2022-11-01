@@ -8,7 +8,7 @@ import Vendor from "./components/Vendors/Vendor"
 import PurchaseItem from "./components/PurchaseItems/PurchaseItem"
 import Category from "./components/Categories/Category"
 import PurcahseOrder from "./components/PurchaseOrders/PurchaseOrder"
-import Invoice from "./components/Invoice/Invoice"
+import Invoice from "./components/Invoice/InvoiceForm"
 import Stock from "./components/Stock/Stock"
 import User from "./components/Users/User"
 import { useEffect, useState } from "react";
@@ -25,12 +25,22 @@ export default function App() {
     });
   }, []);
 
+  const [stocks,
+    setStocks] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:3000/stocks").then((r) => r.json()).then((stocks) => {
+      setStocks(stocks)
+    })
+  }, [])
+
+
+
   if (!user) return <Login onLogin={setUser} />;
   return (
     <Fragment>
       <Navbar user={user} setUser={setUser}/>
       <Routes>
-      <Route exact path="/" element={< Main />}/>
+      <Route exact path="/" element={< Main stocks={stocks} user={user}/>}/>
       <Route exact path="/categories" element={< Category />}/>
         <Route exact path="/vendors" element={< Vendor />}/>
         <Route exact path="/products" element={< Product />}/>

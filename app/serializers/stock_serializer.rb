@@ -1,4 +1,4 @@
 class StockSerializer < ActiveModel::Serializer
-  attributes  :product_id, :quantity
+  attributes :id, :product_id, :quantity
   belongs_to :product
 end
