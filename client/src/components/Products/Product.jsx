@@ -62,6 +62,21 @@ export default function Product() {
       });
   }
 
+  const [isAdding, setIsAdding] = useState(false);
+   const [items, setItems] = useState([]);
+   useEffect(() => {
+     fetch("http://localhost:3000/categories")
+       .then((r) => r.json())
+       .then((items) => {
+         setItems(items);
+       });
+   }, []);
+
+   function getItems(newItemsReceived) {
+     const updateItems = [...items, newItemsReceived];
+     setItems(updateItems);
+   }
+
 
 
   // function deleteEvent(id) {
@@ -71,51 +86,75 @@ export default function Product() {
 
   return (
     
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-    <ProductsForm />
+
+    <Container
+    maxWidth="lg"
+    sx={{
+      mt: 4,
+      mb: 4,
+    }}
+  >
+    <Typography variant="h4" sx={{ ml: 50 }} gutterBottom>
+      Products
+    </Typography>
     <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-               
-                  
-      <Table sx={{ minWidth: 1000, ml:10 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Product</StyledTableCell>
-            {/* <StyledTableCell >Category</StyledTableCell> */}
-            <StyledTableCell align="right" >Delete</StyledTableCell>
-            <StyledTableCell align="right">Edit</StyledTableCell>
-      
-          </TableRow>
-        </TableHead>
-        <TableBody>
+      {/* Chart */}
+      <Grid item xs={12} md={8} lg={9}>
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{
+            mb: 4,
+            ml: 6,
+          }}
+          onClick={() => setIsAdding((isAdding) => !isAdding)}
+        >
+          Add Product
+        </Button>
 
+        {isAdding ? <ProductsForm getItems={getItems} /> : null}
 
-        {product.map((row) => 
-        
-        (
-            <StyledTableRow key={row.id} >
-              <StyledTableCell component="th" scope="row">
-              {row.name}
-              </StyledTableCell>
-              {/* <StyledTableCell component="th" scope="row">
-              {row.category_id}
-              </StyledTableCell> */}
-             <StyledTableCell align="right"><Button onClick={()=>handleDelete(row.id)} variant="contained" color="error" startIcon={<DeleteIcon />}>
-            Delete
-          </Button></StyledTableCell>
-              <StyledTableCell align="right"><Button variant="outlined" startIcon={<EditIcon />}>
-        Edit
-      </Button>
-</StyledTableCell>
-              
-            </StyledTableRow>
-          ))} 
-        </TableBody>
-      </Table>     
-              </Grid>
-              </Grid>
-    
+        <Table
+            sx={{
+              minWidth: 1000,
+              ml: 10,
+            }}
+            aria-label="customized table"
+          >
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>CATEGORY</StyledTableCell>
+                <StyledTableCell align="right">Action</StyledTableCell>
+                {/* <StyledTableCell align="right">Edit</StyledTableCell> */}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {product.map((row) => (
+                <StyledTableRow key={row.id}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.name}
+                  </StyledTableCell>
+
+                  <StyledTableCell align="right">
+                    <Button variant="contained">Edit</Button>
+                    <Button
+                      onClick={() => handleDelete(row.id)}
+                      variant="contained"
+                      sx={{
+                        backgroundColor: "red",
+                        ml: 2,
+                      }}
+                    >
+                      Delete
+                    </Button>
+                    </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Grid>
+      </Grid>
     </Container>
+
   )
 }
