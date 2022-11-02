@@ -81,7 +81,8 @@ export default function Product() {
       <Table sx={{ minWidth: 1000, ml:10 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>CATEGORY</StyledTableCell>
+            <StyledTableCell>Product</StyledTableCell>
+            {/* <StyledTableCell >Category</StyledTableCell> */}
             <StyledTableCell align="right" >Delete</StyledTableCell>
             <StyledTableCell align="right">Edit</StyledTableCell>
       
@@ -97,6 +98,9 @@ export default function Product() {
               <StyledTableCell component="th" scope="row">
               {row.name}
               </StyledTableCell>
+              {/* <StyledTableCell component="th" scope="row">
+              {row.category_id}
+              </StyledTableCell> */}
              <StyledTableCell align="right"><Button onClick={()=>handleDelete(row.id)} variant="contained" color="error" startIcon={<DeleteIcon />}>
             Delete
           </Button></StyledTableCell>
