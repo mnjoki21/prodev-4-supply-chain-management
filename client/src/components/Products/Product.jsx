@@ -43,8 +43,6 @@ export default function Product() {
 
    const [product, setProduct]= React.useState([])
   
-
-
    useEffect(() => {
     fetch("http://localhost:3000/products")
       .then((r) => r.json())
@@ -52,14 +50,14 @@ export default function Product() {
   }, []); 
 
   function handleDelete(id) {
-    console.log(id)
+
     fetch(`http://localhost:3000/products/${id}`, {
       method: "DELETE",
     })
       .then((r) => r.json())
       .then(() => {
-        deleteEvent(id)
-        const deletion = category.filter((item) => item.id !== id);
+        // deleteEvent(id)
+        const deletion = product.filter((item) => item.id !== id);
         setProduct(deletion);
       });
   }
@@ -83,7 +81,8 @@ export default function Product() {
       <Table sx={{ minWidth: 1000, ml:10 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>CATEGORY</StyledTableCell>
+            <StyledTableCell>Product</StyledTableCell>
+            {/* <StyledTableCell >Category</StyledTableCell> */}
             <StyledTableCell align="right" >Delete</StyledTableCell>
             <StyledTableCell align="right">Edit</StyledTableCell>
       
@@ -92,13 +91,16 @@ export default function Product() {
         <TableBody>
 
 
-        {/* {category.map((row) => 
+        {product.map((row) => 
         
         (
             <StyledTableRow key={row.id} >
               <StyledTableCell component="th" scope="row">
               {row.name}
               </StyledTableCell>
+              {/* <StyledTableCell component="th" scope="row">
+              {row.category_id}
+              </StyledTableCell> */}
              <StyledTableCell align="right"><Button onClick={()=>handleDelete(row.id)} variant="contained" color="error" startIcon={<DeleteIcon />}>
             Delete
           </Button></StyledTableCell>
@@ -108,7 +110,7 @@ export default function Product() {
 </StyledTableCell>
               
             </StyledTableRow>
-          ))} */}
+          ))} 
         </TableBody>
       </Table>     
               </Grid>

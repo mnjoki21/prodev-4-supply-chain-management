@@ -10,23 +10,21 @@ function InvoiceForm() {
 
 
 
+   const [invoice,setInvoices]= useState([])
 
-
-  const [purchaseorder, setPurchaseorder] = React.useState('');
+  const [purchaseorder, setPurchaseorder] = useState("");
   const [product, setProduct]=useState("")
   const [vendor, setVendor]=useState("")
-  const [amount, setAmount] = useState([]);
+  const [amount, setAmount] = useState();
   const [quantity, setQuantity]= useState("")
   const [accountname, setAccountname]= useState("")
   const [errors, setErrors] = useState([]);
 
 
-    const [purchaseorders, setPurchaseorders]= useState([])
-  const handleChange = (event) => {
+  const [purchaseorders, setPurchaseorders]= useState([])
+  const handleChangeOrder = (event) => {
     setPurchaseorder(event.target.value);
   };
-
-
 
   const [products, setProducts]= useState([])
   const handleChangeProduct = (event) => {
@@ -36,12 +34,12 @@ function InvoiceForm() {
 
   const [vendors, setVendors]= useState([])
   const handleChangeVendor = (event) => {
-    setVendors(event.target.value);
+    setVendor(event.target.value);
   };
 
 
 
-// fetches categories
+// fetches orders
   useEffect(() => {
     fetch("http://localhost:3000/purchaseorders")
       .then((r) => r.json())
@@ -70,10 +68,10 @@ function InvoiceForm() {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({accountname, description ,product,vendor, purchaseorder,}),
+        body: JSON.stringify({accountname, description ,product, vendor, purchaseorder}),
     })
     .then((r) => r.json())
-    .then(response => setProduct(response));
+    .then(response => setInvoices(response));
     // .then((response) => console.log(response));
   }
 
@@ -84,7 +82,7 @@ function InvoiceForm() {
       <Box    >
       <Card sx={{ minWidth: 400 }}>
         <main >
-        <form  >
+        <form onSubmit={handleOnSubmit} >
           <p style={{fontWeight: "bolder", fontSize: 40 ,alignItems:"center", justifyContent:"center",textAlign:'center'}}>Invoice</p>
           
           <Box sx={{'& .MuiTextField-root': { m: 1, width: '35ch' },}}>
@@ -143,14 +141,13 @@ function InvoiceForm() {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={purchaseorder}
-          label="Purchase Order"
+          label="Purchase Order"           
           sx={{ minWidth: 400 }}
-          onChange={handleChange}
+          onChange={handleChangeOrder}
         >  
         {purchaseorders.map((item)=>
 
-           
-            <MenuItem value={item.id}  key={item.id}>{item.name}</MenuItem>
+            <MenuItem value={item.id}  key={item.id} > {item.ordernumber}</MenuItem>
         )}
         </Select>
       </FormControl>

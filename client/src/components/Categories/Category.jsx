@@ -5,10 +5,10 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableCell, {tableCellClasses} from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -16,55 +16,44 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
+const StyledTableCell = styled(TableCell)(({theme}) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.common.white,
+    color: theme.palette.common.white
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 30,
-  },
+    fontSize: 30
+  }
 }));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
+const StyledTableRow = styled(TableRow)(({theme}) => ({
   '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
+    backgroundColor: theme.palette.action.hover
   },
   // hide last border
   '&:last-child td, &:last-child th': {
-    border: 0,
-
-  },
+    border: 0
+  }
 }));
 
 export default function Category() {
 
-   const [category, setCategory]= React.useState([])
-   console.log(category)
+  const [category,
+    setCategory] = React.useState([])
+  console.log(category)
 
-
-   useEffect(() => {
-    fetch("http://localhost:3000/categories")
-      .then((r) => r.json())
-      .then(data =>setCategory(data));
-  }, []); 
+  useEffect(() => {
+    fetch("http://localhost:3000/categories").then((r) => r.json()).then(data => setCategory(data));
+  }, []);
 
   function handleDelete(id) {
     console.log(id)
-    fetch(`http://localhost:3000/categories/${id}`, {
-      method: "DELETE",
-    })
-      .then((r) => r.json())
-      .then(() => {
-        deleteEvent(id)
-        // const deletion = category.filter((item) => item.id !== id);
-        // setCategory(deletion);
-      });
+    fetch(`http://localhost:3000/categories/${id}`, {method: "DELETE"}).then((r) => r.json()).then(() => {
+      deleteEvent(id)
+    });
   }
-
-
 
   function deleteEvent(id) {
     const updatedEvents = category.filter((one) => one.id !== id);
@@ -72,48 +61,53 @@ export default function Category() {
   }
 
   return (
-    
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-    <CategoriesForm/>
-    <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-               
-                  
-      <Table sx={{ minWidth: 1000, ml:10 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>CATEGORY</StyledTableCell>
-            <StyledTableCell align="right" >Delete</StyledTableCell>
-            <StyledTableCell align="right">Edit</StyledTableCell>
-      
-          </TableRow>
-        </TableHead>
-        <TableBody>
 
+    <Container maxWidth="lg" sx={{
+      mt: 4,
+      mb: 4
+    }}>
+      <CategoriesForm/>
+      <Grid container spacing={3}>
+        {/* Chart */}
+        <Grid item xs={12} md={8} lg={9}>
 
-        {category.map((row) => 
-        
-        (
-            <StyledTableRow key={row.id} >
-              <StyledTableCell component="th" scope="row">
-              {row.name}
-              </StyledTableCell>
-             <StyledTableCell align="right"><Button onClick={()=>handleDelete(row.id)} variant="contained" color="error" startIcon={<DeleteIcon />}>
-            Delete
-          </Button></StyledTableCell>
-              <StyledTableCell align="right"><Button variant="outlined" startIcon={<EditIcon />}>
-        Edit
-      </Button>
-</StyledTableCell>
+          <Table
+            sx={{
+            minWidth: 1000,
+            ml: 10
+          }}
+            aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Category</StyledTableCell>
+                <StyledTableCell align="right">Action</StyledTableCell>
               
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>     
-              </Grid>
-              </Grid>
-    
+
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {category.map((row) => (
+                <StyledTableRow key={row.id}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <Button variant="contained">Edit</Button>
+                    <Button
+                      onClick={() => handleDelete(row.id)}
+                      variant="contained"
+                      sx={{
+                      backgroundColor: "red",
+                      ml: 2
+                    }}>Delete</Button>
+                    </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Grid>
+      </Grid>
+
     </Container>
   )
 }

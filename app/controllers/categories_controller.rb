@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[ show update destroy ]
-  before_action :is_admin?
+  # before_action :set_category, only: %i[ show update destroy ]
+  # before_action :is_admin?
   # GET /categories
   def index
     @categories = Category.all

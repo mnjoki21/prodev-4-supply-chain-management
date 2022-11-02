@@ -8,7 +8,6 @@ import {styled} from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, {tableCellClasses} from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import {Button} from '@mui/material';
@@ -62,7 +61,6 @@ export default function PurchaseItem() {
         Purchase Items
       </Typography>
       <Grid container spacing={3}>
-        {/* Chart */}
         <Grid item xs={12} md={8} lg={9}>
           <Button
             variant="contained"
@@ -110,12 +108,10 @@ export default function PurchaseItem() {
                       ml: 2
                     }}>Delete</Button>
                   </StyledTableCell>
-
                 </StyledTableRow>
               ))}
             </TableBody>
           </Table>
-
         </Grid>
       </Grid>
 
