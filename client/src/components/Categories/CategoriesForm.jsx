@@ -46,7 +46,7 @@ const CategoriesForm= () => {
                 id="name"
                 autoComplete="on"
                 value={name}
-                sx={{ minWidth: 400 }}
+                sx={{ minWidth: 500 }}
                 onChange={(e) => setName(e.target.value)} 
                 />
                
