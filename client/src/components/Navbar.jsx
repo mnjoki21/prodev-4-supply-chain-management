@@ -123,11 +123,7 @@ function Navbar({user, setUser}) {
           }}>
             <MenuIcon/>
           </IconButton>
-          <SearchIcon/>
-          <Typography sx={{
-            pl: 2
-          }}>Search</Typography>
-
+          
         </Toolbar>
       </AppBar>
       <Drawer

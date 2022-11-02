@@ -1,30 +1,54 @@
-import { Alert, Box, FormControl, Button,FormHelperText, TextField, Grid, useStepContext } from '@mui/material';
-import React , { useState, useEffect}from 'react';  
-import Card from '@mui/material/Card';
+import {
+  Alert,
+  Box,
+  FormControl,
+  Button,
+  FormHelperText,
+  TextField,
+  Grid,
+  Typography,
+  useStepContext,
+} from "@mui/material";
+import React, { Fragment, useState, useEffect } from "react";
+import Card from "@mui/material/Card";
 import { useNavigate } from "react-router-dom";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Paper from "@mui/material/Paper";
+import OutlinedInput from "@mui/material/OutlinedInput";
 
+
+
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 const PurchaseOrderForm = () => {
   const [product_id, setProduct] = useState("");
   const [amount, setAmount] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [vendor_id , setVendor]=useState("")
-  const [ordernumber , setOrdernumber]=useState("")
-  
-  const [errors, setErrors]= useState([])
- 
+  const [vendor_id, setVendor] = useState("");
+  const [ordernumber, setOrdernumber] = useState("");
 
-  // const history = useNavigate();  
+  const [errors, setErrors] = useState([]);
 
-  const [vendors, setVendors]= useState([])
+  // const history = useNavigate();
+
+  const [vendors, setVendors] = useState([]);
   const handleChange = (event) => {
     setVendor(event.target.value);
   };
 
-  const [products, setProducts]= useState([])
+  const [products, setProducts] = useState([]);
   const handleChangeProduct = (event) => {
     setProduct(event.target.value);
   };
@@ -32,186 +56,140 @@ const PurchaseOrderForm = () => {
   useEffect(() => {
     fetch("http://localhost:3000/vendors")
       .then((r) => r.json())
-      .then(data =>setVendors(data));
+      .then((data) => setVendors(data));
   }, []);
-
 
   useEffect(() => {
     fetch("http://localhost:3000/products")
       .then((r) => r.json())
-      .then(data =>setProducts(data));
+      .then((data) => setProducts(data));
   }, []);
 
+  const [purchaseorder, setPurchaseorder] = useState([]);
 
-
-
-  const [purchaseorder, setPurchaseorder]=useState([])
-
-
-
-
-  function handleOnSubmit(e){
+  function handleOnSubmit(e) {
     e.preventDefault();
-    fetch("http://localhost:3000/purchaseorders",{
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-                 product_id,
-                 amount,
-                quantity, 
-                 vendor_id,
-                ordernumber : ordernumber,
-              }),
+    fetch("http://localhost:3000/purchaseorders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        product_id,
+        amount,
+        quantity,
+        vendor_id,
+        ordernumber: ordernumber,
+      }),
     })
-    .then((r) => r.json())
-    .then(response => setPurchaseorder(response));
+      .then((r) => r.json())
+      .then((response) => setPurchaseorder(response));
     // .then((response) => console.log(response));
   }
 
-  
-  
-
   return (
-    <>
-    <Grid  container direction="column" rowSpacing={1} columnSpacing={{xs: 1,sm:2,md:3}} alignItems="center" justifyContent="center" >
-      <Box    >
-      <Card sx={{ minWidth: 300 }}>
-        <main >
-        <form  onSubmit={handleOnSubmit} >
-          <p style={{fontWeight: "bolder", fontSize: 20 ,alignItems:"center", justifyContent:"center",textAlign:'center'}}> Purchase Order Form</p>
-          
-          <Box sx={{'& .MuiTextField-root': { m: 1, width: '35ch' },}}>
-          
-            <div>
-            <Grid item xs={6}>
-              <FormControl>
-              <FormHelperText id="my-helper-text">Order No.</FormHelperText>
-                <TextField 
-                type="number"
-                variant="outlined"
-                label="Order No."
-                id="orderNo"
-                autoComplete="on"
-                value={ordernumber}
-                sx={{ minWidth: 300 }}
-                onChange={(e) => setOrdernumber(e.target.value)} 
-                />
-               
-              </FormControl>
-              </Grid>
-              <Grid item xs={6}>
-              <Box sx={{ minWidth: 120 }}> 
-       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Product</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          variant="outlined"
-          value={product_id}
-          label="Product"
-          sx={{ minWidth: 300 }}
-          onChange={(e) => setProduct(e.target.value)} 
-        > 
-          {/* mapping through  product in the  form system */}
-        
-          {products.map((item)=>
+    <Fragment>
+      <Grid container spacing={10}>
+        {/* Chart */}
+        <Grid
+          item
+          xs={12}
+          md={8}
+          lg={9}
+          sx={{
+            ml: 50,
+          }}
+        >
+          <Paper
+            sx={{
+              p: 2,
+              display: "flex",
+              flexDirection: "column",
+              height: 450,
+            }}
+          >
+            <Typography variant="h4" gutterBottom>
+              Create Purchase Order
+            </Typography>
+            <FormControl
+              sx={{
+                m: 1,
+                width: 500,
+              }}
+            >
+              <InputLabel>Order No.</InputLabel>
+              <Select
+                name="product_id"
+                onChange={(e) => setOrdernumber(e.target.value)}
+              >
+                {products.map((item) => (
+                  <MenuItem key={item.id} value={item.id}>
+                    {item.id}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
-              <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>
-         )}  
+            <FormControl
+              sx={{
+                m: 1,
+                width: 500,
+              }}
+            >
+              <InputLabel>Vendor</InputLabel>
+              <Select
+                name="vendor_id"
+                onChange={(e) => setVendor(e.target.value)}
+              >
+                {vendors.map((vendor) => (
+                  <MenuItem key={vendor.id} value={vendor.id}>
+                    {vendor.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
-         </Select>
-      </FormControl> 
-     </Box> 
-              </Grid>
-              <br />
-              <Grid item xs={6}>
-               <Box sx={{ minWidth: 120 }}> 
-       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Vendor</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          variant="outlined"
-          value={vendor_id}
-          label="Vendor"
-          sx={{ minWidth: 300 }}
-          onChange={(e) => setVendor(e.target.value)} 
-        > 
-          {/* mapping of vendor form system */}
-
-
-          {vendors.map((vendor)=>
-
-<MenuItem value={vendor.id} key={vendor.id}>{vendor.name}</MenuItem>
-)} 
-         
-         </Select>
-      </FormControl> 
-     </Box> 
-              </Grid>
-              <Grid item xs={6}>
-              <FormControl>
-              <FormHelperText id="my-helper-text">Quantity</FormHelperText>
-                <TextField 
-                type="number"
-                label="quantity"
-                id="quantity"
-                sx={{ minWidth: 300 }}
-                autoComplete="quantity"
-                value={quantity}
+            {/* <FormControl
+              sx={{
+                m: 1,
+                width: 500,
+              }}
+            >
+              <InputLabel>Quantity</InputLabel>
+              <Select
+                input={<OutlinedInput label="quantity" />}
+                name="quantity"
                 onChange={(e) => setQuantity(e.target.value)}
-                />
-                
-              </FormControl>
-              </Grid>
-              <Grid item xs={6}>
-              <FormControl>
-              <FormHelperText id="my-helper-text">Amount in Ksh</FormHelperText>
-                <TextField 
-                type="number"
-                label="amount"
-                id="amount"
-                sx={{ minWidth: 300 }}
-                autoComplete="amount"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                />
-                
-              </FormControl>
-              </Grid>
-            </div>
-          </Box>
-          
-          <br />
-          <br />
-          <div>
-            
-                <Box textAlign='center'>
-      <Button variant='contained' onClick={handleOnSubmit}type="submit" style={{fontSize: 16 }}>
-        Submit
-      </Button>
-     </Box>
-              <br />
-          
-            <div>
-              {errors.map((err) => (
-              <>
-                <Alert key={err} severity="error" sx={{ width: '100%' }}>
-                  {err}
-                </Alert>
-              </>
-              ))} 
-            </div>       
-          </div>
-          </form>
-        </main>
-        </Card>
-      </Box>
+              >
+                {invoices.map((invoice) => (
+                  <MenuItem key={invoice.id} value={invoice.id}>
+                    {invoice.id}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl> */}
+            <TextField
+              id="outlined-basic"
+              label="Quantity"
+              variant="outlined"
+              name="quantity"
+              value={quantity}
+              sx={{ width: 500, m: 1 }}
+              onChange={(e) => setQuantity(e.target.value)}
+            />
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{ mt: 2 }}
+              onClick={handleOnSubmit}
+            >
+              Submit
+            </Button>
+          </Paper>
+        </Grid>
       </Grid>
-    </>
-  )
-}
+    </Fragment>
+  );
+};
 
-export default PurchaseOrderForm
+export default PurchaseOrderForm;
