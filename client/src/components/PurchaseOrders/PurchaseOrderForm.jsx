@@ -71,8 +71,6 @@ const PurchaseOrderForm = () => {
   }
 
   
-  
-
   return (
     <>
     <Grid  container direction="column" rowSpacing={1} columnSpacing={{xs: 1,sm:2,md:3}} alignItems="center" justifyContent="center" >
@@ -102,8 +100,8 @@ const PurchaseOrderForm = () => {
               </FormControl>
               </Grid>
               <Grid item xs={6}>
-              <Box sx={{ minWidth: 120 }}> 
-       <FormControl fullWidth>
+              <Box sx={{ minWidth: 300 }}> 
+       <FormControl >
         <InputLabel id="demo-simple-select-label">Product</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -111,7 +109,7 @@ const PurchaseOrderForm = () => {
           variant="outlined"
           value={product_id}
           label="Product"
-          sx={{ minWidth: 300 }}
+          sx={{ minWidth: 310 , m:1}}
           onChange={(e) => setProduct(e.target.value)} 
         > 
           {/* mapping through  product in the  form system */}
@@ -126,9 +124,10 @@ const PurchaseOrderForm = () => {
      </Box> 
               </Grid>
               <br />
+              <Box >
               <Grid item xs={6}>
-               <Box sx={{ minWidth: 120 }}> 
-       <FormControl fullWidth>
+               <Box sx={{ minWidth: 300 }}  > 
+       <FormControl >
         <InputLabel id="demo-simple-select-label">Vendor</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -136,7 +135,7 @@ const PurchaseOrderForm = () => {
           variant="outlined"
           value={vendor_id}
           label="Vendor"
-          sx={{ minWidth: 300 }}
+          sx={{ minWidth: 310,m:1 }}
           onChange={(e) => setVendor(e.target.value)} 
         > 
           {/* mapping of vendor form system */}
@@ -151,6 +150,7 @@ const PurchaseOrderForm = () => {
       </FormControl> 
      </Box> 
               </Grid>
+              </Box>
               <Grid item xs={6}>
               <FormControl>
               <FormHelperText id="my-helper-text">Quantity</FormHelperText>
@@ -188,7 +188,7 @@ const PurchaseOrderForm = () => {
           <br />
           <div>
             
-                <Box textAlign='center'>
+         <Box textAlign='center'>
       <Button variant='contained' onClick={handleOnSubmit}type="submit" style={{fontSize: 16 }}>
         Submit
       </Button>

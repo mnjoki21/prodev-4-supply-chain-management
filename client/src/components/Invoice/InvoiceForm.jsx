@@ -79,7 +79,7 @@ function InvoiceForm() {
   return (
     <div>
         <Grid  container direction="row" alignItems="center" justifyContent="center" >
-      <Box    >
+      <Box   alignItems="center"  >
       <Card sx={{ minWidth: 400 }}>
         <main >
         <form onSubmit={handleOnSubmit} >
@@ -142,7 +142,7 @@ function InvoiceForm() {
           id="demo-simple-select"
           value={purchaseorder}
           label="Purchase Order"           
-          sx={{ minWidth: 400 }}
+          sx={{ minWidth: 400 ,m:1}}
           onChange={handleChangeOrder}
         >  
         {purchaseorders.map((item)=>
@@ -152,7 +152,7 @@ function InvoiceForm() {
         </Select>
       </FormControl>
          <br />
-         <br />
+         
          <FormControl >
         <InputLabel id="demo-simple-select-label">Products</InputLabel>
         <Select
@@ -160,7 +160,7 @@ function InvoiceForm() {
           id="demo-simple-select"
           value={product}
           label="Product"
-          sx={{ minWidth: 400 }}
+          sx={{ minWidth: 400, m:1 }}
           onChange={handleChangeProduct}
         >  
         {products.map((item)=>
@@ -170,8 +170,8 @@ function InvoiceForm() {
         )}
         </Select>
       </FormControl>
-      <br />
-      <br />
+      
+      <Box textAlign="center"> 
       <FormControl >
         <InputLabel id="demo-simple-select-label">Vendor</InputLabel>
         <Select
@@ -179,7 +179,7 @@ function InvoiceForm() {
           id="demo-simple-select"
           value={vendor}
           label="Vendor"
-          sx={{ minWidth: 400 }}
+          sx={{ minWidth: 400 ,m:1}}
           onChange={handleChangeVendor}
         >  
         {vendors.map((item)=>
@@ -190,15 +190,16 @@ function InvoiceForm() {
         </Select>
       </FormControl>
       <br />
-              <Box sx={{ minWidth: 120 }}> 
+              
 
      </Box> 
             </div>
           </Box>
           
           <br />
-          <br />
+          
           <div>
+            
             
                 <Box textAlign='center'>
       <Button variant='contained'  type="submit" style={{fontSize: 16 }}>
@@ -222,9 +223,6 @@ function InvoiceForm() {
         </Card>
       </Box>
       </Grid>
-
-
-
     </div>
   )
 }
