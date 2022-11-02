@@ -14,6 +14,7 @@ import User from "./components/Users/User"
 import { useEffect, useState } from "react";
 import Login from "./components/Register/Login";
 import Main from "./components/Main";
+import "./App.css"
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -45,6 +46,8 @@ export default function App() {
 
   if (!user) return <Login onLogin={setUser} />;
   return (
+      <div className="bg">
+      <div className="routes-bg">
     <Fragment>
       <Navbar user={user} setUser={setUser}/>
       <Routes>
@@ -60,6 +63,8 @@ export default function App() {
         <Route exact path="/users" element={< User />}/>
       </Routes>
     </Fragment>
+      </div>
+    </div>
   )
 
 }
