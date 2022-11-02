@@ -62,7 +62,7 @@ export default function PurcahseOrder() {
       }}
     >
       <Typography variant="h4" sx={{ ml: 50 }} gutterBottom>
-        Purchase Items
+        Purchase Order
       </Typography>
       <Grid container spacing={3}>
         {/* Chart */}

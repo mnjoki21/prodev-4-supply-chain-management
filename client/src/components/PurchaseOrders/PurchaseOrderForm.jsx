@@ -1,15 +1,25 @@
-import { Grid, Typography } from "@mui/material";
-import { Container } from "@mui/system";
-import Paper from "@mui/material/Paper";
-import Select from "@mui/material/Select";
-import { useTheme } from "@mui/material/styles";
-import OutlinedInput from "@mui/material/OutlinedInput";
+import {
+  Alert,
+  Box,
+  FormControl,
+  Button,
+  FormHelperText,
+  TextField,
+  Grid,
+  Typography,
+  useStepContext,
+} from "@mui/material";
+import React, { Fragment, useState, useEffect } from "react";
+import Card from "@mui/material/Card";
+import { useNavigate } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import { Fragment, useEffect, useState } from "react";
-import { TextField } from "@mui/material";
-import { Button } from "@mui/material";
+import Select from "@mui/material/Select";
+import Paper from "@mui/material/Paper";
+import OutlinedInput from "@mui/material/OutlinedInput";
+
+
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -22,74 +32,59 @@ const MenuProps = {
   },
 };
 
-function PurchaseItemForm({ getItems }) {
-  // fetchproducts
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:3000/products")
-      .then((r) => r.json())
-      .then((products) => {
-        setProducts(products);
-      });
-  }, []);
-  //fetch vendors
+const PurchaseOrderForm = () => {
+  const [product_id, setProduct] = useState("");
+  const [amount, setAmount] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [vendor_id, setVendor] = useState("");
+  const [ordernumber, setOrdernumber] = useState("");
+
+  const [errors, setErrors] = useState([]);
+
+  // const history = useNavigate();
+
   const [vendors, setVendors] = useState([]);
+  const handleChange = (event) => {
+    setVendor(event.target.value);
+  };
+
+  const [products, setProducts] = useState([]);
+  const handleChangeProduct = (event) => {
+    setProduct(event.target.value);
+  };
+
   useEffect(() => {
     fetch("http://localhost:3000/vendors")
       .then((r) => r.json())
-      .then((vendors) => {
-        setVendors(vendors);
-      });
+      .then((data) => setVendors(data));
   }, []);
-  //fetch invoices
-  const [invoices, setInvoices] = useState([]);
+
   useEffect(() => {
-    fetch("http://localhost:3000/invoices")
+    fetch("http://localhost:3000/products")
       .then((r) => r.json())
-      .then((invoices) => {
-        setInvoices(invoices);
-      });
+      .then((data) => setProducts(data));
   }, []);
 
-  const [items, setItems] = useState({
-    product_id: "",
-    vendor_id: "",
-    invoice_id: "",
-    quantity: "",
-  });
-  function onDataChange(e) {
-    setItems({
-      ...items,
-      [e.target.name]: e.target.value,
-    });
-  }
-  function handleSubmit(e) {
-    e.preventDefault();
-    const createdItems = {
-      product_id: items.product_id,
-      vendor_id: items.vendor_id,
-      invoice_id: items.invoice_id,
-      quantity: items.quantity,
-    };
+  const [purchaseorder, setPurchaseorder] = useState([]);
 
-    fetch("http://localhost:3000/purchaseitems", {
+  function handleOnSubmit(e) {
+    e.preventDefault();
+    fetch("http://localhost:3000/purchaseorders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(createdItems),
+      body: JSON.stringify({
+        product_id,
+        amount,
+        quantity,
+        vendor_id,
+        ordernumber: ordernumber,
+      }),
     })
-      .then((res) => res.json())
-      .then((newItem) => {
-        getItems(newItem);
-        setItems({
-          ...items,
-          product_id: "",
-          vendor_id: "",
-          invoice_id: "",
-          quantity: "",
-        });
-      });
+      .then((r) => r.json())
+      .then((response) => setPurchaseorder(response));
+    // .then((response) => console.log(response));
   }
 
   return (
@@ -114,7 +109,7 @@ function PurchaseItemForm({ getItems }) {
             }}
           >
             <Typography variant="h4" gutterBottom>
-              Create PurchaseItems
+              Create Purchase Order
             </Typography>
             <FormControl
               sx={{
@@ -122,11 +117,14 @@ function PurchaseItemForm({ getItems }) {
                 width: 500,
               }}
             >
-              <InputLabel>Product</InputLabel>
-              <Select name="product_id" onChange={onDataChange}>
-                {products.map((product) => (
-                  <MenuItem key={product.id} value={product.id}>
-                    {product.name}
+              <InputLabel>Order No.</InputLabel>
+              <Select
+                name="product_id"
+                onChange={(e) => setOrdernumber(e.target.value)}
+              >
+                {products.map((item) => (
+                  <MenuItem key={item.id} value={item.id}>
+                    {item.id}
                   </MenuItem>
                 ))}
               </Select>
@@ -139,7 +137,10 @@ function PurchaseItemForm({ getItems }) {
               }}
             >
               <InputLabel>Vendor</InputLabel>
-              <Select name="vendor_id" onChange={onDataChange}>
+              <Select
+                name="vendor_id"
+                onChange={(e) => setVendor(e.target.value)}
+              >
                 {vendors.map((vendor) => (
                   <MenuItem key={vendor.id} value={vendor.id}>
                     {vendor.name}
@@ -148,17 +149,17 @@ function PurchaseItemForm({ getItems }) {
               </Select>
             </FormControl>
 
-            <FormControl
+            {/* <FormControl
               sx={{
                 m: 1,
                 width: 500,
               }}
             >
-              <InputLabel>Invoice Number</InputLabel>
+              <InputLabel>Quantity</InputLabel>
               <Select
-                input={<OutlinedInput label="Invoice" />}
-                name="invoice_id"
-                onChange={onDataChange}
+                input={<OutlinedInput label="quantity" />}
+                name="quantity"
+                onChange={(e) => setQuantity(e.target.value)}
               >
                 {invoices.map((invoice) => (
                   <MenuItem key={invoice.id} value={invoice.id}>
@@ -166,21 +167,21 @@ function PurchaseItemForm({ getItems }) {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
             <TextField
               id="outlined-basic"
               label="Quantity"
               variant="outlined"
               name="quantity"
-              value={items.quantity}
-              onChange={onDataChange}
+              value={quantity}
               sx={{ width: 500, m: 1 }}
+              onChange={(e) => setQuantity(e.target.value)}
             />
             <Button
               variant="contained"
               type="submit"
               sx={{ mt: 2 }}
-              onClick={handleSubmit}
+              onClick={handleOnSubmit}
             >
               Submit
             </Button>
@@ -189,5 +190,6 @@ function PurchaseItemForm({ getItems }) {
       </Grid>
     </Fragment>
   );
-}
-export default PurchaseItemForm;
+};
+
+export default PurchaseOrderForm;
