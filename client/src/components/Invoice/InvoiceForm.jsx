@@ -1,237 +1,219 @@
-import React, { useState, useEffect } from 'react'
-import { Alert, Box, FormControl,Card, Button,FormHelperText, TextField, Grid, unstable_composeClasses } from '@mui/material';
+import {Grid, Typography} from "@mui/material";
+import {Container} from "@mui/system";
+import Paper from '@mui/material/Paper';
+import Select from '@mui/material/Select';
+import {useTheme} from '@mui/material/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import {Fragment, useEffect, useState} from "react";
+import {TextField} from '@mui/material';
+import {Button} from '@mui/material';
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250
+    }
+  }
+};
 
+function InvoiceForm({getOrders}) {
 
-function InvoiceForm() {
-
-
-
-   const [invoice,setInvoices]= useState([])
-
-  const [purchaseorder, setPurchaseorder] = useState("");
-  const [product, setProduct]=useState("")
-  const [vendor, setVendor]=useState("")
-  const [amount, setAmount] = useState();
-  const [quantity, setQuantity]= useState("")
-  const [accountname, setAccountname]= useState("")
-  const [errors, setErrors] = useState([]);
-
-
-  const [purchaseorders, setPurchaseorders]= useState([])
-  const handleChangeOrder = (event) => {
-    setPurchaseorder(event.target.value);
-  };
-
-  const [products, setProducts]= useState([])
-  const handleChangeProduct = (event) => {
-    setProduct(event.target.value);
-  };
-
-
-  const [vendors, setVendors]= useState([])
-  const handleChangeVendor = (event) => {
-    setVendor(event.target.value);
-  };
-
-
-
-// fetches orders
+  // fetchproducts
+  const [products,
+    setProducts] = useState([])
   useEffect(() => {
-    fetch("http://localhost:3000/purchaseorders")
-      .then((r) => r.json())
-      .then(data =>setPurchaseorders(data));
-  }, []); 
-
-// fetches products
-  useEffect(() => {
-    fetch("http://localhost:3000/products")
-      .then((r) => r.json())
-      .then(data =>setProducts(data));
-  }, []); 
-
-  // fetches vendors 
-  useEffect(() => {
-    fetch("http://localhost:3000/vendors")
-      .then((r) => r.json())
-      .then(data =>setVendors(data));
-  }, []); 
-
-
-  function handleOnSubmit(e){
-    e.preventDefault();
-    fetch("http://localhost:3000/invoices",{
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({accountname, description ,product, vendor, purchaseorder}),
+    fetch("http://localhost:3000/products").then((r) => r.json()).then((products) => {
+      setProducts(products)
     })
-    .then((r) => r.json())
-    .then(response => setInvoices(response));
-    // .then((response) => console.log(response));
+  }, [])
+  //fetch vendors
+  const [vendors,
+    setVendors] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:3000/vendors").then((r) => r.json()).then((vendors) => {
+      setVendors(vendors)
+    })
+  }, [])
+  //fetch invoices
+  const [invoices,
+    setInvoices] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:3000/invoices").then((r) => r.json()).then((invoices) => {
+      setInvoices(invoices)
+
+    })
+  }, [])
+
+  const [purchaseorders,
+    setPurchaseOrders] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:3000/purchaseorders").then((r) => r.json()).then((purchase) => {
+      setPurchaseOrders(purchase)
+
+    })
+  }, [])
+
+  const [orders,
+    setOrders] = useState({
+    product_id: "",
+    vendor_id: "",
+    purchaseorder_id: "",
+    quantity: "",
+    amount: "",
+    accountname: ""
+  })
+  function onDataChange(e) {
+    setOrders({
+      ...orders,
+      [e.target.name]: e.target.value
+    });
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    const createdOrders = {
+      product_id: orders.product_id,
+      vendor_id: orders.vendor_id,
+      purchaseorder_id: orders.purchaseorder_id,
+      quantity: orders.quantity,
+      amount: orders.amount,
+      accountname: orders.accountname
+
+    };
+
+    fetch("http://localhost:3000/invoices", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(createdOrders)
+    }).then((res) => res.json()).then((newOrder) => {
+      getOrders(newOrder);
+      setOrders({
+        ...orders,
+        product_id: "",
+        vendor_id: "",
+        purchaseorder_id: "",
+        quantity: "",
+        amount: "",
+        accountname: ""
+      });
+    });
+
   }
 
-
   return (
-    <div>
-        <Grid  container direction="row" alignItems="center" justifyContent="center" >
-      <Box    >
-      <Card sx={{ minWidth: 400 }}>
-        <main >
-        <form onSubmit={handleOnSubmit} >
-          <p style={{fontWeight: "bolder", fontSize: 40 ,alignItems:"center", justifyContent:"center",textAlign:'center'}}>Invoice</p>
-          
-          <Box sx={{'& .MuiTextField-root': { m: 1, width: '35ch' },}}>
-          
-            <div>
-              
-              <FormControl>
-              {/* <FormHelperText id="my-helper-text">Enter Product Name</FormHelperText> */}
-                <TextField 
-                type="text"
-                variant="outlined"
-                label="Enter Account Name"
-                id="accountname"
-                autoComplete="on"
-                value={accountname}
-                sx={{ minWidth: 400 }}
-                onChange={(e) => setAccountname(e.target.value)} 
-                />
-               
-              </FormControl>
-              <br />
-              <FormControl>
-              {/* <FormHelperText id="my-helper-text">Enter Product Description</FormHelperText> */}
-                <TextField 
-                type="number"
-                variant="outlined"
-                label="Enter Amount"
-                id="amount"
-                autoComplete="on"
-                value={amount}
-                sx={{ minWidth: 400 }}
-                onChange={(e) => setAmount(e.target.value)} 
-                />
-               
-              </FormControl>
-              <br />
-              <FormControl>
-              {/* <FormHelperText id="my-helper-text">Enter Product Description</FormHelperText> */}
-                <TextField 
-                type="number"
-                variant="outlined"
-                label="Enter Quantity"
-                id="quantity"
-                autoComplete="on"
-                value={quantity}
-                sx={{ minWidth: 400 }}
-                onChange={(e) => setQuantity(e.target.value)} 
-                />
-               
-              </FormControl>
-              <br />
+    <Fragment>
+      <Grid container spacing={10}>
+        {/* Chart */}
+        <Grid item xs={12} md={8} lg={9} sx={{
+          ml: 50
+        }}>
+          <Paper
+            sx={{
+            p: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            height: 600,
 
-              <FormControl >
-        <InputLabel id="demo-simple-select-label">Purchase Order</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={purchaseorder}
-          label="Purchase Order"           
-          sx={{ minWidth: 400 }}
-          onChange={handleChangeOrder}
-        >  
-        {purchaseorders.map((item)=>
+          }}>
+            <Typography variant="h4" gutterBottom>
+              Create Invoices
+            </Typography>
+            <FormControl sx={{
+              m: 1,
+              width: 500
+            }}>
+              <InputLabel >Product</InputLabel>
+              <Select name="product_id" onChange={onDataChange}>
+                {products.map((product) => (
+                  <MenuItem key={product.id} value={product.id}>
+                    {product.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
-            <MenuItem value={item.id}  key={item.id} > {item.ordernumber}</MenuItem>
-        )}
-        </Select>
-      </FormControl>
-         <br />
-         <br />
-         <FormControl >
-        <InputLabel id="demo-simple-select-label">Products</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={product}
-          label="Product"
-          sx={{ minWidth: 400 }}
-          onChange={handleChangeProduct}
-        >  
-        {products.map((item)=>
+            <FormControl sx={{
+              m: 1,
+              width: 500
+            }}>
+              <InputLabel >Vendor</InputLabel>
+              <Select name="vendor_id" onChange={onDataChange}>
+                {vendors.map((vendor) => (
+                  <MenuItem key={vendor.id} value={vendor.id}>
+                    {vendor.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
-           
-            <MenuItem value={item.id}  key={item.id}>{item.name}</MenuItem>
-        )}
-        </Select>
-      </FormControl>
-      <br />
-      <br />
-      <FormControl >
-        <InputLabel id="demo-simple-select-label">Vendor</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={vendor}
-          label="Vendor"
-          sx={{ minWidth: 400 }}
-          onChange={handleChangeVendor}
-        >  
-        {vendors.map((item)=>
-
-           
-            <MenuItem value={item.id}  key={item.id}>{item.name}</MenuItem>
-        )}
-        </Select>
-      </FormControl>
-      <br />
-              <Box sx={{ minWidth: 120 }}> 
-
-     </Box> 
-            </div>
-          </Box>
-          
-          <br />
-          <br />
-          <div>
-            
-                <Box textAlign='center'>
-      <Button variant='contained'  type="submit" style={{fontSize: 16 }}>
-        Submit
-      </Button>
-     </Box>
-              <br />
-          
-            <div>
-              {errors.map((err) => (
-              <>
-                <Alert key={err} severity="error" sx={{ width: '100%' }}>
-                  {err}
-                </Alert>
-              </>
-              ))} 
-            </div>       
-          </div>
-          </form>
-        </main>
-        </Card>
-      </Box>
+            <FormControl sx={{
+              m: 1,
+              width: 500
+            }}>
+              <InputLabel>PO Number</InputLabel>
+              <Select
+                input={< OutlinedInput label = "PurchaseOrder" />}
+                name="purchaseorder_id"
+                onChange={onDataChange}>
+                {purchaseorders.map((purchaseorder) => (
+                  <MenuItem key={purchaseorder.id} value={purchaseorder.id}>
+                    {purchaseorder.id}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <TextField
+              id="outlined-basic"
+              label="Quantity"
+              variant="outlined"
+              name="quantity"
+              value={orders.quantity}
+              onChange={onDataChange}
+              sx={{
+              width: 500,
+              m: 1
+            }}/>
+            <TextField
+              id="outlined-basic"
+              label="Amount"
+              variant="outlined"
+              name="amount"
+              value={orders.amount}
+              onChange={onDataChange}
+              sx={{
+              width: 500,
+              m: 1
+            }}/>
+            <TextField
+              id="outlined-basic"
+              label="Quantity"
+              variant="outlined"
+              name="accountname"
+              value={orders.accountname}
+              onChange={onDataChange}
+              sx={{
+              width: 500,
+              m: 1
+            }}/>
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{
+              mt: 2
+            }}
+              onClick={handleSubmit}>Submit</Button>
+          </Paper>
+        </Grid>
       </Grid>
-
-
-
-    </div>
+    </Fragment>
   )
+
 }
-
 export default InvoiceForm
-
-
-
-
-
