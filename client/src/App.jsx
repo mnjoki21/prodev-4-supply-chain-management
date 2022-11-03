@@ -8,7 +8,7 @@ import Vendor from "./components/Vendors/Vendor"
 import PurchaseItem from "./components/PurchaseItems/PurchaseItem"
 import Category from "./components/Categories/Category"
 import PurcahseOrder from "./components/PurchaseOrders/PurchaseOrder"
-import Invoice from "./components/Invoice/InvoiceForm"
+import Invoice from "./components/Invoice/Invoice"
 import Stock from "./components/Stock/Stock"
 import User from "./components/Users/User"
 import { useEffect, useState } from "react";
