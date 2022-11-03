@@ -18,9 +18,7 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Typography color="inherit" >
         Supply Chains
-      </Typography>{' '} {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
